@@ -2,6 +2,8 @@ import React from 'react';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import '../styles/globals.css';
+import { ProviderLayout } from '@/app/components/ProviderLayout';
+import { MainLayout } from '@/app/components/MainLayout';
 
 const iranSans = localFont({
   src: [
@@ -26,7 +28,7 @@ const iranSans = localFont({
       weight: '900',
     },
   ],
-  variable: '--font-iran-sans',
+  display: 'fallback',
 });
 
 export const metadata: Metadata = {
@@ -41,7 +43,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fa" dir="rtl">
-      <body className={`${iranSans.className}`}>{children}</body>
+      <body className={iranSans.className}>
+        <ProviderLayout>
+          <MainLayout>{children}</MainLayout>
+        </ProviderLayout>
+      </body>
     </html>
   );
 }

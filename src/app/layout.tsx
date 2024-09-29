@@ -1,17 +1,32 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
-import './globals.css';
+import '../styles/globals.css';
 
-const geistSans = localFont({
-  src: './fonts/GeistVF.woff',
-  variable: '--font-geist-sans',
-  weight: '100 900',
-});
-const geistMono = localFont({
-  src: './fonts/GeistMonoVF.woff',
-  variable: '--font-geist-mono',
-  weight: '100 900',
+const iranSans = localFont({
+  src: [
+    {
+      path: './fonts/IranSans/iran-sans-mobile-fa-num-light.ttf',
+      weight: '300',
+    },
+    {
+      path: './fonts/IranSans/iran-sans-mobile-fa-num.ttf',
+      weight: '400',
+    },
+    {
+      path: './fonts/IranSans/iran-sans-mobile-fa-num-medium.ttf',
+      weight: '500',
+    },
+    {
+      path: './fonts/IranSans/iran-sans-mobile-fa-num-bold.ttf',
+      weight: '700',
+    },
+    {
+      path: './fonts/IranSans/iran-sans-mobile-fa-num-black.ttf',
+      weight: '900',
+    },
+  ],
+  variable: '--font-iran-sans',
 });
 
 export const metadata: Metadata = {
@@ -26,9 +41,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {children}
-      </body>
+      <body className={`${iranSans.className}`}>{children}</body>
     </html>
   );
 }

@@ -1,4 +1,4 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = { transpilePackages: ['ideep-design-system-2'] };
 
 export default nextConfig;

@@ -2,8 +2,8 @@
 import React from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AppProgressBar as ProgressBar } from 'next-nprogress-bar';
-import { CssBaseline, useTheme } from '@mui/material';
-import ThemeRegistry from '@/theme/ThemeProvider';
+import { useTheme } from '@mui/material';
+import ThemeProvider from '@/theme/ThemeProvider';
 
 interface Props {
   children: React.ReactNode;
@@ -15,8 +15,7 @@ export function ProviderLayout({ children }: Props) {
   const theme = useTheme();
   return (
     <QueryClientProvider client={client}>
-      <ThemeRegistry>
-        <CssBaseline />
+      <ThemeProvider>
         {children}
         <ProgressBar
           height="4px"
@@ -24,7 +23,7 @@ export function ProviderLayout({ children }: Props) {
           options={{ showSpinner: true }}
           shallowRouting
         />
-      </ThemeRegistry>
+      </ThemeProvider>
     </QueryClientProvider>
   );
 }

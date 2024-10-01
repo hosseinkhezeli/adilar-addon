@@ -1,8 +1,8 @@
 'use client';
 import customTheme from '@/theme/theme';
-import { ReactNode, useMemo } from 'react';
+import React, { ReactNode, useMemo } from 'react';
 import { CssBaseline } from '@mui/material';
-import { ThemeProvider } from '@emotion/react';
+import { ThemeProvider } from '@mui/material/styles';
 import { NextCacheProvider } from 'ideep-design-system-2';
 
 export default function ThemeRegistry({ children }: { children: ReactNode }) {
@@ -16,8 +16,8 @@ export default function ThemeRegistry({ children }: { children: ReactNode }) {
   return (
     <NextCacheProvider isRtl={isRtl}>
       <ThemeProvider theme={theme}>
-        <CssBaseline />
         {children}
+        <CssBaseline />
       </ThemeProvider>
     </NextCacheProvider>
   );

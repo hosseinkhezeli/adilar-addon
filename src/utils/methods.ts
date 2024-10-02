@@ -1,5 +1,6 @@
-// Helper function to determine background color for outlined buttons
 import { Theme } from '@mui/material/styles';
+
+const EMPTY_TEXT = '-';
 
 export type TColorKeys =
   | 'inherit'
@@ -27,4 +28,14 @@ export const getColorByOwnerProps = (
     }
   }
   return undefined;
+};
+
+export const handleEmptyText = (value?: string | undefined) => {
+  return value ?? EMPTY_TEXT;
+};
+
+export const dateToShamsi = (date: Date | string | undefined) => {
+  if (!date) return '-';
+  const formatDate = typeof date === 'string' ? new Date(date) : date;
+  return new Intl.DateTimeFormat('fa-IR').format(formatDate);
 };

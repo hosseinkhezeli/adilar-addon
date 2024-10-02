@@ -9,7 +9,6 @@ import {
   styled,
   Typography,
 } from '@mui/material';
-import SvgClose from 'ideep-design-system-2/icons/Close';
 import SvgAdd from 'ideep-design-system-2/icons/Add';
 
 interface IBottomSheet extends DialogProps {

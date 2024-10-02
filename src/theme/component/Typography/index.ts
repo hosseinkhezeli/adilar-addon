@@ -218,7 +218,7 @@ export const typography = {
   },
 
   caption1: {
-    fontWeight: 500,
+    fontWeight: 400,
     fontSize: 'clamp(12px,2.35vw,16px)',
     lineHeight: 'clamp(18px,3.31vw,21px)',
   },

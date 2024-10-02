@@ -39,3 +39,9 @@ export const dateToShamsi = (date: Date | string | undefined) => {
   const formatDate = typeof date === 'string' ? new Date(date) : date;
   return new Intl.DateTimeFormat('fa-IR').format(formatDate);
 };
+
+export const fullNameDisplay = (firstName?: string, lastName?: string) => {
+  return handleEmptyText(
+    firstName && lastName ? firstName + ' ' + lastName : undefined
+  );
+};

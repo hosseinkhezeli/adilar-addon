@@ -1,8 +1,9 @@
 import React from 'react';
-import { Badge, Box, Button, styled, Typography } from '@mui/material';
+import { Badge, Typography } from '@mui/material';
 import { IPositionCard } from '@/app/employer/[id]/hooks/usePositionList';
 import { LabelValue } from '@/app/components/LabelValueField';
 import { dateToShamsi } from '@/utils/methods';
+import { Card, CardColumn, SubtitleText } from '@/app/components/Card';
 
 export function PositionCard(positionInfo: IPositionCard | undefined) {
   return (
@@ -27,9 +28,11 @@ export function PositionCard(positionInfo: IPositionCard | undefined) {
         <Badge
           badgeContent={positionInfo?.unreadCount}
           color="info"
-          sx={{ '.MuiBadge-badge': { color: 'text.secondary' } }}
+          sx={{ width: '90%', '.MuiBadge-badge': { color: 'text.secondary' } }}
         >
-          <SubtitleText sx={{ visibility: 'hidden' }}>badge</SubtitleText>
+          <SubtitleText sx={{ visibility: 'hidden', pr: 8 }}>
+            badge
+          </SubtitleText>
         </Badge>
         <LabelValue
           fieldLabel={'آخرین کارجو'}
@@ -39,27 +42,3 @@ export function PositionCard(positionInfo: IPositionCard | undefined) {
     </Card>
   );
 }
-
-const Card = styled(Button)(({ theme }) => ({
-  width: '100%',
-  display: 'flex',
-  alignItems: 'center',
-  padding: '16px 12px',
-  minHeight: '73px',
-  gap: 2,
-  backgroundColor: theme.palette.background.default,
-  border: 'none',
-  textTransform: 'none',
-}));
-const CardColumn = styled(Box)({
-  flexBasis: '33.3%',
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'space-between',
-});
-
-const SubtitleText = styled(Typography)(({ theme }) => ({
-  ...theme.typography.caption3,
-  fontWeight: 300,
-  color: theme.palette.text[14],
-}));

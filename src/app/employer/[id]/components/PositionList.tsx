@@ -1,8 +1,9 @@
 'use client';
 import React, { Fragment } from 'react';
 import usePositionList from '@/app/employer/[id]/hooks/usePositionList';
-import { Box, Divider, styled } from '@mui/material';
+import { Divider } from '@mui/material';
 import { PositionCard } from '@/app/employer/[id]/components/PositionCard';
+import { CardList } from '@/app/components/Card';
 
 type TPositionList = {
   id: string;
@@ -11,19 +12,13 @@ type TPositionList = {
 export function PositionList({ id }: TPositionList) {
   const { positionsMock } = usePositionList({ id });
   return (
-    <List>
+    <CardList>
       {positionsMock.map((position, idx, arr) => (
         <Fragment key={position.title + idx}>
           <PositionCard {...position} />
           {idx < arr.length - 1 && <Divider />}
         </Fragment>
       ))}
-    </List>
+    </CardList>
   );
 }
-
-const List = styled(Box)({
-  width: '100%',
-  display: 'flex',
-  flexDirection: 'column',
-});

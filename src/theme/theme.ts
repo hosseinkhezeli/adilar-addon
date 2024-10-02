@@ -8,6 +8,9 @@ import { MuiBottomNavigation } from '@/theme/component/ButtomNavigation/MuiBotto
 import { MuiBottomNavigationAction } from '@/theme/component/ButtomNavigation/MuiBottomNavigationAction';
 import { MuiButton } from '@/theme/component/Button/MuiButton';
 import { MuiTextField } from '@/theme/component/TextField/TextField';
+import { MuiMenu } from '@/theme/component/Menu/MuiMenu';
+import { MuiMenuItem } from '@/theme/component/Menu/MuiMenuItem';
+import { MuiIconButton } from '@/theme/component/Button/MuiIconButton';
 
 const getDesignTokens = (mode: PaletteMode) => ({
   mode,
@@ -25,6 +28,9 @@ const customTheme = (mode: PaletteMode, isRtl: boolean) =>
       MuiBottomNavigationAction,
       MuiButton,
       MuiTextField,
+      MuiMenu,
+      MuiMenuItem,
+      MuiIconButton,
     },
   });
 

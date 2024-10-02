@@ -2,6 +2,7 @@ import { PaletteOptions } from '@mui/material/styles/createPalette';
 
 export const lightPalette: PaletteOptions = {
   primary: {
+    light: '#5B27B0',
     main: '#5B27B0',
     11: '#341664',
     10: '#451D86',
@@ -16,17 +17,18 @@ export const lightPalette: PaletteOptions = {
     1: '#D0BCF0',
   },
   secondary: {
-    main: '#FF8C00',
-    10: '#422400',
-    9: '#834800',
-    8: '#AD5F00',
-    7: '#D67600',
-    6: '#FF8C00',
-    5: '#FF9E29',
-    4: '#E39F4D',
-    3: '#F2B973',
-    2: '#FCD5A5',
-    1: '#FFEFDB',
+    light: '#5B27B0',
+    main: '#52617A',
+    10: '#394456',
+    9: '#414E62',
+    8: '#49586E',
+    7: '#52617A',
+    6: '#627593',
+    5: '#627593',
+    4: '#6C7F9D',
+    3: '#788AA5',
+    2: '#8594AD',
+    1: '#92A0B6',
   },
 
   divider: '#B2B2B2',
@@ -36,7 +38,7 @@ export const lightPalette: PaletteOptions = {
     default: '#FFFFFF',
     paper: '#FFFFFF',
     1: '#FFFFFF',
-    2: '#FDFDFD',
+    2: '#EEF1F3',
     3: '#FAFAFA',
     4: '#F7F7F7',
     5: '#F3F3F3',
@@ -79,7 +81,7 @@ export const lightPalette: PaletteOptions = {
   },
 
   info: {
-    main: '#51C0FF',
+    main: '#0288D1',
     5: '#00527C',
     4: '#007CB4',
     3: '#51C0FF',
@@ -108,11 +110,11 @@ export const lightPalette: PaletteOptions = {
   },
 
   text: {
-    primary: '#4A4A4A',
+    primary: '#1A2128',
     secondary: '#FFFFFF',
     16: '#1A1A1A',
     15: '#303030',
-    14: '#4A4A4A',
+    14: '#434D56',
     13: '#616161',
     12: '#8A8A8A',
     11: '#B5B5B5',
@@ -132,7 +134,7 @@ export const lightPalette: PaletteOptions = {
   //Ignore inherit & default
   //These two object were added just to handle color change in some Mui components
   inherit: {
-    main: 'inherit',
+    main: '#FAFAFA',
     10: 'inherit',
     9: 'inherit',
     8: 'inherit',

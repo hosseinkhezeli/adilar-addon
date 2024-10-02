@@ -7,14 +7,14 @@ export function LabelValue({
   fieldLabel,
   fieldValue,
   highlight,
-  withColon = true,
+  withoutColon = false,
   labelProps,
   valueProps,
 }: {
   fieldLabel?: string | ReactNode | undefined;
   fieldValue?: string | ReactNode | undefined;
   highlight?: boolean;
-  withColon?: boolean;
+  withoutColon?: boolean;
   labelProps?: TypographyProps;
   valueProps?: TypographyProps;
 }) {
@@ -27,7 +27,7 @@ export function LabelValue({
       {...labelProps}
     >
       {fieldLabel}
-      {withColon && ' : '}
+      {!withoutColon && ' : '}
       <Typography
         component={
           typeof fieldValue === 'string' || typeof fieldValue === 'number'

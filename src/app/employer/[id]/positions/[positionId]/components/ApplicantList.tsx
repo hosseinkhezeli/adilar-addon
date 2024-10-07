@@ -2,8 +2,8 @@
 import React, { Fragment } from 'react';
 import { Divider } from '@mui/material';
 import { CardList } from '@/app/components/Card';
-import { ApplicantCard } from '@/app/employer/[id]/[positionId]/components/ApplicantCard';
-import { useApplicantList } from '@/app/employer/[id]/[positionId]/hooks/useApplicantList';
+import { useApplicantList } from '@/app/employer/[id]/positions/[positionId]/hooks/useApplicantList';
+import { ApplicantCard } from '@/app/employer/[id]/positions/[positionId]/components/ApplicantCard';
 
 type TApplicantListProps = {
   id?: string;

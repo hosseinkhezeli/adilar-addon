@@ -1,5 +1,5 @@
 import React from 'react';
-import { ApplicantList } from '@/app/employer/[id]/[positionId]/components/ApplicantList';
+import { ApplicantList } from './components/ApplicantList';
 
 type TPositionPageParams = {
   params: { id: string; positionId: string };

@@ -1,8 +1,8 @@
 'use client';
 import React, { Fragment } from 'react';
-import usePositionList from '@/app/employer/[id]/hooks/usePositionList';
+import usePositionList from '@/app/employer/[id]/positions/hooks/usePositionList';
 import { Divider } from '@mui/material';
-import { PositionCard } from '@/app/employer/[id]/components/PositionCard';
+import { PositionCard } from '@/app/employer/[id]/positions/components/PositionCard';
 import { CardList } from '@/app/components/Card';
 
 type TPositionList = {

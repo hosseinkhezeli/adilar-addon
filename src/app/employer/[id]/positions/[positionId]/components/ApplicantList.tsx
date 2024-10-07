@@ -13,7 +13,7 @@ type TApplicantListProps = {
 export function ApplicantList(params: TApplicantListProps) {
   const { applicantMock } = useApplicantList();
   return (
-    <CardList>
+    <CardList sx={{ overflowX: 'hidden' }}>
       {applicantMock.map((applicant, idx, arr) => (
         <Fragment key={applicant.candidateId + idx}>
           <ApplicantCard {...applicant} />

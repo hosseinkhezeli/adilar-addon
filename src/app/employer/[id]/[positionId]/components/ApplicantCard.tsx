@@ -22,7 +22,7 @@ export function ApplicantCard(applicantInfo: TApplicantCard) {
             applicantInfo?.candidate?.lastName
           )}
           labelProps={{ alignItems: 'center', gap: 2 }}
-          valueProps={{ ...typography['body3.medium'] }}
+          valueProps={{ sx: { ...typography['body3.medium'] } }}
         />
       </CardColumn>
       <CardColumn sx={{ flexBasis: 'unset' }}>

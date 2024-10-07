@@ -3,24 +3,12 @@ import React from 'react';
 import { InputAdornment, TextField, TextFieldProps } from '@mui/material';
 import SvgSearchNormal from 'ideep-design-system-2/icons/SearchNormal';
 
-interface SearchInputProps extends Omit<TextFieldProps, 'onChange'> {
-  onSearch?: (value: string) => void;
-}
-
-export function SearchInput({
-  sx,
-  onSearch,
-  ...textFieldProps
-}: SearchInputProps) {
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    onSearch?.(event.target.value);
-  };
+export function SearchInput({ sx, ...textFieldProps }: TextFieldProps) {
   return (
     <TextField
       fullWidth
       sx={[style, ...(Array.isArray(sx) ? sx : [sx])]}
       placeholder={'جستوجو'}
-      onChange={handleInputChange}
       slotProps={{
         input: {
           startAdornment: (
@@ -37,4 +25,4 @@ export function SearchInput({
     />
   );
 }
-const style: TextFieldProps['sx'] = {};
+const style: TextFieldProps['sx'] = { p: 2 };

@@ -10,12 +10,15 @@ type TPositionList = {
 };
 
 export function PositionList({ id }: TPositionList) {
-  const { positionsMock } = usePositionList({ id });
+  const { positionsMock, handleNavigation } = usePositionList({ id });
   return (
     <CardList>
       {positionsMock.map((position, idx, arr) => (
         <Fragment key={position.title + idx}>
-          <PositionCard {...position} />
+          <PositionCard
+            positionInfo={{ ...position }}
+            onClick={handleNavigation}
+          />
           {idx < arr.length - 1 && <Divider />}
         </Fragment>
       ))}

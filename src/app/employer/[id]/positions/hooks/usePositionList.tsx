@@ -1,3 +1,5 @@
+import { useRouter } from 'next/navigation';
+
 type TUsePositionList = {
   id: string;
 };
@@ -16,7 +18,11 @@ export interface IPositionCard {
 }
 
 const usePositionList = ({ id }: TUsePositionList) => {
-  return { positionsMock };
+  const { push: navigateTo } = useRouter();
+  const handleNavigation = (id: string | undefined) => {
+    navigateTo(`positions/${id}`);
+  };
+  return { positionsMock, handleNavigation };
 };
 
 export default usePositionList;

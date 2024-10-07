@@ -5,28 +5,35 @@ import { LabelValue } from '@/app/components/LabelValueField';
 import { dateToShamsi } from '@/utils/methods';
 import { Card, CardColumn, SubtitleText } from '@/app/components/Card';
 
-export function PositionCard(positionInfo: IPositionCard | undefined) {
+type TPositionCardProps = {
+  positionInfo: IPositionCard | undefined;
+  onClick?: (id: string | undefined) => void;
+};
+
+export function PositionCard(props: TPositionCardProps) {
   return (
-    <Card>
+    <Card onClick={() => props?.onClick?.(props?.positionInfo?.id)}>
       <CardColumn>
-        <Typography variant={'body3.medium'}>{positionInfo?.title}</Typography>
+        <Typography variant={'body3.medium'}>
+          {props?.positionInfo?.title}
+        </Typography>
         <LabelValue
           fieldLabel={'تاریخ ساخت'}
-          fieldValue={dateToShamsi(positionInfo?.createdAt)}
+          fieldValue={dateToShamsi(props?.positionInfo?.createdAt)}
         />
       </CardColumn>
       <CardColumn>
         <Typography variant={'caption1'} color={'text.14'}>
-          {positionInfo?.location?.title}
+          {props?.positionInfo?.location?.title}
         </Typography>
         <LabelValue
           fieldLabel={'تعداد کل کارجویان'}
-          fieldValue={positionInfo?.candidates?.count}
+          fieldValue={props?.positionInfo?.candidates?.count}
         />
       </CardColumn>
       <CardColumn>
         <Badge
-          badgeContent={positionInfo?.unreadCount}
+          badgeContent={props?.positionInfo?.unreadCount}
           color="info"
           sx={{ width: '90%', '.MuiBadge-badge': { color: 'text.secondary' } }}
         >
@@ -36,7 +43,9 @@ export function PositionCard(positionInfo: IPositionCard | undefined) {
         </Badge>
         <LabelValue
           fieldLabel={'آخرین کارجو'}
-          fieldValue={dateToShamsi(positionInfo?.lastCandidateSubmission)}
+          fieldValue={dateToShamsi(
+            props?.positionInfo?.lastCandidateSubmission
+          )}
         />
       </CardColumn>
     </Card>

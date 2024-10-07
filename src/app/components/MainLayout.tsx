@@ -1,32 +1,36 @@
 'use client';
 import React, { useState } from 'react';
 import { BottomNavigation, BottomNavigationAction, Stack } from '@mui/material';
-import { SearchInput } from '@/app/components/SearchInput';
+import { useRouter } from 'next/navigation';
 
-interface NavigationOption {
+export interface NavigationOption {
   label: string;
   icon: React.ReactElement;
-  onClick: () => void;
+  onClick?: () => void;
+  location?: string;
 }
 
 interface Props {
   children: React.ReactNode;
   navigationOptions?: NavigationOption[];
-  handleSearch?: (term: string) => void;
+  searchSection: React.ReactNode;
 }
 
 export function MainLayout({
   children,
   navigationOptions,
-  handleSearch,
+  searchSection,
 }: Props) {
   const [value, setValue] = useState(0);
+  const { push: navigateTo } = useRouter();
+  const STACK_HEIGHT = getStackHeight(searchSection, navigationOptions);
   return (
     <>
-      {handleSearch && <SearchInput onSearch={handleSearch} />}
+      {searchSection}
+
       <Stack
         component={'main'}
-        sx={{ overflow: 'auto', height: 'calc(100vh - 120px)' }}
+        sx={{ overflow: 'auto', height: `calc(100vh - ${STACK_HEIGHT}px)` }}
       >
         {children}
       </Stack>
@@ -44,7 +48,12 @@ export function MainLayout({
               label={option.label}
               icon={option.icon}
               onClick={() => {
-                option.onClick();
+                if (option?.onClick) {
+                  option?.onClick();
+                }
+                if (option?.location) {
+                  navigateTo(option?.location);
+                }
                 setValue(index);
               }}
             />
@@ -54,3 +63,13 @@ export function MainLayout({
     </>
   );
 }
+
+const getStackHeight = (
+  handleSearch: Props['searchSection'],
+  navigationOptions: Props['navigationOptions']
+) => {
+  if (handleSearch && navigationOptions) return 136;
+  if (navigationOptions) return 75;
+  if (handleSearch) return 61;
+  return 0;
+};

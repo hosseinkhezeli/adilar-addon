@@ -10,3 +10,19 @@ export const pop = keyframes`
         opacity: 100%;
     }
 `;
+export const scaleDown = keyframes`
+    0% {
+        transform: scale(1.5);
+    }
+    100% {
+        transform: scale(1);
+    }
+`;
+export const comingFromBottom = keyframes`
+    0% {
+        transform: translateY(200vh);
+    }
+    100% {
+        transform: translateY(30vh);
+    }
+`;

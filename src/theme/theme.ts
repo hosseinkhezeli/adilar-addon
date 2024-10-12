@@ -6,6 +6,11 @@ import { customTheme as designSystemTheme } from 'ideep-design-system-2/theme';
 import { typography } from '@/theme/component/Typography';
 import { MuiBottomNavigation } from '@/theme/component/ButtomNavigation/MuiBottomNavigation';
 import { MuiBottomNavigationAction } from '@/theme/component/ButtomNavigation/MuiBottomNavigationAction';
+import { MuiButton } from '@/theme/component/Button/MuiButton';
+import { MuiTextField } from '@/theme/component/TextField/TextField';
+import { MuiMenu } from '@/theme/component/Menu/MuiMenu';
+import { MuiMenuItem } from '@/theme/component/Menu/MuiMenuItem';
+import { MuiIconButton } from '@/theme/component/Button/MuiIconButton';
 
 const getDesignTokens = (mode: PaletteMode) => ({
   mode,
@@ -14,8 +19,6 @@ const getDesignTokens = (mode: PaletteMode) => ({
 
 const customTheme = (mode: PaletteMode, isRtl: boolean) =>
   createTheme({
-    colorSchemes: { light: true, dark: false },
-    defaultColorScheme: { light: true, dark: false },
     ...designSystemTheme(mode, isRtl),
     typography: typography,
     palette: getDesignTokens(mode),
@@ -23,6 +26,11 @@ const customTheme = (mode: PaletteMode, isRtl: boolean) =>
       ...designSystemTheme(mode, isRtl).components,
       MuiBottomNavigation,
       MuiBottomNavigationAction,
+      MuiButton,
+      MuiTextField,
+      MuiMenu,
+      MuiMenuItem,
+      MuiIconButton,
     },
   });
 

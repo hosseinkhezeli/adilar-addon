@@ -1,27 +1,40 @@
 'use client';
 import React, { useState } from 'react';
-import {
-  BottomNavigation,
-  BottomNavigationAction,
-  Box,
-  Stack,
-} from '@mui/material';
-import SvgBriefcase from 'ideep-design-system-2/icons/Briefcase';
-import SvgDocumentText from 'ideep-design-system-2/icons/DocumentText';
-import SvgDocumentText1 from 'ideep-design-system-2/icons/DocumentText1';
+import { BottomNavigation, BottomNavigationAction, Stack } from '@mui/material';
+import { useRouter } from 'next/navigation';
+
+export interface NavigationOption {
+  label: string;
+  icon: React.ReactElement;
+  onClick?: () => void;
+  location?: string;
+}
 
 interface Props {
   children: React.ReactNode;
+  navigationOptions?: NavigationOption[];
+  searchSection: React.ReactNode;
 }
-export function MainLayout({ children }: Props) {
+
+export function MainLayout({
+  children,
+  navigationOptions,
+  searchSection,
+}: Props) {
   const [value, setValue] = useState(0);
+  const { push: navigateTo } = useRouter();
+  const STACK_HEIGHT = getStackHeight(searchSection, navigationOptions);
   return (
-    <Stack
-      component={'main'}
-      sx={{ minHeight: '100vh', fontFamily: 'inherit' }}
-    >
-      {children}
-      <Box sx={{ width: '100%', height: 'max-content' }}>
+    <>
+      {searchSection}
+
+      <Stack
+        component={'main'}
+        sx={{ overflow: 'auto', height: `calc(100vh - ${STACK_HEIGHT}px)` }}
+      >
+        {children}
+      </Stack>
+      {navigationOptions?.length && navigationOptions?.length > 0 && (
         <BottomNavigation
           showLabels
           value={value}
@@ -29,20 +42,34 @@ export function MainLayout({ children }: Props) {
             setValue(newValue);
           }}
         >
-          <BottomNavigationAction
-            label="رزومه ساز"
-            icon={<SvgDocumentText primarycolor={'inherit'} />}
-          />
-          <BottomNavigationAction
-            label="موقعیت های شغلی"
-            icon={<SvgBriefcase primarycolor={'inherit'} />}
-          />
-          <BottomNavigationAction
-            label="درخواست های من"
-            icon={<SvgDocumentText1 primarycolor={'inherit'} />}
-          />
+          {navigationOptions?.map((option, index) => (
+            <BottomNavigationAction
+              key={option.label + index}
+              label={option.label}
+              icon={option.icon}
+              onClick={() => {
+                if (option?.onClick) {
+                  option?.onClick();
+                }
+                if (option?.location) {
+                  navigateTo(option?.location);
+                }
+                setValue(index);
+              }}
+            />
+          ))}
         </BottomNavigation>
-      </Box>
-    </Stack>
+      )}
+    </>
   );
 }
+
+const getStackHeight = (
+  handleSearch: Props['searchSection'],
+  navigationOptions: Props['navigationOptions']
+) => {
+  if (handleSearch && navigationOptions) return 136;
+  if (navigationOptions) return 75;
+  if (handleSearch) return 61;
+  return 0;
+};

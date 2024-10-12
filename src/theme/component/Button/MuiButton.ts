@@ -19,6 +19,7 @@ export const MuiButton: Components<Theme>['MuiButton'] = {
       minHeight: 44,
       fontWeight: 700,
       borderWidth: 2,
+      borderRadius: 8,
     }),
     text: ({ ownerState }) => ({
       ...(ownerState.isLoading

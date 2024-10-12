@@ -13,7 +13,11 @@ import SvgAdd from 'ideep-design-system-2/icons/Add';
 
 interface IBottomSheet extends DialogProps {
   children?: React.ReactNode;
-  handleClose: () => void;
+  handleClose: (
+    event?: object | undefined,
+    reason?: string | undefined
+  ) => void;
+  withoutCloseButton?: boolean;
 }
 
 const BottomSheet = ({
@@ -22,6 +26,7 @@ const BottomSheet = ({
   open,
   sx,
   title,
+  withoutCloseButton,
   ...dialogProps
 }: IBottomSheet) => {
   return (
@@ -35,10 +40,13 @@ const BottomSheet = ({
       {...dialogProps}
     >
       <DialogHeader>
-        <Typography variant={'body3.medium'}>{title}</Typography>
-        <IconButton aria-label="close" size="small" onClick={handleClose}>
-          <SvgAdd style={{ transform: 'rotate(45deg)' }} />
-        </IconButton>
+        <Typography variant={'body3.bold'}>{title}</Typography>
+
+        {!withoutCloseButton && (
+          <IconButton aria-label="close" size="small" onClick={handleClose}>
+            <SvgAdd style={{ transform: 'rotate(45deg)' }} />
+          </IconButton>
+        )}
       </DialogHeader>
 
       {children}

@@ -2,19 +2,19 @@ import { PaletteOptions } from '@mui/material/styles/createPalette';
 
 export const lightPalette: PaletteOptions = {
   primary: {
-    light: '#5B27B0',
-    main: '#5B27B0',
-    11: '#341664',
-    10: '#451D86',
-    9: '#4E2197',
-    8: '#5725A7',
-    7: '#5B27B0',
-    6: '#682CC9',
-    5: '#7236D3',
-    4: '#7E47D7',
-    3: '#9568DE',
-    2: '#AD8AE5',
-    1: '#D0BCF0',
+    light: '#ADACFF',
+    main: '#4E4DE8',
+    11: '#3635BE',
+    10: '#4241D3',
+    9: '#4847DE',
+    8: '#4B4AE3',
+    7: '#4E4DE8',
+    6: '#5A59EB',
+    5: '#6665EE',
+    4: '#7E7DF4',
+    3: '#ADACFF',
+    2: '#4E4DE833',
+    1: '#4E4DE814',
   },
   secondary: {
     light: '#5B27B0',
@@ -54,12 +54,12 @@ export const lightPalette: PaletteOptions = {
   },
 
   success: {
-    main: '#77FE7A',
-    5: '#118715',
-    4: '#20CF27',
-    3: '#77FE7A',
-    2: '#BBFEBE',
-    1: '#E4FFE5',
+    main: '#1AB616',
+    5: '#0D5B0B',
+    4: '#1AB616',
+    3: '#D5E8D4',
+    2: '#1AB61633',
+    1: '#1AB61614',
   },
 
   warning: {
@@ -72,12 +72,12 @@ export const lightPalette: PaletteOptions = {
   },
 
   error: {
-    main: '#EF4D2F',
-    5: '#920300',
-    4: '#B5260B',
-    3: '#EF4D2F',
-    2: '#FEE2E1',
-    1: '#FFEFEF',
+    main: '#FF4242',
+    5: '#C92F2F',
+    4: '#FF4242',
+    3: '#FFE5E5',
+    2: '#FF424233',
+    1: '#FF424214',
   },
 
   info: {

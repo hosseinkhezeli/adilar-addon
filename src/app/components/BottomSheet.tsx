@@ -58,7 +58,7 @@ export default BottomSheet;
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
-    children: React.ReactElement<any>;
+    children: React.ReactElement;
   },
   ref: React.Ref<unknown>
 ) {

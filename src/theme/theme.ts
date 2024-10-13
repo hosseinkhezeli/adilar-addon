@@ -16,6 +16,7 @@ import { MuiStep } from '@/theme/component/Stepper/MuiStep';
 import { MuiStepLabel } from '@/theme/component/Stepper/MuiStepLabel';
 import { MuiStepConnector } from '@/theme/component/Stepper/MuiStepConnector';
 import { MuiStepIcon } from '@/theme/component/Stepper/MuiStepIcon';
+import { MuiRadio } from '@/theme/component/Radio/MuiRadio';
 const getDesignTokens = (mode: PaletteMode) => ({
   mode,
   ...(mode === 'light' ? lightPalette : darkPalette),
@@ -40,6 +41,7 @@ const customTheme = (mode: PaletteMode, isRtl: boolean) =>
       MuiStepLabel,
       MuiStepConnector,
       MuiStepIcon,
+      MuiRadio,
     },
   });
 

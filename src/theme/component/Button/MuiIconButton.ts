@@ -12,5 +12,11 @@ export const MuiIconButton: Components<Theme>['MuiIconButton'] = {
         strokeWidth: 1,
       },
     },
+    colorError: ({ theme }) => ({
+      backgroundColor: theme.palette.error[4],
+      '&:focus': {
+        backgroundColor: theme.palette.error[4],
+      },
+    }),
   },
 };

@@ -112,7 +112,7 @@ export const lightPalette: PaletteOptions = {
   text: {
     primary: '#1A2128',
     secondary: '#FFFFFF',
-    16: '#1A1A1A',
+    16: '#202020',
     15: '#303030',
     14: '#434D56',
     13: '#616161',

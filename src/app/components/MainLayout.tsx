@@ -13,7 +13,7 @@ export interface NavigationOption {
 interface Props {
   children: React.ReactNode;
   navigationOptions?: NavigationOption[];
-  searchSection: React.ReactNode;
+  searchSection?: React.ReactNode;
 }
 
 export function MainLayout({

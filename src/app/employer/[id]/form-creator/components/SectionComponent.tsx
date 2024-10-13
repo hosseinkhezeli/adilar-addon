@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { SyntheticEvent, useState } from 'react';
 import {
   Box,
   Checkbox,
@@ -8,15 +8,45 @@ import {
   Typography,
 } from '@mui/material';
 import { ItemComponent } from '@/app/employer/[id]/form-creator/components/ItemComponent';
-import { IFormSection } from '@/app/employer/[id]/form-creator/type';
+import {
+  IDynamicField,
+  IFormSection,
+  TTypeData,
+} from '@/app/employer/[id]/form-creator/type';
 import { MenuButton } from '@/app/components/MenuButton';
 import BottomSheet from '@/app/components/BottomSheet';
 
 interface ISectionComponent {
   title: string;
   data: IFormSection;
+  objectKey: TTypeData;
+  handleAddDynamicField({
+    key,
+    dynamicFieldData,
+  }: {
+    key: TTypeData;
+    dynamicFieldData: IDynamicField;
+  }): void;
+  handleRemoveDynamicField({ key, id }: { key: TTypeData; id: number }): void;
+  handleRequiredField({
+    key,
+    index,
+    checked,
+  }: {
+    key: TTypeData;
+    index: number;
+    checked: boolean;
+  }): void;
 }
-const SectionComponent = ({ title, data }: ISectionComponent) => {
+
+const SectionComponent = ({
+  title,
+  data,
+  objectKey,
+  handleAddDynamicField,
+  handleRemoveDynamicField,
+  handleRequiredField,
+}: ISectionComponent) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -30,6 +60,7 @@ const SectionComponent = ({ title, data }: ISectionComponent) => {
     <Stack
       sx={{
         px: 2,
+        pb: 3,
         border: '1px solid',
         borderColor: 'text.8',
         borderRadius: 2,
@@ -55,10 +86,31 @@ const SectionComponent = ({ title, data }: ISectionComponent) => {
           placeholder={item.placeholder}
         />
       ))}
+      {data.dynamicFields.map((item, index) => (
+        <ItemComponent
+          key={item.title}
+          title={item.title}
+          handleDelete={() => {
+            handleRemoveDynamicField({ key: objectKey, id: item.id });
+          }}
+          isRequired={item.isRequired}
+          handleIsRequired={() => {
+            handleRequiredField({
+              key: objectKey,
+              index,
+              checked: !item.isRequired,
+            });
+          }}
+        />
+      ))}
       <MenuButton
         isOpen={open}
         onClick={handleClick}
-        sx={{ alignSelf: 'start' }}
+        sx={{
+          alignSelf: 'start',
+          backgroundColor: 'secondary.1',
+          fontSize: '16px',
+        }}
       >
         افزودن سطر جدید
       </MenuButton>
@@ -73,12 +125,28 @@ const SectionComponent = ({ title, data }: ISectionComponent) => {
             }}
           >
             <FormControlLabel
+              checked={data.dynamicFields.some((item) => item.id == option.id)}
               control={<Checkbox />}
               label={
                 <Typography variant="body3" color="text.primary">
                   {option.title}
                 </Typography>
               }
+              onChange={(e: SyntheticEvent, checked) => {
+                if (checked) {
+                  handleAddDynamicField({
+                    key: objectKey,
+                    dynamicFieldData: {
+                      id: option.id,
+                      type: option.type,
+                      title: option.title,
+                      isRequired: false,
+                    },
+                  });
+                } else {
+                  handleRemoveDynamicField({ key: objectKey, id: option.id });
+                }
+              }}
             />
           </Box>
         ))}

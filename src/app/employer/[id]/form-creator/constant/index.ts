@@ -20,19 +20,19 @@ export const baseData: TAllData = {
     ],
     dynamicFields: [],
   },
-  education: {
-    title: 'تحصیلات',
-    bottomSheetItems: [],
-    staticFields: [
-      {
-        title: 'نام',
-        placeholder: 'اجباری',
-      },
-      {
-        title: 'نام خانوادگی',
-        placeholder: 'اجباری',
-      },
-    ],
-    dynamicFields: [],
-  },
+  // education: {
+  //   title: 'تحصیلات',
+  //   bottomSheetItems: [],
+  //   staticFields: [
+  //     // {
+  //     //   title: 'نام',
+  //     //   placeholder: 'اجباری',
+  //     // },
+  //     // {
+  //     //   title: 'نام خانوادگی',
+  //     //   placeholder: 'اجباری',
+  //     // },
+  //   ],
+  //   dynamicFields: [],
+  // },
 };

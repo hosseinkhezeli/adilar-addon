@@ -1,8 +1,10 @@
 import React from 'react';
-import { IconButton } from '@mui/material';
+import { IconButton, IconButtonProps } from '@mui/material';
 import SvgTrash from 'ideep-design-system-2/icons/Trash';
-
-const DeleteButton = () => {
+interface IDeleteButton {
+  iconButtonProps?: IconButtonProps;
+}
+const DeleteButton = ({ iconButtonProps }: IDeleteButton) => {
   return (
     <IconButton
       color="error"
@@ -15,6 +17,7 @@ const DeleteButton = () => {
           strokeWidth: 2,
         },
       }}
+      {...iconButtonProps}
     >
       <SvgTrash primarycolor="white" width={16} height={16} />
     </IconButton>

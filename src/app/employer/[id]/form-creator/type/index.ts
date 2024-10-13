@@ -1,4 +1,5 @@
-export type TTypeData = 'baseInfo' | 'education';
+// export type TTypeData = 'baseInfo' | 'education';
+export type TTypeData = 'baseInfo';
 
 export type TBottomSheetItem = 'NationalCode' | 'Date';
 

@@ -7,12 +7,18 @@ interface IItemComponent {
   title: string;
   placeholder?: string;
   withoutOptions?: boolean;
+  handleDelete?(): void;
+  isRequired?: boolean;
+  handleIsRequired?(): void;
 }
 
 const ItemComponent = ({
   placeholder = 'اختیاری',
   title = '',
   withoutOptions,
+  isRequired,
+  handleDelete,
+  handleIsRequired,
 }: IItemComponent) => {
   return (
     <Stack>
@@ -31,16 +37,29 @@ const ItemComponent = ({
             borderRadius: 2.5,
             border: '1px solid',
             borderColor: 'grey.2',
+            backgroundColor: 'background.1',
           }}
         >
           <Typography variant="body3" color="grey.4">
-            {placeholder}
+            {isRequired ? 'اجباری' : placeholder}
           </Typography>
         </Box>
         {!withoutOptions && (
           <Stack direction="row" gap={3}>
-            <CustomSwitch label="اجباری" />
-            <DeleteButton />
+            <CustomSwitch
+              label={<Typography variant="body3">اجباری</Typography>}
+              formControlLableProps={{
+                checked: isRequired,
+                onChange() {
+                  handleIsRequired?.();
+                },
+              }}
+            />
+            <DeleteButton
+              iconButtonProps={{
+                onClick: handleDelete,
+              }}
+            />
           </Stack>
         )}
       </Stack>

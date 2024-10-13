@@ -32,7 +32,7 @@ export default function RootLayout({
   return (
     <MainLayout
       navigationOptions={navigationOptions}
-      searchSection={<SearchInput />}
+      // searchSection={<SearchInput />}
     >
       {children}
     </MainLayout>

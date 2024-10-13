@@ -11,7 +11,11 @@ import { MuiTextField } from '@/theme/component/TextField/TextField';
 import { MuiMenu } from '@/theme/component/Menu/MuiMenu';
 import { MuiMenuItem } from '@/theme/component/Menu/MuiMenuItem';
 import { MuiIconButton } from '@/theme/component/Button/MuiIconButton';
-
+import { MuiStepper } from '@/theme/component/Stepper/MuiStepper';
+import { MuiStep } from '@/theme/component/Stepper/MuiStep';
+import { MuiStepLabel } from '@/theme/component/Stepper/MuiStepLabel';
+import { MuiStepConnector } from '@/theme/component/Stepper/MuiStepConnector';
+import { MuiStepIcon } from '@/theme/component/Stepper/MuiStepIcon';
 const getDesignTokens = (mode: PaletteMode) => ({
   mode,
   ...(mode === 'light' ? lightPalette : darkPalette),
@@ -31,6 +35,11 @@ const customTheme = (mode: PaletteMode, isRtl: boolean) =>
       MuiMenu,
       MuiMenuItem,
       MuiIconButton,
+      MuiStepper,
+      MuiStep,
+      MuiStepLabel,
+      MuiStepConnector,
+      MuiStepIcon,
     },
   });
 

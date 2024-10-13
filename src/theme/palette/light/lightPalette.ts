@@ -103,7 +103,7 @@ export const lightPalette: PaletteOptions = {
     7: '#EBEBEB',
     6: '#F1F1F1',
     5: '#F3F3F3',
-    4: '#F7F7F7',
+    4: '#A9B2B9',
     3: '#FAFAFA',
     2: '#FDFDFD',
     1: '#FFF',

@@ -99,14 +99,14 @@ export const lightPalette: PaletteOptions = {
     11: '#B5B5B5',
     10: '#CCC',
     9: '#D4D4D4',
-    8: '#E3E3E3',
+    8: '#434D56',
     7: '#EBEBEB',
     6: '#F1F1F1',
     5: '#F3F3F3',
-    4: '#F7F7F7',
+    4: '#A9B2B9',
     3: '#FAFAFA',
-    2: '#FDFDFD',
-    1: '#FFF',
+    2: '#D9DEE2',
+    1: '#EEF1F3',
   },
 
   text: {

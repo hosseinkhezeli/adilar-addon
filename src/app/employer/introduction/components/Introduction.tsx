@@ -18,7 +18,7 @@ import AdilarAvatarsImage from '@/assets/images/adilar-avatars.png';
 //________________________________________________________________
 
 export function Introduction() {
-  const { isSubmitting, handleSubmit } = useIntroduction();
+  const { isNavigating, handleSubmit } = useIntroduction();
 
   return (
     <Container>
@@ -45,7 +45,7 @@ export function Introduction() {
         variant={'contained'}
         fullWidth
         onClick={handleSubmit}
-        isLoading={isSubmitting}
+        isLoading={isNavigating}
       >
         ادامه
       </Button>

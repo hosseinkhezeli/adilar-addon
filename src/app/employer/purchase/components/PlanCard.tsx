@@ -44,7 +44,6 @@ export function PlanCard({ plan, isActive, handleClick }: TPlanCard) {
             }
             label={plan.title}
             checked={isActive}
-            color="primary"
             sx={{
               fontSize:
                 theme.typography['caption2.medium'].fontSize + ' !important',

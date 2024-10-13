@@ -1,11 +1,25 @@
 'use client';
+//@3rd-party
 import React from 'react';
-import { Button, Stack, styled, Typography } from '@mui/material';
 import Image from 'next/image';
+//________________________________________________________________
+
+//@Mui
+import { Button, Stack, styled, Typography } from '@mui/material';
+//________________________________________________________________
+
+//@Hooks
+import { useIntroduction } from '../hooks/useIntroduction';
+//________________________________________________________________
+
+//@Assets
 import SvgAdilar from '@/assets/images/adilar-logo.svg';
 import AdilarAvatarsImage from '@/assets/images/adilar-avatars.png';
+//________________________________________________________________
 
 export function Introduction() {
+  const { isNavigating, handleSubmit } = useIntroduction();
+
   return (
     <Container>
       <Image src={SvgAdilar} alt={"adilar's logo"} width={44} height={44} />
@@ -27,7 +41,12 @@ export function Introduction() {
           رزومه سریع و راحت راهی اسان برای ارسال رزومه سریع و راحت
         </Description>
       </TextContainer>
-      <Button variant={'contained'} fullWidth>
+      <Button
+        variant={'contained'}
+        fullWidth
+        onClick={handleSubmit}
+        isLoading={isNavigating}
+      >
         ادامه
       </Button>
     </Container>

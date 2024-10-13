@@ -1,7 +1,17 @@
+//@3rd Party
 import React from 'react';
+//____________________________________________________
+
+//@Components
+import { Plans } from './components/Plans';
+//____________________________________________________
 
 const Page = () => {
-  return <div>Page</div>;
+  return (
+    <>
+      <Plans />
+    </>
+  );
 };
 
 export default Page;

@@ -1,6 +1,11 @@
+//@3rd Party
 import React from 'react';
 import type { Metadata } from 'next';
-import { PurchaseProgress } from './components/PurchaseProgress';
+//____________________________________________________
+
+//@Components
+import { PurchaseLayout } from './components/PurchaseLayout';
+//____________________________________________________
 
 export const metadata: Metadata = {
   title: 'Adilar addon',
@@ -9,15 +14,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-  params,
+  searchParams,
 }: Readonly<{
   children: React.ReactNode;
-  params: { id: string };
+  searchParams: { [key: string]: string | string[] | undefined };
 }>) {
   return (
     <>
-      <PurchaseProgress />
-      {children}
+      <PurchaseLayout>{children}</PurchaseLayout>
     </>
   );
 }

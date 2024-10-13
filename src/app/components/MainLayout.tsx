@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { BottomNavigation, BottomNavigationAction, Stack } from '@mui/material';
 import { useRouter } from 'next/navigation';
+import { Route } from 'next';
 
 export interface NavigationOption {
   label: string;
@@ -52,7 +53,7 @@ export function MainLayout({
                   option?.onClick();
                 }
                 if (option?.location) {
-                  navigateTo(option?.location);
+                  navigateTo(option?.location as Route);
                 }
                 setValue(index);
               }}

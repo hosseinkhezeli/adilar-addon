@@ -39,7 +39,13 @@ const BottomSheet = ({
       sx={[style, ...(Array.isArray(sx) ? sx : [sx])]}
       {...dialogProps}
     >
-      <DialogHeader>
+      <DialogHeader
+        sx={{
+          borderBottom: '1px solid',
+          borderColor: 'grey.1',
+          boxShadow: '0px 1px 2px 0px rgba(0, 0, 0, 0.25)',
+        }}
+      >
         <Typography variant={'body3.bold'}>{title}</Typography>
 
         {!withoutCloseButton && (

@@ -9,4 +9,8 @@ export type TPlanCard = {
   handleClick?: (id: string) => void;
 };
 
-export type TStepperState = 'plans' | 'information' | 'payment' | 'bank-portal';
+export type TStepperState =
+  | 'plans'
+  | 'information'
+  | 'pre_invoice'
+  | 'bank-portal';

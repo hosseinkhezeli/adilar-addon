@@ -9,6 +9,7 @@ import { InformationForm } from './components/information-section/InformationFor
 
 //@Types
 import { TStepperState } from './types';
+import { PreInvoice } from './components/pre-invoice-section/PreInvoice';
 //____________________________________________________
 
 const Page = ({ searchParams }: { searchParams: { state: TStepperState } }) => {
@@ -18,6 +19,11 @@ const Page = ({ searchParams }: { searchParams: { state: TStepperState } }) => {
     <>
       {currentState === 'plans' && <Plans />}
       {currentState === 'information' && <InformationForm />}
+      {currentState === 'pre_invoice' && <PreInvoice />}
+      {currentState !== 'plans' &&
+        currentState !== 'information' &&
+        currentState !== 'pre_invoice' &&
+        '404'}
     </>
   );
 };

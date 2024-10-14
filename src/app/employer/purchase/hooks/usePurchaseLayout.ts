@@ -22,8 +22,8 @@ export function usePurchaseLayout() {
     currentState === 'plans'
       ? 'information'
       : currentState === 'information'
-        ? 'payment'
-        : currentState === 'payment'
+        ? 'pre_invoice'
+        : currentState === 'pre_invoice'
           ? 'bank-portal'
           : 'plans';
 

@@ -24,7 +24,7 @@ export function PurchaseProgress({ activeState }: PurchaseProgressProps) {
   enum StepperState {
     PLANS = 0,
     INFORMATION = 1,
-    PAYMENT = 2,
+    PRE_INVOICE = 2,
     BANK_PORTAL = 3,
   }
   return (

@@ -1,4 +1,6 @@
+import { IFormField } from '@/types/common-types';
 import { Theme } from '@mui/material/styles';
+import { IUseFormInput } from 'ideep-design-system-2/components/input-list/type';
 
 const EMPTY_TEXT = '-';
 const CURRENCY_UNIT = 'تومان';
@@ -61,4 +63,45 @@ export function currency(
     new Intl.NumberFormat('fa-IR').format(currencyValue) +
     (withoutUnit ? '' : ' ' + CURRENCY_UNIT)
   );
+}
+
+export function typeAdapter(type: string): IUseFormInput['type'] {
+  switch (type) {
+    case 'Text':
+      return 'text';
+    case 'PhoneNumber':
+      return 'number';
+    case 'MultiLineText':
+      return 'text-area';
+    case 'Date':
+      return 'date-picker';
+    case 'NationalCode':
+      return 'number';
+    case 'Select':
+      return 'select';
+    case 'MultiSelect':
+      return 'multi-select';
+    case 'Number':
+      return 'number';
+    default:
+      return 'text';
+  }
+}
+
+export function inputListAdapter(fields: IFormField[]) {
+  // @ts-ignore
+  const inputList: IUseFormInput[] = fields.map((field) => ({
+    label: field?.name || '-',
+    name: field?.semanticType || '-',
+    type: typeAdapter(field?.type) || 'text',
+    props: {
+      editable: true,
+    },
+    options: field.options.map((option) => ({
+      label: option.title,
+      value: option.value,
+    })),
+  }));
+
+  return { inputList };
 }

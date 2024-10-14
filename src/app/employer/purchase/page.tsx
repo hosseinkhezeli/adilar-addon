@@ -3,8 +3,8 @@ import React from 'react';
 //____________________________________________________
 
 //@Components
-import { Plans } from './components/Plans/Plans';
-import { InformationForm } from './components/Information/InformationForm';
+import { Plans } from './components/plan-section/Plans';
+import { InformationForm } from './components/information-section/InformationForm';
 //____________________________________________________
 
 //@Types

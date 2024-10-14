@@ -17,6 +17,7 @@ const Resume = () => {
           justifyContent: 'space-between',
           flexGrow: 1,
           overflow: 'auto',
+          pb: '60px',
         }}
       >
         <InfoSection />

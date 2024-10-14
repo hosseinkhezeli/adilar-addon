@@ -17,24 +17,5 @@ export default function RootLayout({
   children: React.ReactNode;
   params: { id: string };
 }>) {
-  const navigationOptions: NavigationOption[] = [
-    {
-      label: 'فرم ساز',
-      icon: <SvgDocument primarycolor={'inherit'} />,
-      location: `/employer/${params?.id}/form-creator`,
-    },
-    {
-      label: 'موقعیت های شغلی',
-      icon: <SvgBriefcase primarycolor={'inherit'} />,
-      location: `/employer/${params?.id}/positions`,
-    },
-  ];
-  return (
-    <MainLayout
-      navigationOptions={navigationOptions}
-      // searchSection={<SearchInput />}
-    >
-      {children}
-    </MainLayout>
-  );
+  return <MainLayout>{children}</MainLayout>;
 }

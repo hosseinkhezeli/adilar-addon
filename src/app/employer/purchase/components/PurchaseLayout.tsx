@@ -1,48 +1,29 @@
 'use client';
 //@3rd Party
-import React, { ReactNode, useLayoutEffect } from 'react';
-import { useRouter, usePathname, useSearchParams } from 'next/navigation';
-import { Route } from 'next';
+import React, { ReactNode } from 'react';
 //____________________________________________________
 
 //@MUI
 import { Button, Link, Stack, Typography } from '@mui/material';
 //____________________________________________________
 
-//@Components
+//@Components & Hooks
 import { PurchaseProgress } from './PurchaseProgress';
+import { usePurchaseLayout } from '../hooks/usePurchaseLayout';
+//____________________________________________________
 
 export function PurchaseLayout({
   children,
 }: Readonly<{
   children: ReactNode;
 }>) {
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const currentState = searchParams.get('state');
-  const { push: navigateTo } = useRouter();
-  const newState =
-    currentState === 'plans'
-      ? 'information'
-      : currentState === 'information'
-        ? 'payment'
-        : currentState === 'payment'
-          ? 'bank-portal'
-          : 'plans';
-
-  const newSearchParams = new URLSearchParams({ state: newState });
-  useLayoutEffect(() => {
-    if (!currentState) {
-      navigateTo(`${pathname}?${newSearchParams.toString()}` as Route);
-    }
-  }, []);
-
+  const { currentState, newSearchParams, pathname } = usePurchaseLayout();
   return (
     <Stack sx={styles.container}>
       <Typography variant="body3.medium">
         فرم‌ساز رزومه و دسته‌بندی رزومه‌ها
       </Typography>
-      <PurchaseProgress />
+      <PurchaseProgress activeState={currentState} />
       {children}
 
       <Link

@@ -8,3 +8,5 @@ export type TPlanCard = {
   isActive?: boolean | undefined;
   handleClick?: (id: string) => void;
 };
+
+export type TStepperState = 'plans' | 'information' | 'payment' | 'bank-portal';

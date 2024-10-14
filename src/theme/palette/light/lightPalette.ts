@@ -92,7 +92,7 @@ export const lightPalette: PaletteOptions = {
   grey: {
     main: '#8A8A8A',
     16: '#1A1A1A',
-    15: '#303030',
+    15: '#6A7789',
     14: '#4A4A4A',
     13: '#616161',
     12: '#8A8A8A',

@@ -33,9 +33,16 @@ export function PositionCard(props: TPositionCardProps) {
       </CardColumn>
       <CardColumn>
         <Badge
-          badgeContent={props?.positionInfo?.unreadCount}
+          badgeContent={
+            Number(props?.positionInfo?.unreadCount) > 100
+              ? '+99'
+              : props?.positionInfo?.unreadCount
+          }
           color="info"
-          sx={{ width: '90%', '.MuiBadge-badge': { color: 'text.secondary' } }}
+          sx={{
+            width: '90%',
+            '.MuiBadge-badge': { color: 'text.secondary', width: 20 },
+          }}
         >
           <SubtitleText sx={{ visibility: 'hidden', pr: 8 }}>
             badge

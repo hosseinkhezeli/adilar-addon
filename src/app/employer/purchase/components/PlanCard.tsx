@@ -29,6 +29,10 @@ export function PlanCard({ plan, isActive, handleClick }: TPlanCard) {
             : theme.palette.text[8],
         }}
         onClick={() => handleClick?.(plan.id)}
+        onTouchStart={(e) => {
+          e.preventDefault();
+          handleClick?.(plan.id);
+        }}
       >
         <CardContent>
           <FormControlLabel

@@ -42,32 +42,36 @@ export function Plans() {
 
   const { handleSubmitPlan } = usePlans();
   return (
-    <PlansContainer>
-      {plansInfo?.map((plan) => (
-        <PlanCard
-          key={plan.id}
-          plan={plan}
-          isActive={activePlan === plan.id}
-          handleClick={handleChange}
-        />
-      ))}
+    <>
+      <PlansContainer>
+        {plansInfo?.map((plan) => (
+          <PlanCard
+            key={plan.id}
+            plan={plan}
+            isActive={activePlan === plan.id}
+            handleClick={handleChange}
+          />
+        ))}
+      </PlansContainer>
       <Button
         variant="contained"
-        onClick={() => handleSubmitPlan(activePlan)}
+        onClick={() =>
+          handleSubmitPlan(plansInfo.find((plan) => plan.id === activePlan))
+        }
         sx={{
-          position: 'absolute',
+          position: 'fixed',
           width: 'calc(100% - 32px)',
           margin: '0 auto',
-
-          bottom: 4,
+          bottom: 16,
         }}
       >
         ادامه
       </Button>
-    </PlansContainer>
+    </>
   );
 }
 
 const PlansContainer = styled(Stack)(({ theme }) => ({
   gap: theme.spacing(2),
+  height: '100%',
 }));

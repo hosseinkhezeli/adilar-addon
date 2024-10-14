@@ -32,7 +32,7 @@ export function PurchaseLayout({
 const styles = {
   container: {
     gap: 7,
-    height: 'calc(100vh - 80px)',
+    height: '100vh',
     position: 'relative',
     alignItems: 'center',
     padding: 4,

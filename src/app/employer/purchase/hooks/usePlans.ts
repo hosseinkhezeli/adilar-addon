@@ -1,8 +1,15 @@
-import { useRouter } from 'next-nprogress-bar';
-import { usePathname, useSearchParams } from 'next/navigation';
-import { TStepperState } from '../types';
+'use client';
+//@3rd Party
+import { usePathname, useRouter } from 'next/navigation';
 import { Route } from 'next';
+//___________________________________________________________
+
+//@Hooks
 import usePurchaseStore from '@/store/purchase/purchaseSlice';
+//___________________________________________________________
+
+//@Types
+import { TPlanCard } from '../types';
 
 export function usePlans() {
   const pathname = usePathname();
@@ -10,9 +17,9 @@ export function usePlans() {
   const nextState = 'information';
   const newSearchParams = new URLSearchParams({ state: nextState });
   const { setPlan } = usePurchaseStore();
-  const handleSubmitPlan = (planId: string) => {
-    if (planId) {
-      setPlan(planId);
+  const handleSubmitPlan = (plan: TPlanCard['plan'] | undefined) => {
+    if (plan?.id) {
+      setPlan(plan);
       navigateTo(`${pathname}?${newSearchParams.toString()}` as Route);
     }
   };

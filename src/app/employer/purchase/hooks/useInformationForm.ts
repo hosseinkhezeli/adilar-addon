@@ -17,7 +17,7 @@ type TInformationForm = {
 export function useInformationForm() {
   const pathname = usePathname();
   const { push: navigateTo } = useRouter();
-  const nextState: TStepperState = 'payment';
+  const nextState: TStepperState = 'pre_invoice';
   const newSearchParams = new URLSearchParams({ state: nextState });
   const { setUserInfo } = usePurchaseStore();
   const form = useForm<TInformationForm>();

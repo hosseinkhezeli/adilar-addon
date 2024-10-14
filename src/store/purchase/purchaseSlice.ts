@@ -1,8 +1,9 @@
+import { TPlanCard } from '@/app/employer/purchase/types';
 import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
 
 export interface IPurchaseInfo {
-  planId: string | undefined;
+  plan: TPlanCard['plan'] | undefined;
   userInfo: {
     firstName: string | undefined;
     lastName: string | undefined;
@@ -11,7 +12,7 @@ export interface IPurchaseInfo {
     email?: string | undefined;
   };
   discountId: string | undefined;
-  setPlan: (planId: string) => void;
+  setPlan: (plan: TPlanCard['plan']) => void;
   setDiscountId: (discountId: string) => void;
   setUserInfo: (userInfo: IPurchaseInfo['userInfo']) => void;
   reset: () => void;
@@ -21,7 +22,7 @@ const usePurchaseStore = create<IPurchaseInfo>()(
   devtools(
     persist(
       (set) => ({
-        planId: undefined,
+        plan: undefined,
         discountId: undefined,
         userInfo: {
           firstName: undefined,
@@ -30,9 +31,9 @@ const usePurchaseStore = create<IPurchaseInfo>()(
           domain: undefined,
           email: undefined,
         },
-        setPlan: (planId) => {
+        setPlan: (plan: TPlanCard['plan']) => {
           set(() => ({
-            planId: planId,
+            plan: plan,
           }));
         },
         setDiscountId: (discountId: string) => {

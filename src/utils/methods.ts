@@ -1,7 +1,8 @@
 import { Theme } from '@mui/material/styles';
 
 const EMPTY_TEXT = '-';
-
+const CURRENCY_UNIT = 'تومان';
+const BACKEND_CURRENCY_UNIT = 'تومان';
 export type TColorKeys =
   | 'inherit'
   | 'primary'
@@ -45,3 +46,19 @@ export const fullNameDisplay = (firstName?: string, lastName?: string) => {
     firstName && lastName ? firstName + ' ' + lastName : undefined
   );
 };
+
+export function currency(
+  value: number | string | undefined,
+  withoutUnit?: boolean
+) {
+  if (!value) return '-';
+  const currencyValue =
+    BACKEND_CURRENCY_UNIT === CURRENCY_UNIT
+      ? Number(value)
+      : Number(value) / 10;
+  if (!currencyValue) return '-';
+  return (
+    new Intl.NumberFormat('fa-IR').format(currencyValue) +
+    (withoutUnit ? '' : ' ' + CURRENCY_UNIT)
+  );
+}

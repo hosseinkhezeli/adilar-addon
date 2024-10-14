@@ -21,7 +21,10 @@ export function InformationForm() {
       onSubmit={form.handleSubmit(handleSubmitForm)}
       sx={{
         minWidth: '100%',
-        minHeight: '100%',
+        minHeight: 'calc(100% - 164px)',
+        paddingBottom: 14,
+        mb: 4,
+        overflowY: 'auto',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'baseline',
@@ -30,28 +33,21 @@ export function InformationForm() {
       <InputListWithUseForm
         form={form}
         inputList={InformationFormInputList}
-        gridContainerProps={{ xs: 12, rowGap: 0, width: '100% !important' }}
-        labelsProps={{ variant: 'body3' }}
+        gridContainerProps={{ xs: 12, width: '100% !important' }}
+        labelsProps={{ variant: 'body3', margin: '0 !important' }}
+        withoutHelperText
         gridItemProps={{
           xs: 12,
-          sx: {
-            '& .MuiFormHelperText-root': {
-              minHeight: '16px !important',
-              height: '16px !important',
-              opacity: 0.5,
-            },
-          },
         }}
       />
       <Button
         variant="contained"
         type="submit"
         sx={{
-          position: 'absolute',
+          position: 'fixed',
           width: 'calc(100% - 32px)',
           margin: '0 auto',
-
-          bottom: 4,
+          bottom: 16,
         }}
       >
         ادامه

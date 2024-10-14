@@ -15,7 +15,7 @@ import {
 //____________________________________________________
 
 //@Types
-import { TPlanCard } from '../types';
+import { TPlanCard } from '../../types';
 //____________________________________________________
 
 export function PlanCard({ plan, isActive, handleClick }: TPlanCard) {
@@ -50,14 +50,14 @@ export function PlanCard({ plan, isActive, handleClick }: TPlanCard) {
             checked={isActive}
             sx={{
               fontSize:
-                theme.typography['caption2.medium'].fontSize + ' !important',
-              fontWeight: theme.typography['caption2.medium'].fontWeight,
+                theme.typography['body3.medium'].fontSize + ' !important',
+              fontWeight: theme.typography['body3.medium'].fontWeight,
             }}
           />
 
           <CardPrice>{plan.price.toLocaleString()} تومان</CardPrice>
         </CardContent>
-        <Typography variant="caption2">{plan.description}</Typography>
+        <Typography variant="body3">{plan.description}</Typography>
       </CardContainer>
     </>
   );
@@ -67,7 +67,7 @@ const CardContainer = styled(Stack)(({ theme }) => ({
   display: 'flex',
   border: '1px solid',
   padding: theme.spacing(2),
-  minHeight: 98,
+  minHeight: 116,
   borderRadius: theme.spacing(2),
   transition: 'border-color 0.3s ease',
   userSelect: 'none',
@@ -81,6 +81,6 @@ const CardContent = styled(Box)(() => ({
 }));
 
 const CardPrice = styled(Typography)(({ theme }) => ({
-  fontSize: theme.typography['caption2'].fontSize,
+  fontSize: theme.typography['body3'].fontSize,
   color: theme.palette.primary.main,
 }));

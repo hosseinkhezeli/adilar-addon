@@ -4,14 +4,15 @@ import React, { useState } from 'react';
 //____________________________________________________
 
 //@MUI
-import { Stack, styled } from '@mui/material';
+import { Button, Stack, styled } from '@mui/material';
 //____________________________________________________
 
 //@Components
 import { PlanCard } from './PlanCard';
 //____________________________________________________
 //@Types
-import { TPlanCard } from '../types';
+import { TPlanCard } from '../../types';
+import { usePlans } from '../../hooks/usePlans';
 //____________________________________________________
 
 export function Plans() {
@@ -39,6 +40,7 @@ export function Plans() {
     setActivePlan(id);
   };
 
+  const { handleSubmitPlan } = usePlans();
   return (
     <PlansContainer>
       {plansInfo?.map((plan) => (
@@ -49,6 +51,19 @@ export function Plans() {
           handleClick={handleChange}
         />
       ))}
+      <Button
+        variant="contained"
+        onClick={() => handleSubmitPlan(activePlan)}
+        sx={{
+          position: 'absolute',
+          width: 'calc(100% - 32px)',
+          margin: '0 auto',
+
+          bottom: 4,
+        }}
+      >
+        ادامه
+      </Button>
     </PlansContainer>
   );
 }

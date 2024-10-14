@@ -8,6 +8,7 @@ import { useLayoutEffect } from 'react';
 //@Types
 import { Route } from 'next';
 import { TStepperState } from '../types';
+import usePurchaseStore from '@/store/purchase/purchaseSlice';
 //____________________________________________________
 
 export function usePurchaseLayout() {
@@ -15,6 +16,7 @@ export function usePurchaseLayout() {
   const searchParams = useSearchParams();
   const currentState = searchParams.get('state') as TStepperState;
   const { push: navigateTo } = useRouter();
+  const { reset } = usePurchaseStore();
 
   const newState =
     currentState === 'plans'
@@ -31,7 +33,10 @@ export function usePurchaseLayout() {
     if (!currentState) {
       navigateTo(`${pathname}?${newSearchParams.toString()}` as Route);
     }
+    if (currentState === 'plans') {
+      reset();
+    }
   }, []);
 
-  return { currentState, pathname, newSearchParams };
+  return { currentState };
 }

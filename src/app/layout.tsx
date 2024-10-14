@@ -44,7 +44,12 @@ export default function RootLayout({
     <html lang="fa" dir="rtl">
       <body
         className={iranSans.className}
-        style={{ minHeight: '100vh', maxWidth: 560, margin: '0 auto' }}
+        style={{
+          maxHeight: '100vh',
+          height: '100%',
+          maxWidth: 560,
+          margin: '0 auto',
+        }}
       >
         <ProviderLayout>{children}</ProviderLayout>
       </body>

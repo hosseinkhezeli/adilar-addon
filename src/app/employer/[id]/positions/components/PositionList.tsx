@@ -22,7 +22,11 @@ export function PositionList({ id }: TPositionList) {
         value={searchValue}
         handleSearch={handleSearch}
       />
-      <CardList>
+      <CardList
+        sx={{
+          pb: '75px',
+        }}
+      >
         {positionsMock.map((position, idx, arr) => (
           <Fragment key={position.title + idx}>
             <PositionCard

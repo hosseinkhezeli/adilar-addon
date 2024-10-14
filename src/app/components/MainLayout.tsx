@@ -1,8 +1,6 @@
-'use client';
-import React, { useState } from 'react';
-import { BottomNavigation, BottomNavigationAction, Stack } from '@mui/material';
-import { useRouter } from 'next/navigation';
-import { Route } from 'next';
+import React from 'react';
+import { Stack } from '@mui/material';
+import { ButtonsNavigation } from '@/app/components/ButtonsNavigation';
 
 export interface NavigationOption {
   label: string;
@@ -17,60 +15,30 @@ interface Props {
   searchSection?: React.ReactNode;
 }
 
-export function MainLayout({
-  children,
-  navigationOptions,
-  searchSection,
-}: Props) {
-  const [value, setValue] = useState(0);
-  const { push: navigateTo } = useRouter();
-  const STACK_HEIGHT = getStackHeight(searchSection, navigationOptions);
+export function MainLayout({ children }: Props) {
+  // const STACK_HEIGHT = getStackHeight(searchSection, navigationOptions);
   return (
     <>
-      {searchSection}
+      {/* {searchSection} */}
 
       <Stack
         component={'main'}
-        sx={{ overflow: 'auto', height: `calc(100vh - ${STACK_HEIGHT}px)` }}
+        sx={{ overflow: 'auto', height: `calc(100vh - 75px)` }}
       >
         {children}
       </Stack>
-      {navigationOptions?.length && navigationOptions?.length > 0 && (
-        <BottomNavigation
-          showLabels
-          value={value}
-          onChange={(event, newValue) => {
-            setValue(newValue);
-          }}
-        >
-          {navigationOptions?.map((option, index) => (
-            <BottomNavigationAction
-              key={option.label + index}
-              label={option.label}
-              icon={option.icon}
-              onClick={() => {
-                if (option?.onClick) {
-                  option?.onClick();
-                }
-                if (option?.location) {
-                  navigateTo(option?.location as Route);
-                }
-                setValue(index);
-              }}
-            />
-          ))}
-        </BottomNavigation>
-      )}
+
+      <ButtonsNavigation />
     </>
   );
 }
 
-const getStackHeight = (
-  handleSearch: Props['searchSection'],
-  navigationOptions: Props['navigationOptions']
-) => {
-  if (handleSearch && navigationOptions) return 136;
-  if (navigationOptions) return 75;
-  if (handleSearch) return 61;
-  return 0;
-};
+// const getStackHeight = (
+//   handleSearch: Props['searchSection'],
+//   navigationOptions: Props['navigationOptions']
+// ) => {
+//   if (handleSearch && navigationOptions) return 136;
+//   if (navigationOptions) return 75;
+//   if (handleSearch) return 61;
+//   return 0;
+// };

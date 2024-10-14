@@ -21,7 +21,7 @@ export function ApplicantList(params: TApplicantListProps) {
         value={searchValue}
         handleSearch={handleSearch}
       />
-      <CardList sx={{ overflowX: 'hidden' }}>
+      <CardList sx={{ overflowX: 'hidden', pb: '75px' }}>
         {applicantMock.map((applicant, idx, arr) => (
           <Fragment key={applicant.candidateId + idx}>
             <ApplicantCard {...applicant} onClick={handleNavigate} />

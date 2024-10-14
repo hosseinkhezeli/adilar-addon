@@ -14,8 +14,8 @@ const HeaderPositions = ({ title, value, handleSearch }: IHeaderPositions) => {
   const { back } = useRouter();
   const params = useParams();
   return (
-    <Stack gap={3} py={2} bgcolor={'background.3'}>
-      <Stack direction="row" position="relative">
+    <Stack py={2} bgcolor={'background.3'}>
+      <Stack direction="row" position="relative" mb={handleSearch ? 0 : 2}>
         {params?.positionId || params?.reportId ? (
           <IconButton
             onClick={back}

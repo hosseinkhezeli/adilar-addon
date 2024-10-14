@@ -1,4 +1,5 @@
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useState } from 'react';
 
 type TUsePositionList = {
   id: string;
@@ -19,10 +20,21 @@ export interface IPositionCard {
 
 const usePositionList = ({ id }: TUsePositionList) => {
   const { push: navigateTo } = useRouter();
+  const [searchValue, setSearchValue] = useState<string>();
   const handleNavigation = (id: string | undefined) => {
     navigateTo(`positions/${id}`);
   };
-  return { positionsMock, handleNavigation };
+
+  const handleSearch = (value: string) => {
+    setSearchValue(value);
+  };
+
+  return {
+    positionsMock,
+    searchValue,
+    handleNavigation,
+    handleSearch,
+  };
 };
 
 export default usePositionList;

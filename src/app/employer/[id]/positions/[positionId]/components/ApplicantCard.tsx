@@ -13,18 +13,27 @@ export function ApplicantCard(applicantInfo: TApplicantCard) {
   const { typography, palette } = useTheme();
   const [translateX, setTranslateX] = useState<number>(0);
   const [isSwiping, setIsSwiping] = useState<boolean>(false);
-  const [touchStart, setTouchStart] = useState<number>(0);
+  const [touchStart, setTouchStart] = useState<{
+    clientX: number;
+    clientY: number;
+  }>({
+    clientX: 0,
+    clientY: 0,
+  });
   const maxSwipeDistance = 80; // Maximum swipe distance in pixels
 
   const handleTouchStart = (event: TouchEvent<HTMLDivElement>) => {
     setIsSwiping(true);
-    setTouchStart(event.touches[0]?.clientX);
+    setTouchStart({
+      clientX: event.touches[0]?.clientX,
+      clientY: event.touches[0]?.clientY,
+    });
   };
 
   const handleTouchMove = (event: TouchEvent<HTMLDivElement>) => {
     if (!isSwiping) return;
     const touch = event.touches[0];
-    const deltaX = touch.clientX - touchStart;
+    const deltaX = touch.clientX - touchStart.clientX;
     const newTranslateX = Math.min(
       Math.max(deltaX, -maxSwipeDistance),
       maxSwipeDistance
@@ -48,6 +57,7 @@ export function ApplicantCard(applicantInfo: TApplicantCard) {
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
+      onClick={applicantInfo?.onClick}
       style={{
         display: 'inline-block',
         position: 'relative',
@@ -78,7 +88,10 @@ export function ApplicantCard(applicantInfo: TApplicantCard) {
           px={'8%'}
         >
           <IconButton
-            onClick={() => setTranslateX(0)}
+            onClick={(e) => {
+              e.stopPropagation();
+              setTranslateX(0);
+            }}
             sx={{
               transform: `scaleX(${Math.abs(translateX * 1.25)}%)`,
               transition: '0.3s ease transform',
@@ -97,7 +110,10 @@ export function ApplicantCard(applicantInfo: TApplicantCard) {
           px={'8%'}
         >
           <IconButton
-            onClick={() => setTranslateX(0)}
+            onClick={(e) => {
+              e.stopPropagation();
+              setTranslateX(0);
+            }}
             sx={{
               transform: `scaleX(${Math.abs(translateX * 1.25)}%)`,
               transition: '0.3s ease transform',

@@ -1,3 +1,6 @@
+import { usePathname, useRouter } from 'next/navigation';
+import { useState } from 'react';
+
 export type TApplicantCard = {
   file?: File | null;
   candidateId: string;
@@ -6,10 +9,22 @@ export type TApplicantCard = {
     lastName: string;
   };
   createdAt: string | Date;
+  onClick?(): void;
 };
 
 export function useApplicantList() {
-  return { applicantMock };
+  const { push: navigateTo } = useRouter();
+  const pathName = usePathname();
+  const [searchValue, setSearchValue] = useState<string>();
+  function handleNavigate() {
+    navigateTo(`${pathName}/3`);
+  }
+
+  function handleSearch(value: string) {
+    setSearchValue(value);
+  }
+
+  return { applicantMock, searchValue, handleSearch, handleNavigate };
 }
 
 const applicantMock: TApplicantCard[] = [

@@ -1,37 +1,27 @@
 'use client';
 import React, { Fragment } from 'react';
 import usePositionList from '@/app/employer/[id]/positions/hooks/usePositionList';
-import { Divider, Stack, Typography } from '@mui/material';
+import { Divider } from '@mui/material';
 import { PositionCard } from '@/app/employer/[id]/positions/components/PositionCard';
 import { CardList } from '@/app/components/Card';
-import { SearchInput } from '@/app/components/SearchInput';
+import { HeaderPositions } from '@/app/employer/[id]/positions/components/HeaderPositions';
 
 type TPositionList = {
   id: string;
 };
 
 export function PositionList({ id }: TPositionList) {
-  const { positionsMock, handleNavigation } = usePositionList({ id });
+  const { positionsMock, searchValue, handleNavigation, handleSearch } =
+    usePositionList({
+      id,
+    });
   return (
-    <Stack height="100%" overflow="auto">
-      <Stack gap={3} py={2} bgcolor={'background.3'}>
-        <Typography variant="body3.medium" color="text.16" textAlign="center">
-          موقعیت های شغلی
-        </Typography>
-        <SearchInput
-          placeholder="جستجو..."
-          sx={{
-            '& .MuiInputBase-root': {
-              boxShadow: '0px 5px 16px 0px rgba(106, 118, 137, 0.10)',
-              backgroundColor: 'common.white',
-              borderRadius: 50,
-            },
-            'input::placeholder': {
-              color: 'grey.15',
-            },
-          }}
-        />
-      </Stack>
+    <>
+      <HeaderPositions
+        title="موقعیت های شغلی"
+        value={searchValue}
+        handleSearch={handleSearch}
+      />
       <CardList>
         {positionsMock.map((position, idx, arr) => (
           <Fragment key={position.title + idx}>
@@ -43,6 +33,6 @@ export function PositionList({ id }: TPositionList) {
           </Fragment>
         ))}
       </CardList>
-    </Stack>
+    </>
   );
 }

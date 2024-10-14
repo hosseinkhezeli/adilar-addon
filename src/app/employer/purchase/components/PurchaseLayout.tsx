@@ -17,7 +17,7 @@ export function PurchaseLayout({
 }: Readonly<{
   children: ReactNode;
 }>) {
-  const { currentState, newSearchParams, pathname } = usePurchaseLayout();
+  const { currentState } = usePurchaseLayout();
   return (
     <Stack sx={styles.container}>
       <Typography variant="body3.medium">
@@ -25,22 +25,13 @@ export function PurchaseLayout({
       </Typography>
       <PurchaseProgress activeState={currentState} />
       {children}
-
-      <Link
-        href={`${pathname}?${newSearchParams.toString()}`}
-        sx={{ position: 'absolute', width: '90%', margin: '0 auto', bottom: 4 }}
-      >
-        <Button fullWidth variant="contained">
-          ادامه
-        </Button>
-      </Link>
     </Stack>
   );
 }
 
 const styles = {
   container: {
-    gap: 8,
+    gap: 7,
     height: 'calc(100vh - 80px)',
     position: 'relative',
     alignItems: 'center',

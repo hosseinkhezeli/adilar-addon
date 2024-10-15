@@ -1,26 +1,19 @@
 'use client';
-import { Box, Button } from '@mui/material';
+//@3rd Party
+import { Box, BoxProps, Button, styled } from '@mui/material';
 import { InputListWithUseForm } from 'ideep-design-system-2';
+//________________________________________________________________
+
+//@Hooks
 import { usePositionForm } from '../hooks/usePositionForm';
+//________________________________________________________________
 
 export function PositionForm() {
   const { form, inputList } = usePositionForm();
   return (
-    <Box
+    <Form
       component="form"
       onSubmit={form.handleSubmit((data) => console.log(data))}
-      sx={{
-        width: '100%',
-        height: '100%',
-        display: 'flex',
-        minWidth: '100%',
-        minHeight: 'calc(100% - 164px)',
-        paddingBottom: 14,
-        mb: 4,
-        overflowY: 'auto',
-        justifyContent: 'center',
-        alignItems: 'baseline',
-      }}
     >
       <InputListWithUseForm
         form={form}
@@ -44,6 +37,21 @@ export function PositionForm() {
       >
         ادامه
       </Button>
-    </Box>
+    </Form>
   );
 }
+
+const Form = styled(Box)<BoxProps & { component?: React.ElementType }>(
+  ({ theme }) => ({
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    minWidth: '100%',
+    minHeight: 'calc(100% - 164px)',
+    paddingBottom: theme.spacing(14),
+    marginBottom: theme.spacing(4),
+    overflowY: 'auto',
+    justifyContent: 'center',
+    alignItems: 'baseline',
+  })
+);

@@ -15,11 +15,12 @@ type TInformationForm = {
 };
 
 export function useInformationForm() {
+  //URL
   const pathname = usePathname();
   const { push: navigateTo } = useRouter();
   const nextState: TStepperState = 'pre_invoice';
   const newSearchParams = new URLSearchParams({ state: nextState });
-  const { setUserInfo } = usePurchaseStore();
+  //Form
   const form = useForm<TInformationForm>();
   const InformationFormInputList: IUseFormInput[] = [
     {
@@ -56,7 +57,7 @@ export function useInformationForm() {
   ];
 
   const handleSubmitForm = (data: TInformationForm) => {
-    setUserInfo(data);
+    //TODO add Api call then navigate to next state
     navigateTo(`${pathname}?${newSearchParams.toString()}` as Route);
   };
 

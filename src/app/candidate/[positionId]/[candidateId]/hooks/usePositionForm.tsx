@@ -1,13 +1,41 @@
 'use client';
-import { inputListAdapter } from '@/utils/methods';
+//@3rd Party
+import React from 'react';
 import { useForm } from 'react-hook-form';
+import { useState } from 'react';
+//_______________________________________________________________
+
+//@Utils
+import { inputListAdapter } from '@/utils/methods';
+//_______________________________________________________________
 
 export function usePositionForm() {
   const form = useForm();
   const { inputList } = inputListAdapter(mockData);
-  return { form, inputList };
+  const fileInput = mockData.find((field) => field.type === 'File');
+  const [resumeFile, setResumeFile] = useState<File | null>(null);
+  const handleGetFileFromUploader = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setResumeFile(file);
+      console.log('Selected file:', file);
+    }
+  };
+  const handleClearResumeFile = () => {
+    setResumeFile(null);
+  };
+  return {
+    form,
+    inputList,
+    fileInput,
+    handleGetFileFromUploader,
+    resumeFile,
+    handleClearResumeFile,
+  };
 }
-
+//Delete this S@#$t
 const mockData = [
   {
     id: '670d1e18e12cc7afb89d18a2',
@@ -66,7 +94,7 @@ const mockData = [
     text: null,
     type: 'Email',
     defaultPriority: 4,
-    isRequiredByDefault: false,
+    isRequiredByDefault: true,
     category: 'Personal',
     semanticType: 'Email',
     user: null,
@@ -232,6 +260,23 @@ const mockData = [
         updatedAt: '2024-10-14T13:35:20.404058Z',
       },
     ],
+    isDeleted: false,
+    createdAt: '2024-10-14T13:35:20.404057Z',
+    updatedAt: '2024-10-14T13:35:20.404057Z',
+  },
+  {
+    id: '670d1e18e12cc7afb89d18ae',
+    name: 'روزمه',
+    text: null,
+    type: 'File',
+    defaultPriority: 11,
+    isRequiredByDefault: true,
+    category: 'Personal',
+    semanticType: 'Resume',
+    user: null,
+    userId: null,
+    formFields: null,
+    options: [],
     isDeleted: false,
     createdAt: '2024-10-14T13:35:20.404057Z',
     updatedAt: '2024-10-14T13:35:20.404057Z',

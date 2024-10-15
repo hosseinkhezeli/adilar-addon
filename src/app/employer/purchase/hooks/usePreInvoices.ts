@@ -14,6 +14,21 @@ export function usePreInvoices() {
   const [coupon, setCoupon] = useState<string>('');
   const totalPrice = (plan?.price || 0) + taxPrice - discount;
 
+  const preInvoiceInfo = [
+    {
+      title: 'مبلغ افزونه',
+      value: plan?.price,
+    },
+    {
+      title: 'مالیات ارزش افزوده',
+      value: taxPrice,
+    },
+    {
+      title: 'تخفیف',
+      value: discount,
+    },
+  ];
+
   const onChangeDiscount = (coupon: string) => {
     setCoupon(coupon);
   };
@@ -28,5 +43,6 @@ export function usePreInvoices() {
     onChangeDiscount,
     onSubmitDiscount,
     coupon,
+    preInvoiceInfo,
   };
 }

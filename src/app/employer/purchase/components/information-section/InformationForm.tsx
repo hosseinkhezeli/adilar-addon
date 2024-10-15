@@ -5,7 +5,7 @@ import { InputListWithUseForm } from 'ideep-design-system-2';
 //____________________________________________________
 
 //@MUI
-import { Box, Button } from '@mui/material';
+import { Box, BoxProps, Button, styled } from '@mui/material';
 //____________________________________________________
 
 //@Hooks
@@ -16,20 +16,7 @@ export function InformationForm() {
   const { form, InformationFormInputList, handleSubmitForm } =
     useInformationForm();
   return (
-    <Box
-      component="form"
-      onSubmit={form.handleSubmit(handleSubmitForm)}
-      sx={{
-        minWidth: '100%',
-        minHeight: 'calc(100% - 164px)',
-        paddingBottom: 14,
-        mb: 4,
-        overflowY: 'auto',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'baseline',
-      }}
-    >
+    <Form component="form" onSubmit={form.handleSubmit(handleSubmitForm)}>
       <InputListWithUseForm
         form={form}
         inputList={InformationFormInputList}
@@ -52,6 +39,22 @@ export function InformationForm() {
       >
         ادامه
       </Button>
-    </Box>
+    </Form>
   );
 }
+
+const Form = styled(Box)<BoxProps & { component?: React.ElementType }>(
+  ({ theme }) => ({
+    minWidth: '100%',
+    minHeight: 'calc(100% - 164px)',
+    paddingBottom: 14,
+    mb: 4,
+    overflowY: 'auto',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'baseline',
+    width: '100%',
+    height: '100%',
+    marginBottom: theme.spacing(4),
+  })
+);

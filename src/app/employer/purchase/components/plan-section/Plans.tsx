@@ -13,6 +13,7 @@ import { PlanCard } from './PlanCard';
 //@Types
 import { TPlanCard } from '../../types';
 import { usePlans } from '../../hooks/usePlans';
+import useUserStore from '@/store/user/userSlice';
 //____________________________________________________
 
 export function Plans() {
@@ -39,11 +40,12 @@ export function Plans() {
   const handleChange = (id: string) => {
     setActivePlan(id);
   };
-
+  const { token } = useUserStore();
   const { handleSubmitPlan } = usePlans();
   return (
     <>
       <PlansContainer>
+        Token:{token}
         {plansInfo?.map((plan) => (
           <PlanCard
             key={plan.id}

@@ -28,6 +28,7 @@ const iranSans = localFont({
     },
   ],
   display: 'fallback',
+  variable: '--font-iran-sans',
 });
 
 export const metadata: Metadata = {

@@ -23,6 +23,7 @@ const Page = ({ searchParams }: { searchParams: { state: TStepperState } }) => {
       {currentState !== 'plans' &&
         currentState !== 'information' &&
         currentState !== 'pre_invoice' &&
+        currentState !== 'bank-portal' &&
         '404'}
     </>
   );

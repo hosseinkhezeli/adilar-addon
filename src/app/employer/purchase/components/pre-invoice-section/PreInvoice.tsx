@@ -27,22 +27,8 @@ export function PreInvoice() {
     onChangeDiscount,
     onSubmitDiscount,
     coupon,
+    preInvoiceInfo,
   } = usePreInvoices();
-
-  const preInvoiceInfo = [
-    {
-      title: 'مبلغ افزونه',
-      value: plan?.price,
-    },
-    {
-      title: 'مالیات ارزش افزوده',
-      value: taxPrice,
-    },
-    {
-      title: 'تخفیف',
-      value: discount,
-    },
-  ];
 
   return (
     <Container>

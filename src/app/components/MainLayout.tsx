@@ -11,34 +11,22 @@ export interface NavigationOption {
 
 interface Props {
   children: React.ReactNode;
-  navigationOptions?: NavigationOption[];
-  searchSection?: React.ReactNode;
+  withoutNavigation?: boolean;
 }
 
-export function MainLayout({ children }: Props) {
-  // const STACK_HEIGHT = getStackHeight(searchSection, navigationOptions);
+export function MainLayout({ children, withoutNavigation = false }: Props) {
   return (
     <>
-      {/* {searchSection} */}
-
       <Stack
         component={'main'}
-        sx={{ overflow: 'auto', height: `calc(100vh - 75px)` }}
+        sx={{
+          overflow: 'auto',
+          height: withoutNavigation ? '100vh' : `calc(100vh - 75px)`,
+        }}
       >
         {children}
       </Stack>
-
-      <ButtonsNavigation />
+      {!withoutNavigation && <ButtonsNavigation />}
     </>
   );
 }
-
-// const getStackHeight = (
-//   handleSearch: Props['searchSection'],
-//   navigationOptions: Props['navigationOptions']
-// ) => {
-//   if (handleSearch && navigationOptions) return 136;
-//   if (navigationOptions) return 75;
-//   if (handleSearch) return 61;
-//   return 0;
-// };

@@ -14,3 +14,21 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
+.rmdp-calendar-container-mobile {
+  left: 50% !important;
+  top: 50% !important;
+  width: 100%;
+  height: 100%;
+  transform: translate(-50%, -50%) !important;
+  background-color: #00000050;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: '__iranSans_41da6d';
+}
+.rmdp-action-button {
+  font-family: '__iranSans_41da6d';
+  background-color: white !important;
+  border-radius: 8px !important;
+}

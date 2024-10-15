@@ -4,17 +4,12 @@ import { devtools, persist } from 'zustand/middleware';
 
 export interface IPurchaseInfo {
   plan: TPlanCard['plan'] | undefined;
-  userInfo: {
-    firstName: string | undefined;
-    lastName: string | undefined;
-    companyName?: string | undefined;
-    domain?: string | undefined;
-    email?: string | undefined;
-  };
   discountId: string | undefined;
+  postToken: string | undefined;
+  advertisementId: string | undefined;
   setPlan: (plan: TPlanCard['plan']) => void;
   setDiscountId: (discountId: string) => void;
-  setUserInfo: (userInfo: IPurchaseInfo['userInfo']) => void;
+  setAdInfo: (postToken: string, advertisementId: string) => void;
   reset: () => void;
 }
 
@@ -24,13 +19,8 @@ const usePurchaseStore = create<IPurchaseInfo>()(
       (set) => ({
         plan: undefined,
         discountId: undefined,
-        userInfo: {
-          firstName: undefined,
-          lastName: undefined,
-          companyName: undefined,
-          domain: undefined,
-          email: undefined,
-        },
+        postToken: undefined,
+        advertisementId: undefined,
         setPlan: (plan: TPlanCard['plan']) => {
           set(() => ({
             plan: plan,
@@ -41,20 +31,16 @@ const usePurchaseStore = create<IPurchaseInfo>()(
             discountId: discountId,
           }));
         },
-        setUserInfo: (userInfo: IPurchaseInfo['userInfo']) => {
+        setAdInfo: (postToken: string, advertisementId: string) => {
           set(() => ({
-            userInfo: userInfo,
+            postToken: postToken,
+            advertisementId: advertisementId,
           }));
         },
         reset: () => {
           set(() => ({
             planId: undefined,
             discountId: undefined,
-            userInfo: {
-              firstName: undefined,
-              lastName: undefined,
-              companyName: undefined,
-            },
           }));
         },
       }),

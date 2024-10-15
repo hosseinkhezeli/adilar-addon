@@ -1,7 +1,15 @@
-import { Link, Typography } from '@mui/material';
+//@3rd Party
+import React from 'react';
+//_______________________________________________________________
 
+//@Mui
+import { Link, Typography } from '@mui/material';
 import { Box } from '@mui/material';
+//_______________________________________________________________
+
+//@Assets
 import SvgAdd from 'ideep-design-system-2/icons/Add';
+//_______________________________________________________________
 
 export function FormHeader() {
   return (
@@ -10,10 +18,11 @@ export function FormHeader() {
         href={'/'}
         style={{
           position: 'absolute',
-          right: 0,
+          right: 34,
           top: -4,
           width: 34,
           height: 34,
+          transform: 'translate(50% ,50%)',
         }}
       >
         <SvgAdd
@@ -34,6 +43,12 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     gap: 1,
-    position: 'relative',
+    position: 'sticky',
+    top: 0,
+    backgroundColor: 'background.default',
+    zIndex: 1000,
+    padding: 4,
+    borderBottom: '1px solid',
+    borderColor: 'grey.1',
   },
 };

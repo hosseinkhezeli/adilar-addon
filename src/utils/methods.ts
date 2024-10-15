@@ -83,6 +83,8 @@ export function typeAdapter(type: string): IUseFormInput['type'] {
       return 'multi-select';
     case 'Number':
       return 'number';
+    case 'Email':
+      return 'email';
     default:
       return 'text';
   }
@@ -90,24 +92,43 @@ export function typeAdapter(type: string): IUseFormInput['type'] {
 
 export function inputListAdapter(fields: IFormField[]) {
   // @ts-ignore
-  const inputList: IUseFormInput[] = fields.map((field) => ({
-    label: field?.name || '-',
-    name: field?.semanticType || '-',
-    type: typeAdapter(field?.type) || 'text',
-    props: {
-      ...(field.type === 'Date' && {
-        className: 'rmdp-mobile',
-        mobileLabels: {
-          CANCEL: 'بستن',
-          OK: 'تایید',
+  const inputList: IUseFormInput[] = fields
+    .filter((field) => field.type !== 'File')
+    .map((field) => {
+      return {
+        label: field?.name || '-',
+        name: field?.semanticType || '-',
+        type: typeAdapter(field?.type) || 'text',
+        props: {
+          ...(field.type === 'Date' && {
+            className: 'rmdp-mobile',
+            mobileLabels: {
+              CANCEL: 'بستن',
+              OK: 'تایید',
+            },
+          }),
         },
-      }),
-    },
-    options: field.options.map((option) => ({
-      label: option.title,
-      value: option.value,
-    })),
-  }));
+        ...(field.isRequiredByDefault && {
+          rules: { required: true },
+        }),
+        options: field.options.map((option) => ({
+          label: option.title,
+          value: option.value,
+        })),
+      };
+    });
 
   return { inputList };
+}
+
+export function truncateString(str: string, maxLength: number): string {
+  if (maxLength <= 0) {
+    return '';
+  }
+
+  if (str.length <= maxLength) {
+    return str;
+  }
+
+  return str.slice(0, maxLength - 3) + '...';
 }

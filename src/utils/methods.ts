@@ -95,7 +95,13 @@ export function inputListAdapter(fields: IFormField[]) {
     name: field?.semanticType || '-',
     type: typeAdapter(field?.type) || 'text',
     props: {
-      editable: true,
+      ...(field.type === 'Date' && {
+        className: 'rmdp-mobile',
+        mobileLabels: {
+          CANCEL: 'بستن',
+          OK: 'تایید',
+        },
+      }),
     },
     options: field.options.map((option) => ({
       label: option.title,

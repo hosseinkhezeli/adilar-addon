@@ -6,11 +6,7 @@ import { useForm } from 'react-hook-form';
 export function usePositionForm() {
   const form = useForm();
   const { inputList } = inputListAdapter(mockData);
-  const searchParams = useSearchParams();
-  const token = searchParams.get('token');
-  const post_token = searchParams.get('post_token');
-  const advertisement_id = searchParams.get('advertisement_id');
-  console.log(token, post_token, advertisement_id);
+
   return { form, inputList };
 }
 

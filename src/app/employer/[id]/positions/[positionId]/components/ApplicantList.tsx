@@ -29,8 +29,6 @@ export function ApplicantList(params: TApplicantListProps) {
               onClick={() =>
                 handleNavigate({
                   id: applicant.id,
-                  nextId: idx == arr.length - 1 ? undefined : arr[idx + 1].id,
-                  prevId: idx == 0 ? undefined : arr[idx - 1].id,
                 })
               }
             />

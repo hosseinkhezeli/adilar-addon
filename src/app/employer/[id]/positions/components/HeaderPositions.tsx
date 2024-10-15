@@ -11,14 +11,20 @@ interface IHeaderPositions {
   handleSearch?(value: string): void;
 }
 const HeaderPositions = ({ title, value, handleSearch }: IHeaderPositions) => {
-  const { back } = useRouter();
+  const { push } = useRouter();
   const params = useParams();
   return (
-    <Stack py={2} bgcolor={'background.3'}>
+    <Stack py={3} bgcolor={params?.resumeId ? 'common.white' : 'background.3'}>
       <Stack direction="row" position="relative" mb={handleSearch ? 0 : 2}>
-        {params?.positionId || params?.reportId ? (
+        {params?.positionId || params?.resumeId ? (
           <IconButton
-            onClick={back}
+            onClick={() => {
+              if (params?.resumeId) {
+                push(`/employer/${params?.id}/positions/${params?.resumeId}`);
+              } else {
+                push(`/employer/${params?.id}/positions`);
+              }
+            }}
             sx={{
               position: 'absolute',
               left: 16,

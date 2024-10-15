@@ -1,7 +1,7 @@
 import { useGetResumeData } from '@/services/api/employer/hooks';
 import { Route } from 'next';
 import { useParams, usePathname, useRouter } from 'next/navigation';
-import { TouchEvent, useRef, useState } from 'react';
+import { TouchEvent, useEffect, useRef, useState } from 'react';
 
 export function useResume() {
   const params = useParams<{ resumeId: string }>();
@@ -15,7 +15,7 @@ export function useResume() {
   } | null>();
 
   const startTouchAfterDistance = useRef<number>(10);
-  const screenWidth = useRef<number>(window.innerWidth);
+  const screenWidth = useRef<number>(0);
 
   const { data, isLoading } = useGetResumeData({ id: params.resumeId });
 
@@ -86,6 +86,12 @@ export function useResume() {
     }
     setStartTouchPosition(null);
   }
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      screenWidth.current = window.innerWidth;
+    }
+  }, []);
 
   return {
     elementRef,

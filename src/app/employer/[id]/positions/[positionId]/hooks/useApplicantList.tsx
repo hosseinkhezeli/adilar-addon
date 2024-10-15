@@ -1,3 +1,4 @@
+import { Route } from 'next';
 import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
 
@@ -17,21 +18,8 @@ export function useApplicantList() {
   const { push: navigateTo } = useRouter();
   const pathName = usePathname();
   const [searchValue, setSearchValue] = useState<string>();
-  function handleNavigate({
-    id,
-    nextId,
-    prevId,
-  }: {
-    id: string;
-    nextId?: string | undefined;
-    prevId?: string | undefined;
-  }) {
-    const searchParamsObject = {
-      ...(prevId !== undefined && { prevId }),
-      ...(nextId !== undefined && { nextId }),
-    };
-    const searchParams = new URLSearchParams(searchParamsObject).toString();
-    navigateTo(`${pathName}/${id}?${searchParams}`);
+  function handleNavigate({ id }: { id: string }) {
+    navigateTo(`${pathName}/${id}` as Route);
   }
 
   function handleSearch(value: string) {

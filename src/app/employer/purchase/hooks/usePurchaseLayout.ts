@@ -10,17 +10,19 @@ import { Route } from 'next';
 import { TStepperState } from '../types';
 import usePurchaseStore from '@/store/purchase/purchaseSlice';
 import useUserStore from '@/store/user/userSlice';
+import { useGetAdByDivarPostToken } from '@/services/api/employer/hooks';
+import { useMockLogin } from '@/services/api/auth/hooks';
 //____________________________________________________
 
 export function usePurchaseLayout() {
   //Store
-  const { setToken, initialize } = useUserStore();
+  const { setToken, initialize, token } = useUserStore();
   const { reset, setAdInfo } = usePurchaseStore();
   //URL
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const currentState = searchParams.get('state') as TStepperState;
-  const token = searchParams.get('token');
+  const tokenParam = searchParams.get('token');
   const post_token = searchParams.get('post_token');
   const advertisement_id = searchParams.get('advertisement_id');
   const newState =
@@ -34,8 +36,9 @@ export function usePurchaseLayout() {
   const newSearchParams = new URLSearchParams({ state: newState });
   //Hooks
   const { push: navigateTo } = useRouter();
-
-  console.log(token, post_token, advertisement_id);
+  const { data } = useGetAdByDivarPostToken(post_token);
+  const { mutate: login } = useMockLogin();
+  console.log(data);
   //Handlers
   useLayoutEffect(() => {
     if (!currentState) {
@@ -48,12 +51,16 @@ export function usePurchaseLayout() {
 
   useEffect(() => {
     initialize();
-    if (token) {
-      setToken(token);
+    if (!token) {
+      login(undefined, {
+        onSuccess: (data) => {
+          setToken(data.token);
+        },
+      });
     }
     if (post_token && advertisement_id) {
       setAdInfo(post_token, advertisement_id);
     }
-  }, [token, post_token, advertisement_id]);
+  }, [tokenParam, post_token, advertisement_id]);
   return { currentState };
 }

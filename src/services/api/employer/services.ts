@@ -16,3 +16,10 @@ export const submitIntroduction = (
 export const getResumeData = ({ id }: IGetResumeDataProps): Promise<any> => {
   return http.get(routes.resumeData(id));
 };
+
+//Advertisement
+export const getAdByDivarPostToken = (
+  postToken: string | null
+): Promise<any> => {
+  return http.get(routes.getAdByDivarPostToken(postToken));
+};

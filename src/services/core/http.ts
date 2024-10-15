@@ -1,6 +1,7 @@
 import axios, {
   AxiosError,
   AxiosResponse,
+  InternalAxiosRequestConfig,
   // InternalAxiosRequestConfig,
 } from 'axios';
 const API_URL =
@@ -12,20 +13,22 @@ export const http = axios.create({
   baseURL,
 });
 
-//   http.interceptors.request.use(
-//     (config: InternalAxiosRequestConfig) => {
-//       const token = localStorage.getItem('token');
-//       if (token) {
-//         config.headers.Authorization = `Bearer ${token}`;
-//         document.cookie = `token=${token}; path=/; max-age=3600`;
-//       }
-//       config.headers.Accept = 'application/json';
-//       return config;
-//     },
-//     (error: AxiosError) => {
-//       return Promise.reject(new Error('Request failed: ' + error.message));
-//     },
-//   );
+http.interceptors.request.use(
+  (config: InternalAxiosRequestConfig) => {
+    const token = JSON.parse(localStorage.getItem('user-storage') as string)
+      .state.token;
+
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+      document.cookie = `token=${token}; path=/; max-age=3600`;
+    }
+    config.headers.Accept = 'application/json';
+    return config;
+  },
+  (error: AxiosError) => {
+    return Promise.reject(new Error('Request failed: ' + error.message));
+  }
+);
 
 http.interceptors.response.use(
   <T, D>(res: AxiosResponse<T, D>) => {

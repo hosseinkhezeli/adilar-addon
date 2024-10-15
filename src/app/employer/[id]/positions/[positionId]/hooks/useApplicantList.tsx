@@ -2,6 +2,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 export type TApplicantCard = {
+  id: string;
   file?: File | null;
   candidateId: string;
   candidate: {
@@ -16,8 +17,21 @@ export function useApplicantList() {
   const { push: navigateTo } = useRouter();
   const pathName = usePathname();
   const [searchValue, setSearchValue] = useState<string>();
-  function handleNavigate() {
-    navigateTo(`${pathName}/3`);
+  function handleNavigate({
+    id,
+    nextId,
+    prevId,
+  }: {
+    id: string;
+    nextId?: string | undefined;
+    prevId?: string | undefined;
+  }) {
+    const searchParamsObject = {
+      ...(prevId !== undefined && { prevId }),
+      ...(nextId !== undefined && { nextId }),
+    };
+    const searchParams = new URLSearchParams(searchParamsObject).toString();
+    navigateTo(`${pathName}/${id}?${searchParams}`);
   }
 
   function handleSearch(value: string) {
@@ -29,6 +43,7 @@ export function useApplicantList() {
 
 const applicantMock: TApplicantCard[] = [
   {
+    id: '1',
     file: null,
     candidateId: '10001',
     candidate: {
@@ -38,6 +53,7 @@ const applicantMock: TApplicantCard[] = [
     createdAt: '2024-09-15T10:00:00Z',
   },
   {
+    id: '2',
     file: null,
     candidateId: '10002',
     candidate: {
@@ -47,6 +63,7 @@ const applicantMock: TApplicantCard[] = [
     createdAt: '2024-09-17T12:30:00Z',
   },
   {
+    id: '3',
     file: null,
     candidateId: '10003',
     candidate: {
@@ -56,6 +73,7 @@ const applicantMock: TApplicantCard[] = [
     createdAt: '2024-09-20T09:15:00Z',
   },
   {
+    id: '4',
     file: null,
     candidateId: '10004',
     candidate: {
@@ -65,6 +83,7 @@ const applicantMock: TApplicantCard[] = [
     createdAt: '2024-09-22T14:45:00Z',
   },
   {
+    id: '5',
     file: null,
     candidateId: '10005',
     candidate: {
@@ -74,6 +93,7 @@ const applicantMock: TApplicantCard[] = [
     createdAt: '2024-09-25T16:00:00Z',
   },
   {
+    id: '6',
     file: null,
     candidateId: '10006',
     candidate: {
@@ -83,6 +103,7 @@ const applicantMock: TApplicantCard[] = [
     createdAt: '2024-09-28T11:30:00Z',
   },
   {
+    id: '7',
     file: null,
     candidateId: '10007',
     candidate: {
@@ -92,6 +113,7 @@ const applicantMock: TApplicantCard[] = [
     createdAt: '2024-10-01T08:20:00Z',
   },
   {
+    id: '9',
     file: null,
     candidateId: '10008',
     candidate: {
@@ -101,6 +123,7 @@ const applicantMock: TApplicantCard[] = [
     createdAt: '2024-10-03T13:10:00Z',
   },
   {
+    id: '12',
     file: null,
     candidateId: '10009',
     candidate: {
@@ -110,6 +133,7 @@ const applicantMock: TApplicantCard[] = [
     createdAt: '2024-10-05T15:25:00Z',
   },
   {
+    id: '20',
     file: null,
     candidateId: '10010',
     candidate: {

@@ -24,7 +24,16 @@ export function ApplicantList(params: TApplicantListProps) {
       <CardList sx={{ overflowX: 'hidden', pb: '75px' }}>
         {applicantMock.map((applicant, idx, arr) => (
           <Fragment key={applicant.candidateId + idx}>
-            <ApplicantCard {...applicant} onClick={handleNavigate} />
+            <ApplicantCard
+              {...applicant}
+              onClick={() =>
+                handleNavigate({
+                  id: applicant.id,
+                  nextId: idx == arr.length - 1 ? undefined : arr[idx + 1].id,
+                  prevId: idx == 0 ? undefined : arr[idx - 1].id,
+                })
+              }
+            />
             {idx < arr.length - 1 && <Divider />}
           </Fragment>
         ))}

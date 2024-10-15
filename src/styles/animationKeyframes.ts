@@ -26,3 +26,12 @@ export const comingFromBottom = keyframes`
         transform: translateY(30vh);
     }
 `;
+
+export const fadeIn = keyframes`
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 100%;
+    }
+`;

@@ -1,7 +1,12 @@
 import React from 'react';
 import { Button, Stack } from '@mui/material';
 
-const HandlerButtons = () => {
+interface IHandlerButtons {
+  onReject(id: string | number): void;
+  nextId: string | number;
+}
+
+const HandlerButtons = ({ onReject, nextId }: IHandlerButtons) => {
   return (
     <Stack
       direction="row"
@@ -11,6 +16,7 @@ const HandlerButtons = () => {
     >
       <Button
         color="error"
+        onClick={() => onReject(nextId)}
         sx={{
           flexBasis: '0%',
           flexGrow: 1,

@@ -12,5 +12,5 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <MainLayout>{children}</MainLayout>;
+  return <MainLayout withoutNavigation>{children}</MainLayout>;
 }

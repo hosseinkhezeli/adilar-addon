@@ -17,7 +17,15 @@ import { usePositionForm } from '../hooks/usePositionForm';
 import { UploaderButton } from '@/app/components/UploaderButton';
 //________________________________________________________________
 
-export function PositionForm() {
+//@Types
+import { TSubmissionState } from '../hooks/usePositionSubmission';
+//________________________________________________________________
+
+type TProps = {
+  handleStateChange: (state: TSubmissionState) => void;
+};
+
+export function PositionForm({ handleStateChange }: TProps) {
   const {
     form,
     inputList,
@@ -25,13 +33,11 @@ export function PositionForm() {
     handleGetFileFromUploader,
     handleClearResumeFile,
     resumeFile,
-  } = usePositionForm();
+    handleSubmit,
+  } = usePositionForm({ handleStateChange });
   return (
     <Container>
-      <Form
-        component="form"
-        onSubmit={form.handleSubmit((data) => console.log(data))}
-      >
+      <Form component="form" onSubmit={form.handleSubmit(handleSubmit)}>
         <InputListWithUseForm
           form={form}
           inputList={inputList}
@@ -42,6 +48,19 @@ export function PositionForm() {
             xs: 12,
           }}
         />
+        <Button
+          variant="contained"
+          type="submit"
+          sx={{
+            position: 'fixed',
+            width: 'calc(100% - 32px)',
+            margin: '0 auto',
+            bottom: 16,
+            zIndex: 1000,
+          }}
+        >
+          ادامه
+        </Button>
       </Form>
       {fileInput?.id && (
         <Stack sx={{ gap: 4, width: '100%', px: 2 }}>
@@ -55,18 +74,6 @@ export function PositionForm() {
           />
         </Stack>
       )}
-      <Button
-        variant="contained"
-        type="submit"
-        sx={{
-          position: 'fixed',
-          width: 'calc(100% - 32px)',
-          margin: '0 auto',
-          bottom: 16,
-        }}
-      >
-        ادامه
-      </Button>
     </Container>
   );
 }

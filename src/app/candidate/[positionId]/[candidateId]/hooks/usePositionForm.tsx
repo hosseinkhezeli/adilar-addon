@@ -8,8 +8,14 @@ import { useState } from 'react';
 //@Utils
 import { inputListAdapter } from '@/utils/methods';
 //_______________________________________________________________
+//@Types
+import { TSubmissionState } from './usePositionSubmission';
 
-export function usePositionForm() {
+type TProps = {
+  handleStateChange: (state: TSubmissionState) => void;
+};
+//_______________________________________________________________
+export function usePositionForm({ handleStateChange }: TProps) {
   const form = useForm();
   const { inputList } = inputListAdapter(mockData);
   const fileInput = mockData.find((field) => field.type === 'File');
@@ -26,6 +32,11 @@ export function usePositionForm() {
   const handleClearResumeFile = () => {
     setResumeFile(null);
   };
+
+  const handleSubmit = (data: any) => {
+    handleStateChange('done');
+  };
+
   return {
     form,
     inputList,
@@ -33,6 +44,7 @@ export function usePositionForm() {
     handleGetFileFromUploader,
     resumeFile,
     handleClearResumeFile,
+    handleSubmit,
   };
 }
 //Delete this S@#$t

@@ -2,13 +2,9 @@
 import React from 'react';
 //_______________________________________________________________
 
-//@Mui
-import { Stack } from '@mui/material';
-//_______________________________________________________________
-
 //@Components
-import { PositionForm } from './components/PositionForm';
 import { FormHeader } from './components/FormHeader';
+import { PositionSubmissionFlow } from './components/PositionSubmissionFlow';
 //_______________________________________________________________
 
 //@Types
@@ -21,10 +17,7 @@ const Page = ({ params }: TProps) => {
   return (
     <>
       <FormHeader />
-      <Stack sx={{ padding: 4, gap: 4 }}>
-        <PositionForm />
-        {/* Candidate Page for position {params?.positionId} as {params.candidateId} */}
-      </Stack>
+      <PositionSubmissionFlow />
     </>
   );
 };

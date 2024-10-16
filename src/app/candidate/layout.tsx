@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import { MainLayout } from '@/app/components/MainLayout';
+import { AuthLayout } from '../employer/[id]/components/AuthLayout';
 
 export const metadata: Metadata = {
   title: 'Adilar addon',
@@ -12,5 +13,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <MainLayout withoutNavigation>{children}</MainLayout>;
+  return (
+    <MainLayout withoutNavigation>
+      <AuthLayout>{children}</AuthLayout>
+    </MainLayout>
+  );
 }

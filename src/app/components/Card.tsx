@@ -5,7 +5,7 @@ export const Card = styled(Button)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   padding: '16px 12px',
-  minHeight: '73px',
+  minHeight: '77px',
   gap: 2,
   backgroundColor: theme.palette.background.default,
   border: 'none',

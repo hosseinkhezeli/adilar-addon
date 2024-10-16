@@ -8,6 +8,8 @@ export function useResume() {
   const router = useRouter();
   const pathName = usePathname();
 
+  const [statusModal, setStatusModal] = useState<boolean>(true);
+
   const elementRef = useRef<HTMLDivElement>();
   const [startTouchPosition, setStartTouchPosition] = useState<{
     clientX: number;
@@ -18,6 +20,10 @@ export function useResume() {
   const screenWidth = useRef<number>(0);
 
   const { data, isLoading } = useGetResumeData({ id: params.resumeId });
+
+  function handleCloseModal() {
+    setStatusModal(false);
+  }
 
   function customPush(id: string | number) {
     const helper = pathName.split('/').slice(1, -1);
@@ -97,9 +103,11 @@ export function useResume() {
     elementRef,
     isLoading,
     data,
+    statusModal,
     customPush,
     onTouchStart,
     onTouchMove,
     onTouchEnd,
+    handleCloseModal,
   };
 }

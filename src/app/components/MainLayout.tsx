@@ -21,6 +21,7 @@ export function MainLayout({ children, withoutNavigation = false }: Props) {
         component={'main'}
         sx={{
           overflow: 'auto',
+          maxHeight: withoutNavigation ? '100vh' : `calc(100vh - 75px)`,
           height: withoutNavigation ? '100vh' : `calc(100vh - 75px)`,
         }}
       >

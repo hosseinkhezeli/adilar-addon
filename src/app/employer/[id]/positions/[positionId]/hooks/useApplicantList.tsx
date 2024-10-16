@@ -19,6 +19,7 @@ export function useApplicantList() {
   const { push: navigateTo } = useRouter();
   const pathName = usePathname();
   const [searchValue, setSearchValue] = useState<string>();
+  const [statusModal, setStatusModal] = useState<boolean>(true);
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useGetApplicantList();
 
@@ -40,13 +41,19 @@ export function useApplicantList() {
     setSearchValue(value);
   }
 
+  function handleCloseModal() {
+    setStatusModal(false);
+  }
+
   return {
     applicantMock,
     searchValue,
     data,
+    statusModal,
     handleSearch,
     handleNavigate,
     handleFetchOnScroll,
+    handleCloseModal,
   };
 }
 

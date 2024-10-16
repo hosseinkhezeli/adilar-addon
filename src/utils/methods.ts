@@ -97,7 +97,7 @@ export function inputListAdapter(fields: IFormField[]) {
     .map((field) => {
       return {
         label: field?.name || '-',
-        name: field?.semanticType || '-',
+        name: field?.id || '-',
         type: typeAdapter(field?.type) || 'text',
         props: {
           ...(field.type === 'Date' && {

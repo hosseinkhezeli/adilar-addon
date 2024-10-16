@@ -23,11 +23,13 @@ interface ISectionComponent {
   handleAddDynamicField({
     key,
     dynamicFieldData,
+    index,
   }: {
     key: TTypeData;
     dynamicFieldData: IDynamicField;
+    index: number;
   }): void;
-  handleRemoveDynamicField({ key, id }: { key: TTypeData; id: number }): void;
+  handleRemoveDynamicField({ key, id }: { key: TTypeData; id: string }): void;
   handleRequiredField({
     key,
     index,
@@ -37,6 +39,7 @@ interface ISectionComponent {
     index: number;
     checked: boolean;
   }): void;
+  isLoadingFormFields: boolean;
 }
 
 const SectionComponent = ({
@@ -46,6 +49,7 @@ const SectionComponent = ({
   handleAddDynamicField,
   handleRemoveDynamicField,
   handleRequiredField,
+  isLoadingFormFields,
 }: ISectionComponent) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -78,14 +82,16 @@ const SectionComponent = ({
       >
         {title}
       </Typography>
-      {data.staticFields.map((item) => (
-        <ItemComponent
-          withoutOptions
-          key={item.title}
-          title={item.title}
-          placeholder={item.placeholder}
-        />
-      ))}
+      {isLoadingFormFields
+        ? 'loading...'
+        : data?.staticFields?.map((item) => (
+            <ItemComponent
+              withoutOptions
+              key={item.title}
+              title={item.title}
+              placeholder={item.placeholder}
+            />
+          ))}
       {data.dynamicFields.map((item, index) => (
         <ItemComponent
           key={item.title}
@@ -115,41 +121,51 @@ const SectionComponent = ({
         افزودن سطر جدید
       </MenuButton>
       <BottomSheet handleClose={handleClose} open={open} title={'سطر جدید'}>
-        {data.bottomSheetItems.map((option) => (
-          <Box
-            key={option.id}
-            sx={{
-              p: 4,
-              borderBottom: '1px solid',
-              borderColor: 'grey.1',
-            }}
-          >
-            <FormControlLabel
-              checked={data.dynamicFields.some((item) => item.id == option.id)}
-              control={<Checkbox />}
-              label={
-                <Typography variant="body3" color="text.primary">
-                  {option.title}
-                </Typography>
-              }
-              onChange={(e: SyntheticEvent, checked) => {
-                if (checked) {
-                  handleAddDynamicField({
-                    key: objectKey,
-                    dynamicFieldData: {
-                      id: option.id,
-                      type: option.type,
-                      title: option.title,
-                      isRequired: false,
-                    },
-                  });
-                } else {
-                  handleRemoveDynamicField({ key: objectKey, id: option.id });
-                }
-              }}
-            />
-          </Box>
-        ))}
+        <Stack sx={{ overflowY: 'auto', maxHeight: '100%' }}>
+          {isLoadingFormFields
+            ? 'loading...'
+            : data?.bottomSheetItems?.map((option, index) => (
+                <Box
+                  key={option.id}
+                  sx={{
+                    p: 4,
+                    borderBottom: '1px solid',
+                    borderColor: 'grey.1',
+                  }}
+                >
+                  <FormControlLabel
+                    checked={data.dynamicFields.some(
+                      (item) => item.id === option.id
+                    )}
+                    control={<Checkbox />}
+                    label={
+                      <Typography variant="body3" color="text.primary">
+                        {option.title}
+                      </Typography>
+                    }
+                    onChange={(e: SyntheticEvent, checked) => {
+                      if (checked) {
+                        handleAddDynamicField({
+                          key: objectKey,
+                          dynamicFieldData: {
+                            id: option.id,
+                            type: option.type,
+                            title: option.title,
+                            isRequired: false,
+                          },
+                          index: index,
+                        });
+                      } else {
+                        handleRemoveDynamicField({
+                          key: objectKey,
+                          id: option.id,
+                        });
+                      }
+                    }}
+                  />
+                </Box>
+              ))}
+        </Stack>
       </BottomSheet>
     </Stack>
   );

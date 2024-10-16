@@ -1,90 +1,29 @@
 'use client';
-import React, { useState } from 'react';
-import { Box, Button, Typography } from '@mui/material';
+import React from 'react';
+import { Box, Button, Checkbox, Stack, Typography } from '@mui/material';
 import { SectionComponent } from '@/app/employer/[id]/form-creator/components/SectionComponent';
-import {
-  IBottomSheetItem,
-  IDynamicField,
-  TAllData,
-  TTypeData,
-} from '@/app/employer/[id]/form-creator/type';
-import { baseData } from '@/app/employer/[id]/form-creator/constant';
-
-const baseInfoBottomSheetItems: IBottomSheetItem[] = [
-  {
-    id: 1,
-    type: 'NationalCode',
-    title: 'کد ملی',
-    checked: false,
-  },
-  {
-    id: 2,
-    type: 'Date',
-    title: 'تاریخ تولد',
-    checked: false,
-  },
-];
+import { TTypeData } from '@/app/employer/[id]/form-creator/type';
+import { useFormSection } from '../hooks/useFormSection';
+import { ResumeItemComponent } from './ResumeItemComponent';
 
 const FormSection = () => {
-  const [allData, setAllData] = useState<TAllData>(() => ({
-    ...baseData,
-    baseInfo: {
-      ...baseData.baseInfo,
-      bottomSheetItems: baseInfoBottomSheetItems,
-    },
-    // education: {
-    //   ...baseData.education,
-    //   bottomSheetItems: baseInfoBottomSheetItems,
-    // },
-  }));
-
-  function handleAddDynamicField({
-    key,
-    dynamicFieldData,
-  }: {
-    key: TTypeData;
-    dynamicFieldData: IDynamicField;
-  }) {
-    const newData = { ...allData };
-    newData[key].dynamicFields = [
-      ...newData[key].dynamicFields,
-      dynamicFieldData,
-    ];
-
-    setAllData(newData);
-  }
-
-  function handleRemoveDynamicField({
-    key,
-    id,
-  }: {
-    key: TTypeData;
-    id: number;
-  }) {
-    const newData = { ...allData };
-    const newDynamicFields = newData[key].dynamicFields.filter(
-      (item) => item.id != id
-    );
-    newData[key].dynamicFields = [...newDynamicFields];
-    setAllData(newData);
-  }
-
-  function handleRequiredField({
-    key,
-    index,
-    checked,
-  }: {
-    key: TTypeData;
-    index: number;
-    checked: boolean;
-  }) {
-    const newData = { ...allData };
-    newData[key].dynamicFields[index].isRequired = checked;
-    setAllData(newData);
-  }
+  const {
+    isLoadingFormFields,
+    allData,
+    handleAddDynamicField,
+    handleRemoveDynamicField,
+    handleRequiredField,
+    form,
+    handleSubmitForm,
+    isSubmittingAdForm,
+  } = useFormSection();
 
   return (
-    <>
+    <Stack
+      component="form"
+      onSubmit={form.handleSubmit(handleSubmitForm)}
+      sx={{ height: '100%', width: '100%' }}
+    >
       <Typography
         variant="body3.medium"
         color="text.16"
@@ -94,7 +33,7 @@ const FormSection = () => {
         width="100%"
         textAlign="center"
       >
-        فرم ساز
+        فرم ساز {form.watch('name')}
       </Typography>
       <Box
         width={'100%'}
@@ -116,18 +55,32 @@ const FormSection = () => {
             handleRemoveDynamicField={handleRemoveDynamicField}
             handleAddDynamicField={handleAddDynamicField}
             handleRequiredField={handleRequiredField}
+            isLoadingFormFields={isLoadingFormFields}
           />
         ))}
+
+        <ResumeItemComponent
+          isChecked={form.watch('isResumeUploadingRequired')}
+          onChange={() => {
+            form.setValue(
+              'isResumeUploadingRequired',
+              !form.watch('isResumeUploadingRequired')
+            );
+          }}
+        />
       </Box>
+
       <Button
+        type="submit"
         variant="contained"
+        isLoading={isSubmittingAdForm}
         sx={{
           mx: 4,
         }}
       >
         ثبت
       </Button>
-    </>
+    </Stack>
   );
 };
 

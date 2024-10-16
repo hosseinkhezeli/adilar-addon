@@ -1,9 +1,7 @@
 import React from 'react';
 import type { Metadata } from 'next';
-import { MainLayout, NavigationOption } from '@/app/components/MainLayout';
-import SvgDocument from 'ideep-design-system-2/icons/Document';
-import SvgBriefcase from 'ideep-design-system-2/icons/Briefcase';
-import { SearchInput } from '@/app/components/SearchInput';
+import { MainLayout } from '@/app/components/MainLayout';
+import { AuthLayout } from './components/AuthLayout';
 
 export const metadata: Metadata = {
   title: 'Adilar addon',
@@ -17,5 +15,9 @@ export default function RootLayout({
   children: React.ReactNode;
   params: { id: string };
 }>) {
-  return <MainLayout withoutNavigation>{children}</MainLayout>;
+  return (
+    <MainLayout withoutNavigation>
+      <AuthLayout>{children}</AuthLayout>
+    </MainLayout>
+  );
 }

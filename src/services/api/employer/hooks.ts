@@ -1,6 +1,7 @@
 import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query';
 import {
   IGetResumeDataProps,
+  TAdFormDto,
   TIntroductionDto,
   TSubmitBasicInfoBody,
 } from './types';
@@ -11,6 +12,7 @@ import {
   getFormFields,
   getResumeData,
   submitBasicInfo,
+  submitAdForm,
   submitIntroduction,
 } from './services';
 import useUserStore from '@/store/user/userSlice';
@@ -80,6 +82,13 @@ export const useGetFormFields = () => {
     queryFn: () => getFormFields(),
     refetchOnWindowFocus: false,
     staleTime: 10000,
+  });
+};
+
+export const useSubmitAdForm = () => {
+  return useMutation({
+    mutationKey: ['submit-ad-form'],
+    mutationFn: (body: TAdFormDto) => submitAdForm({ body }),
   });
 };
 //______________________________________________________________

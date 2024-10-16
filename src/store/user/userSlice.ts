@@ -12,6 +12,7 @@ export interface UserState {
   setUserInfo: (user: any | null) => void; // Function to set user info
   setLogout: () => void; // Function to log out
   initialize: () => void; // Function to set loading to false
+  reset: () => void; // Function to reset the store
 }
 
 // Create the Zustand store
@@ -43,6 +44,14 @@ const useUserStore = create<UserState>()(
         },
         initialize: () => {
           set({ loading: false });
+        },
+        reset: () => {
+          set({
+            token: undefined,
+            user: null,
+            isLoggedIn: false,
+            loading: false,
+          });
         },
       }),
       {

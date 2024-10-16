@@ -44,16 +44,6 @@ export const useGetApplicantList = () => {
   });
 };
 
-export const useGetPositionList = () => {
-  return useInfiniteQuery({
-    queryKey: ['positionList'],
-    queryFn: getPositionList,
-    initialPageParam: 1,
-    getNextPageParam: (_, __, lastPageParam) => lastPageParam + 1,
-    staleTime: 1000 * 60 * 60,
-  });
-};
-
 //Advertisement
 export const useGetAdByDivarPostToken = (postToken: string | null) => {
   const { token } = useUserStore();

@@ -6,7 +6,6 @@ export const routes = {
   resumeData: (id: string | number) =>
     `https://jsonplaceholder.typicode.com/posts/${id}`,
   applicantList: (pageParam: string | number) => `/posts?_page=${pageParam}`,
-  positionList: (pageParam: string | number) => `/posts?_page=${pageParam}`,
   getFormFields: '/api/advertisement/field',
   submitAdForm: '/api/advertisement/form',
 };

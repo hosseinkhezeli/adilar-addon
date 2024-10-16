@@ -3,7 +3,7 @@ import { Box, Button, styled, Typography } from '@mui/material';
 export const Card = styled(Button)(({ theme }) => ({
   width: '100%',
   display: 'flex',
-  alignItems: 'center',
+  alignItems: 'stretch',
   padding: '16px 12px',
   minHeight: '77px',
   gap: 2,

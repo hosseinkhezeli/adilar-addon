@@ -37,7 +37,7 @@ export const handleEmptyText = (value?: string | undefined) => {
   return value ?? EMPTY_TEXT;
 };
 
-export const dateToShamsi = (date: Date | string | undefined) => {
+export const dateToShamsi = (date: Date | string | undefined | null) => {
   if (!date) return '-';
   const formatDate = typeof date === 'string' ? new Date(date) : date;
   return new Intl.DateTimeFormat('fa-IR').format(formatDate);

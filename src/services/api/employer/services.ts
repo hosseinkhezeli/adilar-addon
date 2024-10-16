@@ -2,7 +2,6 @@ import { http } from '@/services/core/http';
 import { routes } from './routes';
 import {
   IGetApplicantListProps,
-  IGetPositionListProps,
   IGetResumeDataProps,
   TFormFieldsRes,
   TIntroductionDto,
@@ -30,13 +29,6 @@ export const getApplicantList = ({
   });
 };
 
-export const getPositionList = ({
-  pageParam,
-}: IGetPositionListProps): Promise<any> => {
-  return http.get(routes.positionList(pageParam), {
-    baseURL: 'https://jsonplaceholder.typicode.com',
-  });
-};
 //Advertisement
 export const getAdByDivarPostToken = (
   postToken: string | null

@@ -15,7 +15,6 @@ type TApplicantListProps = {
 
 export function ApplicantList(params: TApplicantListProps) {
   const {
-    applicantMock,
     searchValue,
     data,
     statusModal,

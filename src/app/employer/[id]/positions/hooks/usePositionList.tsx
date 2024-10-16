@@ -1,5 +1,6 @@
+import { useGetPositionList } from '@/services/api/employer/hooks';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useState } from 'react';
+import { UIEvent, useState } from 'react';
 
 type TUsePositionList = {
   id: string;
@@ -21,6 +22,19 @@ export interface IPositionCard {
 const usePositionList = ({ id }: TUsePositionList) => {
   const { push: navigateTo } = useRouter();
   const [searchValue, setSearchValue] = useState<string>();
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useGetPositionList();
+
+  function handleFetchOnScroll(e: UIEvent) {
+    const at20PercentEnd =
+      1 -
+      (e.currentTarget.clientHeight + e.currentTarget.scrollTop) /
+        e.currentTarget.scrollHeight;
+
+    if (at20PercentEnd < 0.2 && hasNextPage && !isFetchingNextPage)
+      fetchNextPage();
+  }
+
   const handleNavigation = (id: string | undefined) => {
     navigateTo(`positions/${id}`);
   };
@@ -32,8 +46,10 @@ const usePositionList = ({ id }: TUsePositionList) => {
   return {
     positionsMock,
     searchValue,
+    data,
     handleNavigation,
     handleSearch,
+    handleFetchOnScroll,
   };
 };
 

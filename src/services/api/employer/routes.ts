@@ -5,5 +5,7 @@ export const routes = {
   submitBasicInfo: '/api/Authenticate/complete-basic-info',
   resumeData: (id: string | number) =>
     `https://jsonplaceholder.typicode.com/posts/${id}`,
+  applicantList: (pageParam: string | number) => `/posts?_page=${pageParam}`,
+  positionList: (pageParam: string | number) => `/posts?_page=${pageParam}`,
   getFormFields: '/api/Advertisement/field',
 };

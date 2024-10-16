@@ -1,6 +1,7 @@
+import { useGetApplicantList } from '@/services/api/employer/hooks';
 import { Route } from 'next';
 import { usePathname, useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { UIEvent, useState } from 'react';
 
 export type TApplicantCard = {
   id: string;
@@ -18,6 +19,19 @@ export function useApplicantList() {
   const { push: navigateTo } = useRouter();
   const pathName = usePathname();
   const [searchValue, setSearchValue] = useState<string>();
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useGetApplicantList();
+
+  function handleFetchOnScroll(e: UIEvent) {
+    const at20PercentEnd =
+      1 -
+      (e.currentTarget.clientHeight + e.currentTarget.scrollTop) /
+        e.currentTarget.scrollHeight;
+
+    if (at20PercentEnd < 0.2 && hasNextPage && !isFetchingNextPage)
+      fetchNextPage();
+  }
+
   function handleNavigate({ id }: { id: string }) {
     navigateTo(`${pathName}/${id}` as Route);
   }
@@ -26,7 +40,14 @@ export function useApplicantList() {
     setSearchValue(value);
   }
 
-  return { applicantMock, searchValue, handleSearch, handleNavigate };
+  return {
+    applicantMock,
+    searchValue,
+    data,
+    handleSearch,
+    handleNavigate,
+    handleFetchOnScroll,
+  };
 }
 
 const applicantMock: TApplicantCard[] = [

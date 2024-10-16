@@ -1,7 +1,9 @@
+import React, { SyntheticEvent } from 'react';
 import { useGetApplicantList } from '@/services/api/employer/hooks';
+import { Typography } from '@mui/material';
 import { Route } from 'next';
 import { usePathname, useRouter } from 'next/navigation';
-import { UIEvent, useState } from 'react';
+import { ReactNode, UIEvent, useState } from 'react';
 
 export type TApplicantCard = {
   id: string;
@@ -20,6 +22,30 @@ export function useApplicantList() {
   const pathName = usePathname();
   const [searchValue, setSearchValue] = useState<string>();
   const [statusModal, setStatusModal] = useState<boolean>(true);
+  const tabs: { label: ReactNode }[] = [
+    {
+      label: (
+        <Typography variant="caption1.bold" color="grey.15">
+          در انتظار بررسی
+        </Typography>
+      ),
+    },
+    {
+      label: (
+        <Typography variant="caption1.bold" color="grey.15">
+          تایید شده
+        </Typography>
+      ),
+    },
+    {
+      label: (
+        <Typography variant="caption1.bold" color="grey.15">
+          رد شده
+        </Typography>
+      ),
+    },
+  ];
+
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useGetApplicantList();
 
@@ -45,15 +71,19 @@ export function useApplicantList() {
     setStatusModal(false);
   }
 
+  function handleTabsFilter(e: SyntheticEvent, value: number) {}
+
   return {
     applicantMock,
     searchValue,
     data,
     statusModal,
+    tabs,
     handleSearch,
     handleNavigate,
     handleFetchOnScroll,
     handleCloseModal,
+    handleTabsFilter,
   };
 }
 

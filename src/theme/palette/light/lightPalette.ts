@@ -18,7 +18,7 @@ export const lightPalette: PaletteOptions = {
   },
   secondary: {
     light: '#5B27B0',
-    main: '#52617A',
+    main: '#626794',
     10: '#394456',
     9: '#414E62',
     8: '#49586E',
@@ -28,7 +28,7 @@ export const lightPalette: PaletteOptions = {
     4: '#6C7F9D',
     3: '#788AA5',
     2: '#8594AD',
-    1: '#92A0B6',
+    1: '#E8E8F4',
   },
 
   divider: '#B2B2B2',

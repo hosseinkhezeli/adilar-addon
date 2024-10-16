@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { SearchInput } from '@/app/components/SearchInput';
 import { IconButton, Stack, Typography } from '@mui/material';
 import { useParams, useRouter } from 'next/navigation';
@@ -9,8 +9,14 @@ interface IHeaderPositions {
   title: string;
   value?: string;
   handleSearch?(value: string): void;
+  children?: ReactNode;
 }
-const HeaderPositions = ({ title, value, handleSearch }: IHeaderPositions) => {
+const HeaderPositions = ({
+  title,
+  value,
+  handleSearch,
+  children,
+}: IHeaderPositions) => {
   const { push } = useRouter();
   const params = useParams();
   return (
@@ -62,6 +68,7 @@ const HeaderPositions = ({ title, value, handleSearch }: IHeaderPositions) => {
           }}
         />
       ) : null}
+      {children}
     </Stack>
   );
 };

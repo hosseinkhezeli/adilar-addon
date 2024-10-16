@@ -1,10 +1,11 @@
 'use client';
 import React, { Fragment } from 'react';
-import { Divider } from '@mui/material';
+import { Box, Button, Divider, Modal, Stack, Typography } from '@mui/material';
 import { CardList } from '@/app/components/Card';
 import { useApplicantList } from '@/app/employer/[id]/positions/[positionId]/hooks/useApplicantList';
 import { ApplicantCard } from '@/app/employer/[id]/positions/[positionId]/components/ApplicantCard';
 import { HeaderPositions } from '@/app/employer/[id]/positions/components/HeaderPositions';
+import { SwipeTutorial } from '@/app/components/SwipeTutorial';
 
 type TApplicantListProps = {
   id?: string;
@@ -16,9 +17,11 @@ export function ApplicantList(params: TApplicantListProps) {
     applicantMock,
     searchValue,
     data,
+    statusModal,
     handleSearch,
     handleNavigate,
     handleFetchOnScroll,
+    handleCloseModal,
   } = useApplicantList();
   return (
     <>
@@ -27,6 +30,7 @@ export function ApplicantList(params: TApplicantListProps) {
         value={searchValue}
         handleSearch={handleSearch}
       />
+
       <CardList
         sx={{ overflowX: 'hidden', pb: '75px' }}
         onScroll={handleFetchOnScroll}
@@ -58,6 +62,12 @@ export function ApplicantList(params: TApplicantListProps) {
           </Fragment>
         ))}
       </CardList>
+
+      <SwipeTutorial
+        open={statusModal}
+        handleNextModal={handleCloseModal}
+        hintText="با کشیدن کارت به چپ و راست میتوانید رزومه فرد را رد یا تائید کنید"
+      />
     </>
   );
 }

@@ -136,9 +136,9 @@ export function ApplicantCard(applicantInfo: TApplicantCard) {
         <CardColumn sx={{ flexBasis: 'unset' }}>
           <LabelValue
             withoutColon
-            fieldLabel={
-              <Image src={SvgPdf} alt={'pdf icon'} width={32} height={32} />
-            }
+            // fieldLabel={
+            //   <Image src={SvgPdf} alt={'pdf icon'} width={32} height={32} />
+            // }
             fieldValue={fullNameDisplay(
               applicantInfo?.candidate?.fistName,
               applicantInfo?.candidate?.lastName

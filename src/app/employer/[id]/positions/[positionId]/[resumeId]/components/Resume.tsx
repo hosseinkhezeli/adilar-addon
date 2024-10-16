@@ -7,12 +7,15 @@ import { DownloadResume } from '@/app/employer/[id]/positions/[positionId]/[resu
 import { HandlerButtons } from '@/app/employer/[id]/positions/[positionId]/[resumeId]/components/HandlerButtons';
 import { fadeIn } from '@/styles/animationKeyframes';
 import { useResume } from '@/app/employer/[id]/positions/[positionId]/[resumeId]/hooks/useResume';
+import { SwipeTutorial } from '@/app/components/SwipeTutorial';
 
 const Resume = () => {
   const {
     elementRef,
     isLoading,
     data,
+    statusModal,
+    handleCloseModal,
     customPush,
     onTouchStart,
     onTouchMove,
@@ -67,6 +70,12 @@ const Resume = () => {
           </Stack>
         </Stack>
       )}
+      <SwipeTutorial
+        open={statusModal}
+        handleNextModal={handleCloseModal}
+        hintText="با کشیدن صفحه به چپ و راست میتوانید رزومه‌های نفر قبلی و بعدی را ببینید"
+        withoutCard
+      />
     </>
   );
 };

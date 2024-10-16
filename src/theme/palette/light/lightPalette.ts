@@ -84,7 +84,7 @@ export const lightPalette: PaletteOptions = {
     main: '#0288D1',
     5: '#00527C',
     4: '#007CB4',
-    3: '#51C0FF',
+    3: '#448AFF',
     2: '#CCE6FD',
     1: '#EDF7FF',
   },

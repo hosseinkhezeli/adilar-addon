@@ -1,6 +1,7 @@
 import React from 'react';
 import { ApplicantList } from './components/ApplicantList';
 import { Stack } from '@mui/material';
+import { TutorialModal } from '@/app/components/TutorialModal';
 
 type TPositionPageParams = {
   params: { id: string; positionId: string };

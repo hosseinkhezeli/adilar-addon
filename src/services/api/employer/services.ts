@@ -7,6 +7,7 @@ import {
   TFormFieldsRes,
   TIntroductionDto,
   TIntroductionRes,
+  TSubmitAdFormParams,
   TSubmitBasicInfoBody,
 } from './types';
 
@@ -47,10 +48,22 @@ export const getAdByDivarPostToken = (
 export const submitBasicInfo = (
   body: TSubmitBasicInfoBody
 ): Promise<unknown> => {
-  return http.post(routes.submitBasicInfo, body);
+  return http.post(routes.submitBasicInfo, body).then((response) => {
+    console.log('Axios response:', response);
+    return response.data; // Ensure you return the data
+  });
 };
 
 //Form Section
 export const getFormFields = (): Promise<TFormFieldsRes> => {
   return http.get(routes.getFormFields);
+};
+
+export const submitAdForm = ({
+  body,
+}: TSubmitAdFormParams): Promise<TFormFieldsRes> => {
+  return http.post(routes.submitAdForm, body).then((response) => {
+    console.log('Axios response:', response);
+    return response.data; // Ensure you return the data
+  });
 };

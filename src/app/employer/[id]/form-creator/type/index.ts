@@ -1,7 +1,17 @@
 // export type TTypeData = 'baseInfo' | 'education';
 export type TTypeData = 'baseInfo';
 
-export type TBottomSheetItem = 'NationalCode' | 'Date';
+export type TBottomSheetItem =
+  | 'NationalCode'
+  | 'Date'
+  | 'Text'
+  | 'Number'
+  | 'Select'
+  | 'MultiSelect'
+  | 'Email'
+  | 'PhoneNumber'
+  | 'File'
+  | 'MultiLineText';
 
 export type TAllData = {
   [key in TTypeData]: IFormSection;
@@ -9,18 +19,21 @@ export type TAllData = {
 
 export interface IStaticField {
   title: string;
+  id: string;
+  type: TBottomSheetItem;
+  checked?: boolean;
   placeholder: string;
 }
 
 export interface IBottomSheetItem {
-  id: number;
+  id: string;
   type: TBottomSheetItem;
   title: string;
   checked?: boolean;
 }
 
 export interface IDynamicField {
-  id: number;
+  id: string;
   type: TBottomSheetItem;
   title: string;
   isRequired: boolean;
@@ -28,7 +41,7 @@ export interface IDynamicField {
 
 export interface IFormSection {
   title: string;
-  bottomSheetItems: IBottomSheetItem[];
-  staticFields: IStaticField[];
+  bottomSheetItems: IBottomSheetItem[] | [];
+  staticFields: IStaticField[] | [];
   dynamicFields: IDynamicField[];
 }

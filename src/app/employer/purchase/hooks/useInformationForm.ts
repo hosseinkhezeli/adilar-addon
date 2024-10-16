@@ -1,3 +1,4 @@
+'use client';
 import { IUseFormInput } from 'ideep-design-system-2/components/input-list/type';
 import { Route } from 'next';
 import { usePathname, useRouter } from 'next/navigation';
@@ -7,8 +8,11 @@ import { useSubmitBasicInfo } from '@/services/api/employer/hooks';
 import { TSubmitBasicInfoBody } from '@/services/api/employer/types';
 import { enqueueSnackbar } from 'notistack';
 export function useInformationForm() {
-  const { mutate: submitBasicInfo, isPending: isSubmittingBasicInfo } =
-    useSubmitBasicInfo();
+  const {
+    mutate: submitBasicInfo,
+    isPending: isSubmittingBasicInfo,
+    isSuccess,
+  } = useSubmitBasicInfo();
   //URL
   const pathname = usePathname();
   const { push: navigateTo } = useRouter();
@@ -52,14 +56,16 @@ export function useInformationForm() {
 
   const handleSubmitForm = (data: TSubmitBasicInfoBody) => {
     submitBasicInfo(data, {
-      onSuccess: () => {
+      onSuccess: (data) => {
+        console.log(data);
         enqueueSnackbar({
-          message: 'اطلاعات با موفقیت ثبت شد',
           variant: 'success',
+          message: 'ثبت با موفقیت انجام شد',
         });
         navigateTo(`${pathname}?${newSearchParams.toString()}` as Route);
       },
       onError: (error) => {
+        console.log(error);
         enqueueSnackbar({
           message: 'اطلاعات با موفقیت ثبت نشد',
           variant: 'error',

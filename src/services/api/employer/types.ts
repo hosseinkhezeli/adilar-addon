@@ -29,3 +29,19 @@ export type TSubmitBasicInfoBody = {
 };
 
 export type TFormFieldsRes = IFormField[];
+
+export type TAdFormDto = {
+  isResumeUploadingRequired: boolean;
+  name: string;
+  addFormFieldsDto: [
+    {
+      isRequired: boolean;
+      priority: number;
+      fieldId: string;
+    },
+  ];
+};
+
+export type TSubmitAdFormParams = {
+  body: TAdFormDto;
+};

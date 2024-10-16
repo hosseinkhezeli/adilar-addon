@@ -16,7 +16,7 @@ import { useMockLogin } from '@/services/api/auth/hooks';
 
 export function usePurchaseLayout() {
   //Store
-  const { setToken, initialize, token } = useUserStore();
+  const { setToken, initialize, token, loading } = useUserStore();
   const { reset, setAdInfo } = usePurchaseStore();
   //URL
   const pathname = usePathname();
@@ -51,7 +51,7 @@ export function usePurchaseLayout() {
 
   useEffect(() => {
     initialize();
-    if (!token) {
+    if (!token && !loading) {
       login(undefined, {
         onSuccess: (data) => {
           setToken(data.token);
@@ -61,6 +61,6 @@ export function usePurchaseLayout() {
     if (post_token && advertisement_id) {
       setAdInfo(post_token, advertisement_id);
     }
-  }, [tokenParam, post_token, advertisement_id]);
+  }, [tokenParam, post_token, advertisement_id, loading]);
   return { currentState };
 }

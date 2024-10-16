@@ -10,12 +10,26 @@ import { inputListAdapter } from '@/utils/methods';
 //_______________________________________________________________
 //@Types
 import { TSubmissionState } from './usePositionSubmission';
+import { useGetAdByDivarPostToken } from '@/services/api/employer/hooks';
+import { useSearchParams } from 'next/navigation';
+import {
+  useSubmitAdFormAsCandidate,
+  useSubmitResumeFile,
+} from '@/services/api/candidate/hooks';
+import { TSubmissionAnswer } from '@/services/api/candidate/types';
+import { enqueueSnackbar } from 'notistack';
 
 type TProps = {
   handleStateChange: (state: TSubmissionState) => void;
 };
 //_______________________________________________________________
 export function usePositionForm({ handleStateChange }: TProps) {
+  const postToken = useSearchParams().get('post_token');
+  const { mutate: submitAdForm, isPending: isSubmitting } =
+    useSubmitAdFormAsCandidate();
+  const { mutate: submitResumeFile, isPending: isSubmittingResumeFile } =
+    useSubmitResumeFile();
+  const { data: ad } = useGetAdByDivarPostToken(postToken);
   const form = useForm();
   const { inputList } = inputListAdapter(mockData);
   const fileInput = mockData.find((field) => field.type === 'File');
@@ -24,9 +38,9 @@ export function usePositionForm({ handleStateChange }: TProps) {
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const file = event.target.files?.[0];
+
     if (file) {
       setResumeFile(file);
-      console.log('Selected file:', file);
     }
   };
   const handleClearResumeFile = () => {
@@ -34,7 +48,84 @@ export function usePositionForm({ handleStateChange }: TProps) {
   };
 
   const handleSubmit = (data: any) => {
-    handleStateChange('done');
+    const fieldIds = Object.keys(data);
+
+    // Create a mapping of fieldId to its type for quick lookup
+    const fieldTypeMap = inputList.reduce(
+      (acc, field) => {
+        acc[field.name as string] = field.type as string;
+        return acc;
+      },
+      {} as Record<string, string>
+    );
+
+    const submissionAnswers = fieldIds?.map((fieldId) => {
+      const fieldType = fieldTypeMap[fieldId as keyof typeof fieldTypeMap];
+      const fieldValue = data[fieldId];
+      return {
+        fieldId,
+        value:
+          fieldType === 'date-picker'
+            ? new Date(fieldValue || Date.now())?.toISOString()
+            : fieldValue,
+      };
+      // Use a switch statement for better readability and efficiency
+      // switch (fieldType) {
+      //   case 'date-picker':
+      //     return {
+      //       fieldId,
+      //       dateTimeValue: new Date(fieldValue || Date.now())?.toISOString(),
+      //     };
+      //   case 'select':
+      //   case 'multi-select':
+      //     return { fieldId, optionId: fieldValue };
+      //   case 'number':
+      //     return { fieldId, numberValue: fieldValue };
+      //   case 'text':
+      //   case 'email':
+      //   case 'phone':
+      //   case 'text-area':
+      //     return { fieldId, value: fieldValue };
+      //   default:
+      //     return { fieldId };
+      // }
+    });
+    const formData = new FormData();
+    formData.append('File', resumeFile as Blob);
+    submitResumeFile(formData, {
+      onSuccess: (data) => {
+        submitAdForm(
+          {
+            submissionAnswers: submissionAnswers as TSubmissionAnswer[],
+            advertisementId: ad?.id,
+            resumeFileId: data?.id,
+          },
+          {
+            onSuccess: () => {
+              handleStateChange('done');
+              enqueueSnackbar({
+                message: 'ثبت رزومه با موفقیت انجام شد',
+                variant: 'success',
+              });
+            },
+            onError: (error) => {
+              enqueueSnackbar({
+                message: 'ثبت رزومه با موفقیت انجام نشد',
+                variant: 'error',
+              });
+              console.error('Error submitting file:', error);
+            },
+          }
+        );
+      },
+      onError: (error) => {
+        enqueueSnackbar({
+          message: 'ثبت رزومه با موفقیت انجام نشد',
+          variant: 'error',
+        });
+        console.error('Error submitting file:', error);
+      },
+    });
   };
 
   return {

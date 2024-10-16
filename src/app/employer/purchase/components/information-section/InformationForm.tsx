@@ -13,8 +13,12 @@ import { useInformationForm } from '../../hooks/useInformationForm';
 //____________________________________________________
 
 export function InformationForm() {
-  const { form, InformationFormInputList, handleSubmitForm } =
-    useInformationForm();
+  const {
+    form,
+    InformationFormInputList,
+    handleSubmitForm,
+    isSubmittingBasicInfo,
+  } = useInformationForm();
   return (
     <Form component="form" onSubmit={form.handleSubmit(handleSubmitForm)}>
       <InputListWithUseForm
@@ -30,6 +34,7 @@ export function InformationForm() {
       <Button
         variant="contained"
         type="submit"
+        isLoading={isSubmittingBasicInfo}
         sx={{
           position: 'fixed',
           width: 'calc(100% - 32px)',

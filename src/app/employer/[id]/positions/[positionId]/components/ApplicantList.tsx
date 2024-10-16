@@ -12,8 +12,14 @@ type TApplicantListProps = {
 };
 
 export function ApplicantList(params: TApplicantListProps) {
-  const { applicantMock, searchValue, handleSearch, handleNavigate } =
-    useApplicantList();
+  const {
+    applicantMock,
+    searchValue,
+    data,
+    handleSearch,
+    handleNavigate,
+    handleFetchOnScroll,
+  } = useApplicantList();
   return (
     <>
       <HeaderPositions
@@ -21,18 +27,34 @@ export function ApplicantList(params: TApplicantListProps) {
         value={searchValue}
         handleSearch={handleSearch}
       />
-      <CardList sx={{ overflowX: 'hidden', pb: '75px' }}>
-        {applicantMock.map((applicant, idx, arr) => (
-          <Fragment key={applicant.candidateId + idx}>
-            <ApplicantCard
-              {...applicant}
-              onClick={() =>
-                handleNavigate({
-                  id: applicant.id,
-                })
-              }
-            />
-            {idx < arr.length - 1 && <Divider />}
+      <CardList
+        sx={{ overflowX: 'hidden', pb: '75px' }}
+        onScroll={handleFetchOnScroll}
+      >
+        {data?.pages.map((page, idx, arr) => (
+          <Fragment key={idx}>
+            {page?.map((applicant, index, arr) => {
+              return (
+                <>
+                  <ApplicantCard
+                    key={index}
+                    id="1"
+                    candidateId="2"
+                    createdAt={'3213'}
+                    candidate={{
+                      fistName: 'سیما',
+                      lastName: 'اشرفی',
+                    }}
+                    onClick={() =>
+                      handleNavigate({
+                        id: applicant.id,
+                      })
+                    }
+                  />
+                  {idx < arr.length - 1 && <Divider />}
+                </>
+              );
+            })}
           </Fragment>
         ))}
       </CardList>

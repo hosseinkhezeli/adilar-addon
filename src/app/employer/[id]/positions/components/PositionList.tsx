@@ -11,10 +11,16 @@ type TPositionList = {
 };
 
 export function PositionList({ id }: TPositionList) {
-  const { positionsMock, searchValue, handleNavigation, handleSearch } =
-    usePositionList({
-      id,
-    });
+  const {
+    positionsMock,
+    searchValue,
+    data,
+    handleNavigation,
+    handleSearch,
+    handleFetchOnScroll,
+  } = usePositionList({
+    id,
+  });
   return (
     <>
       <HeaderPositions
@@ -26,8 +32,33 @@ export function PositionList({ id }: TPositionList) {
         sx={{
           pb: '75px',
         }}
+        onScroll={handleFetchOnScroll}
       >
-        {positionsMock.map((position, idx, arr) => (
+        {data?.pages.map((page, idx, arr) => (
+          <Fragment key={idx}>
+            {page?.map((p, index, arr) => {
+              const position = {
+                id: '1',
+                title: 'برنامه نویس فرانت',
+                location: { title: 'دفتر مرکزی تهران' },
+                createdAt: new Date(Date.now()),
+                candidates: { count: 64 },
+                lastCandidateSubmission: new Date(Date.now()),
+                unreadCount: 4,
+              };
+              return (
+                <>
+                  <PositionCard
+                    positionInfo={{ ...position }}
+                    onClick={handleNavigation}
+                  />
+                  {idx < arr.length - 1 && <Divider />}
+                </>
+              );
+            })}
+          </Fragment>
+        ))}
+        {/* {positionsMock.map((position, idx, arr) => (
           <Fragment key={position.title + idx}>
             <PositionCard
               positionInfo={{ ...position }}
@@ -35,7 +66,7 @@ export function PositionList({ id }: TPositionList) {
             />
             {idx < arr.length - 1 && <Divider />}
           </Fragment>
-        ))}
+        ))} */}
       </CardList>
     </>
   );

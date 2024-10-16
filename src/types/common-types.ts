@@ -8,18 +8,30 @@ export interface IFieldOption {
   updatedAt: string;
 }
 
+export type TFormFieldType =
+  | 'NationalCode'
+  | 'Date'
+  | 'Text'
+  | 'PhoneNumber'
+  | 'Email'
+  | 'Select'
+  | 'MultiLineText'
+  | 'MultiSelect'
+  | 'File'
+  | 'Number';
+
 export interface IFormField {
   id: string;
   name: string;
   text: string | null;
-  type: string; // You may want to create a union type for specific types if known
+  type: TFormFieldType;
   defaultPriority: number;
   isRequiredByDefault: boolean;
   category: string;
   semanticType: string;
   user: string | null;
   userId: string | null;
-  formFields: any | null; // Adjust this type based on your actual data structure
+  formFields: any | null;
   options: IFieldOption[];
   isDeleted: boolean;
   createdAt: string;

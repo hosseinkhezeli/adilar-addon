@@ -1,27 +1,21 @@
-import usePurchaseStore from '@/store/purchase/purchaseSlice';
 import { IUseFormInput } from 'ideep-design-system-2/components/input-list/type';
 import { Route } from 'next';
 import { usePathname, useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { TStepperState } from '../types';
-
-//@Types
-type TInformationForm = {
-  firstName: string;
-  lastName: string;
-  companyName: string;
-  domain: string;
-  email: string;
-};
-
+import { useSubmitBasicInfo } from '@/services/api/employer/hooks';
+import { TSubmitBasicInfoBody } from '@/services/api/employer/types';
+import { enqueueSnackbar } from 'notistack';
 export function useInformationForm() {
+  const { mutate: submitBasicInfo, isPending: isSubmittingBasicInfo } =
+    useSubmitBasicInfo();
   //URL
   const pathname = usePathname();
   const { push: navigateTo } = useRouter();
   const nextState: TStepperState = 'pre_invoice';
   const newSearchParams = new URLSearchParams({ state: nextState });
   //Form
-  const form = useForm<TInformationForm>();
+  const form = useForm<TSubmitBasicInfoBody>();
   const InformationFormInputList: IUseFormInput[] = [
     {
       name: 'firstName',
@@ -45,7 +39,7 @@ export function useInformationForm() {
       type: 'text',
     },
     {
-      name: 'domain',
+      name: 'companySlug',
       label: 'دامنه',
       type: 'text',
     },
@@ -56,10 +50,28 @@ export function useInformationForm() {
     },
   ];
 
-  const handleSubmitForm = (data: TInformationForm) => {
-    //TODO add Api call then navigate to next state
-    navigateTo(`${pathname}?${newSearchParams.toString()}` as Route);
+  const handleSubmitForm = (data: TSubmitBasicInfoBody) => {
+    submitBasicInfo(data, {
+      onSuccess: () => {
+        enqueueSnackbar({
+          message: 'اطلاعات با موفقیت ثبت شد',
+          variant: 'success',
+        });
+        navigateTo(`${pathname}?${newSearchParams.toString()}` as Route);
+      },
+      onError: (error) => {
+        enqueueSnackbar({
+          message: 'اطلاعات با موفقیت ثبت نشد',
+          variant: 'error',
+        });
+      },
+    });
   };
 
-  return { form, InformationFormInputList, handleSubmitForm };
+  return {
+    form,
+    InformationFormInputList,
+    handleSubmitForm,
+    isSubmittingBasicInfo,
+  };
 }

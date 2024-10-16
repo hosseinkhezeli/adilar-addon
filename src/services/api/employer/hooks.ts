@@ -1,26 +1,36 @@
 import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query';
-import { IGetResumeDataProps, TIntroductionDto } from './types';
+import {
+  IGetResumeDataProps,
+  TIntroductionDto,
+  TSubmitBasicInfoBody,
+} from './types';
 import {
   getAdByDivarPostToken,
   getApplicantList,
   getPositionList,
+  getFormFields,
   getResumeData,
+  submitBasicInfo,
   submitIntroduction,
 } from './services';
 import useUserStore from '@/store/user/userSlice';
 
+//Introduction
 export const useSubmitIntroduction = () =>
   useMutation({
     mutationKey: ['submit-introduction'],
     mutationFn: (params: TIntroductionDto) => submitIntroduction(params),
   });
+//______________________________________________________________
 
+//Resume Data
 export const useGetResumeData = ({ id }: IGetResumeDataProps) => {
   return useQuery({
     queryKey: ['resumeData', id],
     queryFn: () => getResumeData({ id }),
   });
 };
+//______________________________________________________________
 
 export const useGetApplicantList = () => {
   return useInfiniteQuery({
@@ -42,6 +52,7 @@ export const useGetPositionList = () => {
   });
 };
 
+//Advertisement
 export const useGetAdByDivarPostToken = (postToken: string | null) => {
   const { token } = useUserStore();
   return useQuery({
@@ -52,3 +63,23 @@ export const useGetAdByDivarPostToken = (postToken: string | null) => {
     refetchOnWindowFocus: false,
   });
 };
+//______________________________________________________________
+
+//Basic Info
+export const useSubmitBasicInfo = () =>
+  useMutation({
+    mutationKey: ['submit-basic-info'],
+    mutationFn: (body: TSubmitBasicInfoBody) => submitBasicInfo(body),
+  });
+//______________________________________________________________
+
+//Form Section
+export const useGetFormFields = () => {
+  return useQuery({
+    queryKey: ['form-fields'],
+    queryFn: () => getFormFields(),
+    refetchOnWindowFocus: false,
+    staleTime: 10000,
+  });
+};
+//______________________________________________________________

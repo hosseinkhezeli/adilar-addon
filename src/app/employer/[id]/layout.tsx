@@ -17,5 +17,5 @@ export default function RootLayout({
   children: React.ReactNode;
   params: { id: string };
 }>) {
-  return <MainLayout>{children}</MainLayout>;
+  return <MainLayout withoutNavigation>{children}</MainLayout>;
 }

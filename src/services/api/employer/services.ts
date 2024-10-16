@@ -4,14 +4,16 @@ import {
   IGetApplicantListProps,
   IGetPositionListProps,
   IGetResumeDataProps,
+  TFormFieldsRes,
   TIntroductionDto,
-  TIntroductionResponse,
+  TIntroductionRes,
+  TSubmitBasicInfoBody,
 } from './types';
 
 // Introduction
 export const submitIntroduction = (
   params: TIntroductionDto
-): Promise<TIntroductionResponse> => {
+): Promise<TIntroductionRes> => {
   return http.post(routes.introduction, params);
 };
 
@@ -39,4 +41,16 @@ export const getAdByDivarPostToken = (
   postToken: string | null
 ): Promise<any> => {
   return http.get(routes.getAdByDivarPostToken(postToken));
+};
+
+//Basic Info
+export const submitBasicInfo = (
+  body: TSubmitBasicInfoBody
+): Promise<unknown> => {
+  return http.post(routes.submitBasicInfo, body);
+};
+
+//Form Section
+export const getFormFields = (): Promise<TFormFieldsRes> => {
+  return http.get(routes.getFormFields);
 };

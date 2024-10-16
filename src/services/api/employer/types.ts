@@ -1,8 +1,10 @@
+import { IFormField } from '@/types/common-types';
+
 export type TIntroductionDto = {
   advertisementProcessId: string;
 };
 
-export type TIntroductionResponse = {
+export type TIntroductionRes = {
   token: string;
 };
 
@@ -17,3 +19,13 @@ export interface IGetApplicantListProps {
 export interface IGetPositionListProps {
   pageParam: string | number;
 }
+
+export type TSubmitBasicInfoBody = {
+  firstName: string;
+  lastName: string;
+  companyName: string;
+  email: string;
+  companySlug: string;
+};
+
+export type TFormFieldsRes = IFormField[];

@@ -2,8 +2,8 @@ import React from 'react';
 import { Button, Stack } from '@mui/material';
 
 interface IHandlerButtons {
-  onReject(id: string | number): void;
-  nextId: string | number;
+  onReject(id: string | number | null | undefined): void;
+  nextId: string | number | null | undefined;
 }
 
 const HandlerButtons = ({ onReject, nextId }: IHandlerButtons) => {

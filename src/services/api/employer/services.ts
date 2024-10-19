@@ -1,7 +1,6 @@
 import { http } from '@/services/core/http';
 import { routes } from './routes';
 import {
-  IGetResumeDataProps,
   TFormFieldsRes,
   TIntroductionDto,
   TIntroductionRes,
@@ -15,10 +14,6 @@ export const submitIntroduction = (
   params: TIntroductionDto
 ): Promise<TIntroductionRes> => {
   return http.post(routes.introduction, params);
-};
-
-export const getResumeData = ({ id }: IGetResumeDataProps): Promise<any> => {
-  return http.get(routes.resumeData(id));
 };
 
 //Advertisement

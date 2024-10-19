@@ -1,10 +1,28 @@
-import { useGetResumeData } from '@/services/api/employer/hooks';
+import {
+  useGetSubmission,
+  useSetIsReviewed,
+} from '@/services/api/submission/hooks';
+import { TCategorySection } from '@/services/api/submission/types';
+import { useQueryClient } from '@tanstack/react-query';
 import { Route } from 'next';
-import { useParams, usePathname, useRouter } from 'next/navigation';
+import {
+  useParams,
+  usePathname,
+  useRouter,
+  useSearchParams,
+} from 'next/navigation';
 import { TouchEvent, useEffect, useRef, useState } from 'react';
 
-export function useResume() {
-  const params = useParams<{ resumeId: string }>();
+export const categoryTitle: {
+  [key in TCategorySection]: string;
+} = {
+  Personal: 'اطلاعات شخصی',
+};
+
+export function useApplicant() {
+  const QC = useQueryClient();
+  const params = useParams<{ applicantId: string }>();
+  const searchParams = useSearchParams();
   const router = useRouter();
   const pathName = usePathname();
 
@@ -19,13 +37,16 @@ export function useResume() {
   const startTouchAfterDistance = useRef<number>(10);
   const screenWidth = useRef<number>(0);
 
-  const { data, isLoading } = useGetResumeData({ id: params.resumeId });
+  const { data, isLoading } = useGetSubmission({ id: params.applicantId });
+
+  const { mutate: setIsReviewedMutate } = useSetIsReviewed();
 
   function handleCloseModal() {
     setStatusModal(false);
   }
 
-  function customPush(id: string | number) {
+  function customPush(id: string | number | null) {
+    if (!id) return;
     const helper = pathName.split('/').slice(1, -1);
 
     router.push(`/${helper.join('/')}/${id}` as Route);
@@ -66,8 +87,8 @@ export function useResume() {
 
     if (Math.abs(deltaX) > Math.abs(deltaY)) {
       if (deltaX > 0 && Math.abs(deltaX) - 10 > screenWidth.current / 2) {
-        if (data?.id - 1 > 0) {
-          customPush(data?.id - 1);
+        if (data?.previousSubmissionId) {
+          customPush(data.previousSubmissionId);
         } else {
           elementRef.current!.style.opacity = `1`;
           elementRef.current!.style.transform = `translateX(0px)`;
@@ -76,8 +97,8 @@ export function useResume() {
         deltaX < 0 &&
         Math.abs(deltaX) - 10 > screenWidth.current / 2
       ) {
-        if (data?.id + 1) {
-          customPush(data?.id + 1);
+        if (data?.nextSubmissionId) {
+          customPush(data.nextSubmissionId);
         } else {
           elementRef.current!.style.transform = `translateX(0px)`;
           elementRef.current!.style.opacity = `1`;
@@ -98,6 +119,19 @@ export function useResume() {
       screenWidth.current = window.innerWidth;
     }
   }, []);
+
+  useEffect(() => {
+    if (data && searchParams.get('isReviewed') == 'false') {
+      setIsReviewedMutate(
+        { id: data.id },
+        {
+          onSuccess: () => {
+            QC.refetchQueries({ queryKey: ['applicantList'] });
+          },
+        }
+      );
+    }
+  }, [isLoading]);
 
   return {
     elementRef,

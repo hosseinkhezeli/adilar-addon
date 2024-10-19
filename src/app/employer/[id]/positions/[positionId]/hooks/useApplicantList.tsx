@@ -73,7 +73,20 @@ export function useApplicantList() {
   }
 
   function handleNavigate({ id }: { id: string }) {
-    navigateTo(`${pathName}/${id}` as Route);
+    let applicantInfo;
+
+    if (!data) {
+      return null;
+    } else {
+      for (const page of data.pages) {
+        applicantInfo = page.submissions.find(
+          (submission) => submission.id == id
+        );
+      }
+    }
+    navigateTo(
+      `${pathName}/${id}?isReviewed=${applicantInfo?.isReviewed}` as Route
+    );
   }
 
   function handleSearch(value: string) {

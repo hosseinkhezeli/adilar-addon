@@ -1,15 +1,15 @@
 'use client';
 import React from 'react';
 import { HeaderPositions } from '@/app/employer/[id]/positions/components/HeaderPositions';
-import { Stack, Typography } from '@mui/material';
-import { InfoSection } from '@/app/employer/[id]/positions/[positionId]/[resumeId]/components/InfoSection';
-import { DownloadResume } from '@/app/employer/[id]/positions/[positionId]/[resumeId]/components/DownloadResume';
-import { HandlerButtons } from '@/app/employer/[id]/positions/[positionId]/[resumeId]/components/HandlerButtons';
+import { Stack } from '@mui/material';
+import { InfoSection } from '@/app/employer/[id]/positions/[positionId]/[applicantId]/components/InfoSection';
+import { DownloadResume } from '@/app/employer/[id]/positions/[positionId]/[applicantId]/components/DownloadResume';
+import { HandlerButtons } from '@/app/employer/[id]/positions/[positionId]/[applicantId]/components/HandlerButtons';
 import { fadeIn } from '@/styles/animationKeyframes';
-import { useResume } from '@/app/employer/[id]/positions/[positionId]/[resumeId]/hooks/useResume';
 import { SwipeTutorial } from '@/app/components/SwipeTutorial';
+import { useApplicant } from '@/app/employer/[id]/positions/[positionId]/[applicantId]/hooks/useApplicant';
 
-const Resume = () => {
+const Applicant = () => {
   const {
     elementRef,
     isLoading,
@@ -20,7 +20,7 @@ const Resume = () => {
     onTouchStart,
     onTouchMove,
     onTouchEnd,
-  } = useResume();
+  } = useApplicant();
 
   return (
     <>
@@ -56,17 +56,23 @@ const Resume = () => {
               transition: 'all 0.1s linear',
             }}
           >
-            <Typography>{data?.title}</Typography>
-            <InfoSection />
-            <Stack
-              sx={{
-                gap: 8,
-                mb: 8,
-              }}
-            >
-              <DownloadResume />
-              <HandlerButtons onReject={customPush} nextId={data?.id + 1} />
-            </Stack>
+            {!data ? null : (
+              <>
+                <InfoSection data={data} />
+                <Stack
+                  sx={{
+                    gap: 8,
+                    mb: 8,
+                  }}
+                >
+                  <DownloadResume />
+                  <HandlerButtons
+                    onReject={customPush}
+                    nextId={data?.nextSubmissionId}
+                  />
+                </Stack>
+              </>
+            )}
           </Stack>
         </Stack>
       )}
@@ -80,4 +86,4 @@ const Resume = () => {
   );
 };
 
-export { Resume };
+export { Applicant };

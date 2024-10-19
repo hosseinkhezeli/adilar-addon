@@ -1,12 +1,21 @@
 'use client';
+//@3rd Party
+import { useForm } from 'react-hook-form';
+import { usePathname, useRouter } from 'next/navigation';
+import { enqueueSnackbar } from 'notistack';
+//____________________________________________________
+
+//@Hooks
+import { useSubmitBasicInfo } from '@/services/api/employer/hooks';
+//____________________________________________________
+
+//@Types
 import { IUseFormInput } from 'ideep-design-system-2/components/input-list/type';
 import { Route } from 'next';
-import { usePathname, useRouter } from 'next/navigation';
-import { useForm } from 'react-hook-form';
 import { TStepperState } from '../types';
-import { useSubmitBasicInfo } from '@/services/api/employer/hooks';
 import { TSubmitBasicInfoBody } from '@/services/api/employer/types';
-import { enqueueSnackbar } from 'notistack';
+//____________________________________________________
+
 export function useInformationForm() {
   const {
     mutate: submitBasicInfo,

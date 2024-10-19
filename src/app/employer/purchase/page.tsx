@@ -10,6 +10,7 @@ import { InformationForm } from './components/information-section/InformationFor
 //@Types
 import { TStepperState } from './types';
 import { PreInvoice } from './components/pre-invoice-section/PreInvoice';
+import { Completed } from './components/Completed';
 //____________________________________________________
 
 const Page = ({ searchParams }: { searchParams: { state: TStepperState } }) => {
@@ -20,8 +21,10 @@ const Page = ({ searchParams }: { searchParams: { state: TStepperState } }) => {
       {currentState === 'plans' && <Plans />}
       {currentState === 'information' && <InformationForm />}
       {currentState === 'pre_invoice' && <PreInvoice />}
+      {currentState === 'completed' && <Completed />}
       {currentState !== 'plans' &&
         currentState !== 'information' &&
+        currentState !== 'completed' &&
         currentState !== 'pre_invoice' &&
         currentState !== 'bank-portal' &&
         '404'}

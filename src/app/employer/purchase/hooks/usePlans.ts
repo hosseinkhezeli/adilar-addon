@@ -1,7 +1,6 @@
 'use client';
 //@3rd Party
 import { usePathname, useRouter } from 'next/navigation';
-import { Route } from 'next';
 //___________________________________________________________
 
 //@Hooks
@@ -10,6 +9,7 @@ import usePurchaseStore from '@/store/purchase/purchaseSlice';
 
 //@Types
 import { TPlanCard } from '../types';
+import { Route } from 'next';
 
 export function usePlans() {
   const pathname = usePathname();

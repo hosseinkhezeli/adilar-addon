@@ -25,7 +25,7 @@ export function PurchaseProgress({ activeState }: PurchaseProgressProps) {
     PLANS = 0,
     INFORMATION = 1,
     PRE_INVOICE = 2,
-    BANK_PORTAL = 3,
+    COMPLETED = 3,
   }
   return (
     <StepperContainer>

@@ -1,7 +1,15 @@
+//@3rd Party
 import React from 'react';
-import type { Metadata } from 'next';
+//_______________________________________________________________
+
+//@Components
 import { MainLayout } from '@/app/components/MainLayout';
 import { AuthLayout } from '../employer/[id]/components/AuthLayout';
+//_______________________________________________________________
+
+//@Types
+import type { Metadata } from 'next';
+//_______________________________________________________________
 
 export const metadata: Metadata = {
   title: 'Adilar addon',

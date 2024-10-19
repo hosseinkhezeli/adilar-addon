@@ -1,30 +1,32 @@
 'use client';
-// Third Party Imports
+//@3rd Party
 import React, { useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { enqueueSnackbar } from 'notistack';
 import { useSearchParams } from 'next/navigation';
+//_______________________________________________________________
 
-// Utility Imports
+//@Utility
 import { inputListAdapter } from '@/utils/methods';
+//_______________________________________________________________
 
-// API Hooks
+//@Hooks
 import { useGetAdByDivarPostToken } from '@/services/api/employer/hooks';
 import {
   useSubmitAdFormAsCandidate,
   useSubmitResumeFile,
 } from '@/services/api/candidate/hooks';
+//_______________________________________________________________
 
-// Type Imports
+//@Types
 import { TSubmissionState } from './usePositionSubmission';
 import { TSubmissionAnswer } from '@/services/api/candidate/types';
 
-// Type Definitions
 type TProps = {
   handleStateChange: (state: TSubmissionState) => void;
 };
+//_______________________________________________________________
 
-// Main Component
 export function usePositionForm({ handleStateChange }: TProps) {
   const postToken = useSearchParams().get('post_token');
   const { mutate: submitAdForm } = useSubmitAdFormAsCandidate();
@@ -32,7 +34,6 @@ export function usePositionForm({ handleStateChange }: TProps) {
   const { data: ad, isSuccess } = useGetAdByDivarPostToken(postToken);
   const form = useForm();
 
-  // Memoized Values
   const adInputList = useMemo(
     () => ad?.form?.fields?.map((field) => field?.field),
     [isSuccess]
@@ -44,7 +45,6 @@ export function usePositionForm({ handleStateChange }: TProps) {
   const { inputList } = inputListAdapter(adInputList);
   const fileInput = mockData.find((field) => field.type === 'File');
 
-  // State Management
   const [resumeFile, setResumeFile] = useState<File | null>(null);
 
   // Handlers
@@ -131,7 +131,7 @@ export function usePositionForm({ handleStateChange }: TProps) {
   };
 }
 
-// Mock Data (Consider removing or moving to a separate file if not used)
+// TODO:delete this after backend add this to fields as a optional field
 const mockData = [
   {
     id: '670d1e18e12cc7afb89d18ae',

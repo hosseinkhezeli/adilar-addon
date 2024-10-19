@@ -13,4 +13,5 @@ export type TStepperState =
   | 'plans'
   | 'information'
   | 'pre_invoice'
-  | 'bank-portal';
+  | 'bank-portal'
+  | 'completed';

@@ -5,13 +5,16 @@ import { usePathname, useSearchParams } from 'next/navigation';
 import { useEffect, useLayoutEffect } from 'react';
 //____________________________________________________
 
-//@Types
-import { Route } from 'next';
-import { TStepperState } from '../types';
+//@Hooks
 import usePurchaseStore from '@/store/purchase/purchaseSlice';
 import useUserStore from '@/store/user/userSlice';
 import { useGetAdByDivarPostToken } from '@/services/api/employer/hooks';
 import { useMockLogin } from '@/services/api/auth/hooks';
+//____________________________________________________
+
+//@Types
+import { Route } from 'next';
+import { TStepperState } from '../types';
 //____________________________________________________
 
 export function usePurchaseLayout() {

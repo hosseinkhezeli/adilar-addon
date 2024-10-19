@@ -43,7 +43,11 @@ export function ApplicantList(params: TApplicantListProps) {
       </HeaderPositions>
 
       <CardList
-        sx={{ overflowX: 'hidden', pb: '75px' }}
+        sx={{
+          overflowX: 'hidden',
+          pb: '75px',
+          filter: statusModal ? 'blur(3px)' : 'unset',
+        }}
         onScroll={handleFetchOnScroll}
       >
         {data?.pages.map((page, idx, arr) => (

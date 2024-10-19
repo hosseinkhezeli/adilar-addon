@@ -31,3 +31,12 @@ export const CardList = styled(Box)({
   height: '100%',
   overflowY: 'auto',
 });
+
+export const UnreadBadge = styled(Box)({
+  width: 6,
+  height: 6,
+  position: 'absolute',
+  right: 0,
+  top: 0,
+  borderRadius: '100%',
+});

@@ -1,4 +1,4 @@
-import { Card, CardColumn } from '@/app/components/Card';
+import { Card, CardColumn, UnreadBadge } from '@/app/components/Card';
 import { LabelValue } from '@/app/components/LabelValueField';
 import React, { useState, TouchEvent } from 'react';
 import { dateToShamsi, fullNameDisplay } from '@/utils/methods';
@@ -128,9 +128,12 @@ export function ApplicantCard(applicantInfo: TApplicantCard) {
         disableRipple={true}
         sx={{
           justifyContent: 'space-between',
+          alignItems: 'center',
           borderRadius: translateX !== 0 ? 2 : 0,
           transition: '0.3s ease all',
           transform: `translateX(${-translateX}px)`,
+          height: '56px',
+          minHeight: 'unset',
         }}
       >
         <CardColumn sx={{ flexBasis: 'unset' }}>
@@ -147,8 +150,14 @@ export function ApplicantCard(applicantInfo: TApplicantCard) {
             valueProps={{ sx: { ...typography['body3.medium'] } }}
           />
         </CardColumn>
-        <CardColumn sx={{ flexBasis: 'unset' }}>
+        <CardColumn sx={{ flexBasis: 'unset', position: 'relative' }}>
+          <UnreadBadge sx={{ backgroundColor: 'info.3' }} />
           <LabelValue
+            labelProps={{
+              sx: {
+                pr: 6,
+              },
+            }}
             fieldLabel={'تاریخ ارسال'}
             fieldValue={dateToShamsi(applicantInfo?.createdAt)}
           />

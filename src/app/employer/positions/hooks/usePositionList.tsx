@@ -3,9 +3,6 @@ import { Route } from 'next';
 import { useRouter } from 'next/navigation';
 import { UIEvent, useState } from 'react';
 
-type TUsePositionList = {
-  id: string;
-};
 export interface IPositionCard {
   id: string;
   title: string;
@@ -20,7 +17,7 @@ export interface IPositionCard {
   unreadCount: number;
 }
 
-const usePositionList = ({ id }: TUsePositionList) => {
+const usePositionList = () => {
   const { push: navigateTo } = useRouter();
   const [searchValue, setSearchValue] = useState<string>();
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =

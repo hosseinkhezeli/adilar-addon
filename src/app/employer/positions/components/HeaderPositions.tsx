@@ -29,9 +29,9 @@ const HeaderPositions = ({
           <IconButton
             onClick={() => {
               if (params?.applicantId) {
-                push(`/employer/${params?.id}/positions/${params?.positionId}`);
+                push(`/employer/positions/${params?.positionId}`);
               } else {
-                push(`/employer/${params?.id}/positions`);
+                push(`/employer/positions`);
               }
             }}
             sx={{

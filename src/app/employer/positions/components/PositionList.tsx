@@ -6,20 +6,14 @@ import { PositionCard } from '@/app/employer/positions/components/PositionCard';
 import { CardList } from '@/app/components/Card';
 import { HeaderPositions } from '@/app/employer/positions/components/HeaderPositions';
 
-type TPositionList = {
-  id: string;
-};
-
-export function PositionList({ id }: TPositionList) {
+export function PositionList() {
   const {
     searchValue,
     data,
     handleNavigation,
     handleSearch,
     handleFetchOnScroll,
-  } = usePositionList({
-    id,
-  });
+  } = usePositionList();
   return (
     <>
       <HeaderPositions

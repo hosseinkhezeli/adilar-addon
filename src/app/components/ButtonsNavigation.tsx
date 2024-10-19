@@ -16,12 +16,12 @@ const ButtonsNavigation = () => {
     {
       label: 'فرم ساز',
       icon: <SvgDocument primarycolor={'inherit'} />,
-      location: `/employer/${params?.id}/form-creator`,
+      location: `/employer/form-creator`,
     },
     {
       label: 'موقعیت های شغلی',
       icon: <SvgBriefcase primarycolor={'inherit'} />,
-      location: `/employer/${params?.id}/positions`,
+      location: `/employer/positions`,
     },
   ];
   return (

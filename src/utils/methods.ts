@@ -111,6 +111,12 @@ export function inputListAdapter(fields: IFormField[] | undefined) {
         ...(field?.isRequiredByDefault && {
           rules: { required: true },
         }),
+        ...(field?.type === 'PhoneNumber' && {
+          rules: { minLength: 11 },
+        }),
+        ...(field?.type === 'NationalCode' && {
+          rules: { minLength: 10 },
+        }),
         options: field?.options?.map((option) => ({
           label: option?.title,
           value: option?.value,

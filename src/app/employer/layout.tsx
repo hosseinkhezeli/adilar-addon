@@ -1,5 +1,10 @@
+//@3rd Party
 import React from 'react';
+//_______________________________________________________________
+
+//@Types
 import type { Metadata } from 'next';
+//_______________________________________________________________
 
 export const metadata: Metadata = {
   title: 'Adilar addon',

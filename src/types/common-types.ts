@@ -20,6 +20,8 @@ export type TFormFieldType =
   | 'File'
   | 'Number';
 
+export type TCategoryFieldType = 'Personal';
+
 export interface IFormField {
   id: string;
   name: string;

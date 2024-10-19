@@ -2,6 +2,7 @@ import React from 'react';
 import { Section } from '@/app/components/Section';
 import { Stack, Typography } from '@mui/material';
 import { IGetSubmissionResponse } from '@/services/api/submission/types';
+import { TFormFieldType } from '@/types/common-types';
 
 interface IInfoSection {
   data?: IGetSubmissionResponse;
@@ -12,13 +13,15 @@ const InfoSection = ({ data }: IInfoSection) => {
   const submissionData:
     | {
         label: string;
-        value: string | number | null;
+        value: string | null;
+        type: TFormFieldType;
       }[]
     | undefined = data?.fields
     ?.filter((field) => !fullNameArrayFiled.includes(field.name))
     .map((field) => ({
       label: field?.name || '-',
       value: field?.value || '-',
+      type: field.type as TFormFieldType,
     }));
 
   return (
@@ -51,7 +54,11 @@ const InfoSection = ({ data }: IInfoSection) => {
                 {item.label}
               </Typography>
               <Typography variant="body2" color="text.15">
-                {item.value}
+                {item.type == 'Date' && item.value
+                  ? new Date(item.value).toLocaleString('fa', {
+                      dateStyle: 'short',
+                    })
+                  : item.value}
               </Typography>
             </Stack>
           ))}

@@ -1,4 +1,5 @@
-export type TCategorySection = 'Personal';
+import { TCategoryFieldType, TFormFieldType } from '@/types/common-types';
+
 export interface IGetSubmissionProps {
   id: string | number;
 }
@@ -16,8 +17,8 @@ export interface IField {
   name: string;
   value: string | null;
   type: string;
-  category: TCategorySection;
-  semanticType: string;
+  category: TCategoryFieldType;
+  semanticType: TFormFieldType;
   priority: number;
 }
 

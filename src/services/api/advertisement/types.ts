@@ -16,3 +16,21 @@ export interface IAdvertisement {
   createdAt: string | Date;
   lastSubmissionDateTime: string | Date | null;
 }
+
+export interface IGetApplicantListProps {
+  pageNumber: string | number;
+  state: string;
+  advertisementId: string;
+}
+
+export interface IGetApplicantListResponse {
+  submissions: ISubmission[];
+}
+
+export interface ISubmission {
+  id: string;
+  firstName: string;
+  lastName: string;
+  submissionDateTime: Date | string;
+  isReviewed: boolean;
+}

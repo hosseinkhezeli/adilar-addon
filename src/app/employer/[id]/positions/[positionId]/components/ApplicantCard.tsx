@@ -3,8 +3,6 @@ import { LabelValue } from '@/app/components/LabelValueField';
 import React, { useState, TouchEvent } from 'react';
 import { dateToShamsi, fullNameDisplay } from '@/utils/methods';
 import { Box, IconButton, useTheme } from '@mui/material';
-import Image from 'next/image';
-import SvgPdf from '@assets/images/pdf-svg.svg';
 import { TApplicantCard } from '@/app/employer/[id]/positions/[positionId]/hooks/useApplicantList';
 import SvgTickCircle from 'ideep-design-system-2/icons/TickCircle';
 import SvgCloseCircle from 'ideep-design-system-2/icons/CloseCircle';
@@ -134,6 +132,9 @@ export function ApplicantCard(applicantInfo: TApplicantCard) {
           transform: `translateX(${-translateX}px)`,
           height: '56px',
           minHeight: 'unset',
+          backgroundColor: applicantInfo?.isReviewed
+            ? 'grey.3'
+            : 'common.white',
         }}
       >
         <CardColumn sx={{ flexBasis: 'unset' }}>
@@ -151,7 +152,9 @@ export function ApplicantCard(applicantInfo: TApplicantCard) {
           />
         </CardColumn>
         <CardColumn sx={{ flexBasis: 'unset', position: 'relative' }}>
-          <UnreadBadge sx={{ backgroundColor: 'info.3' }} />
+          {applicantInfo.isReviewed ? null : (
+            <UnreadBadge sx={{ backgroundColor: 'info.3' }} />
+          )}
           <LabelValue
             labelProps={{
               sx: {

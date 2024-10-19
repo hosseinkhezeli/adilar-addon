@@ -1,7 +1,6 @@
 import { http } from '@/services/core/http';
 import { routes } from './routes';
 import {
-  IGetApplicantListProps,
   IGetResumeDataProps,
   TFormFieldsRes,
   TIntroductionDto,
@@ -19,14 +18,6 @@ export const submitIntroduction = (
 
 export const getResumeData = ({ id }: IGetResumeDataProps): Promise<any> => {
   return http.get(routes.resumeData(id));
-};
-
-export const getApplicantList = ({
-  pageParam,
-}: IGetApplicantListProps): Promise<any> => {
-  return http.get(routes.applicantList(pageParam), {
-    baseURL: 'https://jsonplaceholder.typicode.com',
-  });
 };
 
 //Advertisement

@@ -22,7 +22,7 @@ const SwipeTutorial = ({
           position: 'absolute',
           left: 0,
           right: 0,
-          top: 157,
+          top: 160,
           outline: 'none',
           alignItems: 'center',
         }}

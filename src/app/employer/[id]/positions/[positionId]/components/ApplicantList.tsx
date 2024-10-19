@@ -8,12 +8,7 @@ import { HeaderPositions } from '@/app/employer/[id]/positions/components/Header
 import { SwipeTutorial } from '@/app/components/SwipeTutorial';
 import { CustomTabs } from '@/app/components/CustomTabs';
 
-type TApplicantListProps = {
-  id?: string;
-  positionId: string;
-};
-
-export function ApplicantList(params: TApplicantListProps) {
+export function ApplicantList() {
   const {
     searchValue,
     data,
@@ -46,36 +41,37 @@ export function ApplicantList(params: TApplicantListProps) {
         sx={{
           overflowX: 'hidden',
           pb: '75px',
-          filter: statusModal ? 'blur(3px)' : 'unset',
+          filter: statusModal && data ? 'blur(3px)' : 'unset',
         }}
         onScroll={handleFetchOnScroll}
       >
-        {data?.pages.map((page, idx, arr) => (
-          <Fragment key={idx}>
-            {page?.map((applicant, index, arr) => {
-              return (
-                <>
-                  <ApplicantCard
-                    key={index}
-                    id="1"
-                    candidateId="2"
-                    createdAt={'3213'}
-                    candidate={{
-                      fistName: 'سیما',
-                      lastName: 'اشرفی',
-                    }}
-                    onClick={() =>
-                      handleNavigate({
-                        id: applicant.id,
-                      })
-                    }
-                  />
-                  {idx < arr.length - 1 && <Divider />}
-                </>
-              );
-            })}
-          </Fragment>
-        ))}
+        {!data
+          ? 'loading'
+          : data?.pages.map((page, idx) => (
+              <Fragment key={idx}>
+                {page?.submissions.map((applicant, index, arr) => {
+                  return (
+                    <>
+                      <ApplicantCard
+                        key={index}
+                        id={applicant?.id}
+                        createdAt={applicant?.submissionDateTime}
+                        candidate={{
+                          fistName: applicant?.firstName || '-',
+                          lastName: applicant?.lastName || '-',
+                        }}
+                        onClick={() =>
+                          handleNavigate({
+                            id: applicant.id,
+                          })
+                        }
+                      />
+                      {idx < arr.length - 1 && <Divider />}
+                    </>
+                  );
+                })}
+              </Fragment>
+            ))}
       </CardList>
 
       <SwipeTutorial

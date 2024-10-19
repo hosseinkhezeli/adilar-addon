@@ -43,7 +43,7 @@ export function usePositionForm({ handleStateChange }: TProps) {
     [isSuccess]
   );
   const { inputList } = inputListAdapter(adInputList);
-  const fileInput = mockData.find((field) => field.type === 'File');
+  const fileInput = mockData.find((field) => field?.type === 'File');
 
   const [resumeFile, setResumeFile] = useState<File | null>(null);
 
@@ -63,7 +63,7 @@ export function usePositionForm({ handleStateChange }: TProps) {
 
   const handleSubmit = (data: any) => {
     const fieldIds = Object.keys(data);
-    const fieldTypeMap = inputList.reduce(
+    const fieldTypeMap = inputList?.reduce(
       (acc, field) => {
         acc[field.name as string] = field.type as string;
         return acc;
@@ -71,7 +71,7 @@ export function usePositionForm({ handleStateChange }: TProps) {
       {} as Record<string, string>
     );
 
-    const submissionAnswers = fieldIds.map((fieldId) => {
+    const submissionAnswers = fieldIds?.map((fieldId) => {
       const fieldType = fieldTypeMap[fieldId];
       const fieldValue = data[fieldId];
       return {

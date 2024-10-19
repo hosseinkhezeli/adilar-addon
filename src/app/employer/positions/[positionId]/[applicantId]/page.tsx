@@ -1,6 +1,6 @@
 import React from 'react';
 import { Stack } from '@mui/material';
-import { Applicant } from '@/app/employer/[id]/positions/[positionId]/[applicantId]/components/Applicant';
+import { Applicant } from '@/app/employer/positions/[positionId]/[applicantId]/components/Applicant';
 
 const Page = () => {
   return (

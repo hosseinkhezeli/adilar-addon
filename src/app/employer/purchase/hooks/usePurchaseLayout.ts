@@ -41,7 +41,7 @@ export function usePurchaseLayout() {
   const { push: navigateTo } = useRouter();
   const { data } = useGetAdByDivarPostToken(post_token);
   const { mutate: login } = useMockLogin();
-  console.log(data);
+
   //Handlers
   useLayoutEffect(() => {
     if (!currentState) {

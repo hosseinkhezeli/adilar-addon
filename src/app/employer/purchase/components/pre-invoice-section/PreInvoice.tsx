@@ -10,19 +10,8 @@ import { currency } from '@/utils/methods';
 import { Discount } from './Discount';
 //___________________________________________________________
 
-//@Types
-type TPreInvoice = {
-  coupon: string;
-  onChange: (coupon: string) => void;
-  onSubmit: (coupon: string) => void;
-};
-//___________________________________________________________
-
 export function PreInvoice() {
   const {
-    plan,
-    taxPrice,
-    discount,
     totalPrice,
     onChangeDiscount,
     onSubmitDiscount,

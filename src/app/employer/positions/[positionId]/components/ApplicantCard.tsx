@@ -3,7 +3,7 @@ import { LabelValue } from '@/app/components/LabelValueField';
 import React, { useState, TouchEvent } from 'react';
 import { dateToShamsi, fullNameDisplay } from '@/utils/methods';
 import { Box, IconButton, useTheme } from '@mui/material';
-import { TApplicantCard } from '@/app/employer/[id]/positions/[positionId]/hooks/useApplicantList';
+import { TApplicantCard } from '@/app/employer/positions/[positionId]/hooks/useApplicantList';
 import SvgTickCircle from 'ideep-design-system-2/icons/TickCircle';
 import SvgCloseCircle from 'ideep-design-system-2/icons/CloseCircle';
 

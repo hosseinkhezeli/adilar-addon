@@ -1,8 +1,8 @@
 'use client';
 import React from 'react';
-import { Box, Button, Checkbox, Stack, Typography } from '@mui/material';
-import { SectionComponent } from '@/app/employer/[id]/form-creator/components/SectionComponent';
-import { TTypeData } from '@/app/employer/[id]/form-creator/type';
+import { Box, Button, Stack, Typography } from '@mui/material';
+import { SectionComponent } from '@/app/employer/form-creator/components/SectionComponent';
+import { TTypeData } from '@/app/employer/form-creator/type';
 import { useFormSection } from '../hooks/useFormSection';
 import { ResumeItemComponent } from './ResumeItemComponent';
 

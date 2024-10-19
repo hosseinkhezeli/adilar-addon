@@ -7,12 +7,12 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import { ItemComponent } from '@/app/employer/[id]/form-creator/components/ItemComponent';
+import { ItemComponent } from '@/app/employer/form-creator/components/ItemComponent';
 import {
   IDynamicField,
   IFormSection,
   TTypeData,
-} from '@/app/employer/[id]/form-creator/type';
+} from '@/app/employer/form-creator/type';
 import { MenuButton } from '@/app/components/MenuButton';
 import BottomSheet from '@/app/components/BottomSheet';
 
@@ -114,7 +114,7 @@ const SectionComponent = ({
         onClick={handleClick}
         sx={{
           alignSelf: 'start',
-          backgroundColor: 'secondary.1',
+          backgroundColor: 'secondary.2',
           fontSize: '16px',
         }}
       >

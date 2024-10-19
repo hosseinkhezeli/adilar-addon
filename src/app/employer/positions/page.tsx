@@ -1,5 +1,5 @@
 import React from 'react';
-import { PositionList } from '@/app/employer/[id]/positions/components/PositionList';
+import { PositionList } from '@/app/employer/positions/components/PositionList';
 import { Stack } from '@mui/material';
 
 const Page = ({ params }: { params: { id: string } }) => {

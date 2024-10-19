@@ -5,12 +5,12 @@ import React from 'react';
 //@Components
 import { Plans } from './components/plan-section/Plans';
 import { InformationForm } from './components/information-section/InformationForm';
+import { PreInvoice } from './components/pre-invoice-section/PreInvoice';
+import { Completed } from './components/Completed';
 //____________________________________________________
 
 //@Types
 import { TStepperState } from './types';
-import { PreInvoice } from './components/pre-invoice-section/PreInvoice';
-import { Completed } from './components/Completed';
 //____________________________________________________
 
 const Page = ({ searchParams }: { searchParams: { state: TStepperState } }) => {

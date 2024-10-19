@@ -2,6 +2,11 @@
 import React from 'react';
 //_______________________________________________________________
 
+//@Components
+import { MainLayout } from '../components/MainLayout';
+import { AuthLayout } from './components/AuthLayout';
+//_______________________________________________________________
+
 //@Types
 import type { Metadata } from 'next';
 //_______________________________________________________________
@@ -16,5 +21,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <>{children}</>;
+  return (
+    <MainLayout withoutNavigation>
+      <AuthLayout>{children}</AuthLayout>
+    </MainLayout>
+  );
 }

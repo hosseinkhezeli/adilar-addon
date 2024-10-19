@@ -1,4 +1,4 @@
-import { FormSection } from '@/app/employer/[id]/form-creator/components/FormSection';
+import { FormSection } from '@/app/employer/form-creator/components/FormSection';
 import { Stack } from '@mui/material';
 import React from 'react';
 

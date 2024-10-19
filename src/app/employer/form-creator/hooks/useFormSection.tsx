@@ -7,7 +7,7 @@ import { useMemo, useState, useEffect } from 'react';
 import { baseData } from '../constant';
 import { TAllData, TTypeData, IDynamicField } from '../type';
 import { useFieldArray, useForm } from 'react-hook-form';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { TAdFormDto } from '@/services/api/employer/types';
 import { enqueueSnackbar } from 'notistack';
 
@@ -17,13 +17,14 @@ type TForm = TAdFormDto;
 
 export function useFormSection() {
   //Dependencies
+  const { push: navigateTo } = useRouter();
   const searchParams = useSearchParams();
   const postToken = searchParams.get('post_token');
   const { mutateAsync: submitAdForm, isPending: isSubmittingAdForm } =
     useSubmitAdForm();
   const { data: adData, isLoading: isLoadingAdData } =
     useGetAdByDivarPostToken(postToken);
-
+  console.log(adData);
   const form = useForm<TForm>({
     defaultValues: {
       isResumeUploadingRequired: false,
@@ -160,21 +161,18 @@ export function useFormSection() {
     });
   }
   const handleSubmitForm = (data: TAdFormDto) => {
-    console.log('HandleSubmitForm');
     submitAdForm(data, {
       onSuccess: () => {
         enqueueSnackbar({
           message: 'فرم با موفقیت ساخته شد',
           variant: 'success',
         });
-        console.log('HandleSubmitForm onSuccess');
       },
       onError: () => {
         enqueueSnackbar({
           message: 'خطایی در ساخت فرم رخ داده است',
           variant: 'error',
         });
-        console.log('HandleSubmitForm onError');
       },
       onSettled: () => {
         console.log('HandleSubmitForm onSettled');

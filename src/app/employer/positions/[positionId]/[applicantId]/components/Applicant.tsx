@@ -1,13 +1,13 @@
 'use client';
 import React from 'react';
-import { HeaderPositions } from '@/app/employer/[id]/positions/components/HeaderPositions';
+import { HeaderPositions } from '@/app/employer/positions/components/HeaderPositions';
 import { Stack } from '@mui/material';
-import { InfoSection } from '@/app/employer/[id]/positions/[positionId]/[applicantId]/components/InfoSection';
-import { DownloadResume } from '@/app/employer/[id]/positions/[positionId]/[applicantId]/components/DownloadResume';
-import { HandlerButtons } from '@/app/employer/[id]/positions/[positionId]/[applicantId]/components/HandlerButtons';
+import { InfoSection } from '@/app/employer/positions/[positionId]/[applicantId]/components/InfoSection';
+import { DownloadResume } from '@/app/employer/positions/[positionId]/[applicantId]/components/DownloadResume';
+import { HandlerButtons } from '@/app/employer/positions/[positionId]/[applicantId]/components/HandlerButtons';
 import { fadeIn } from '@/styles/animationKeyframes';
 import { SwipeTutorial } from '@/app/components/SwipeTutorial';
-import { useApplicant } from '@/app/employer/[id]/positions/[positionId]/[applicantId]/hooks/useApplicant';
+import { useApplicant } from '@/app/employer/positions/[positionId]/[applicantId]/hooks/useApplicant';
 
 const Applicant = () => {
   const {

@@ -5,7 +5,7 @@ import React from 'react';
 //____________________________________________________
 
 //@MUI
-import { Box, Stepper, Step, StepLabel, Button, styled } from '@mui/material';
+import { Box, Stepper, Step, StepLabel, styled } from '@mui/material';
 //____________________________________________________
 
 //@Constants

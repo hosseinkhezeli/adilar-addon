@@ -1,10 +1,10 @@
 'use client';
 import React, { Fragment } from 'react';
-import usePositionList from '@/app/employer/[id]/positions/hooks/usePositionList';
+import usePositionList from '@/app/employer/positions/hooks/usePositionList';
 import { Divider } from '@mui/material';
-import { PositionCard } from '@/app/employer/[id]/positions/components/PositionCard';
+import { PositionCard } from '@/app/employer/positions/components/PositionCard';
 import { CardList } from '@/app/components/Card';
-import { HeaderPositions } from '@/app/employer/[id]/positions/components/HeaderPositions';
+import { HeaderPositions } from '@/app/employer/positions/components/HeaderPositions';
 
 type TPositionList = {
   id: string;

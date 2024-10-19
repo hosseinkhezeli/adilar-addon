@@ -1,6 +1,6 @@
 import React from 'react';
 import { Badge, Typography } from '@mui/material';
-import { IPositionCard } from '@/app/employer/[id]/positions/hooks/usePositionList';
+import { IPositionCard } from '@/app/employer/positions/hooks/usePositionList';
 import { LabelValue } from '@/app/components/LabelValueField';
 import { dateToShamsi, truncateString } from '@/utils/methods';
 import { Card, CardColumn, SubtitleText } from '@/app/components/Card';

@@ -10,6 +10,7 @@ import {
   TSubmitAdFormParams,
   TSubmitBasicInfoBody,
 } from './types';
+import { ISubmitAdFormAsCandidate } from '../candidate/types';
 
 // Introduction
 export const submitIntroduction = (
@@ -40,7 +41,7 @@ export const getPositionList = ({
 //Advertisement
 export const getAdByDivarPostToken = (
   postToken: string | null
-): Promise<any> => {
+): Promise<ISubmitAdFormAsCandidate> => {
   return http.get(routes.getAdByDivarPostToken(postToken));
 };
 

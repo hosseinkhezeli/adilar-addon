@@ -1,3 +1,5 @@
+import { ICompany, IForm, TFormFieldType } from '@/types/common-types';
+
 export type TGetAdFormAsCandidateParams = {
   adId: string;
 };
@@ -28,3 +30,19 @@ export type TResumeFileRes = {
   updatedAt: string;
   userId: string;
 };
+
+export interface ISubmitAdFormAsCandidate {
+  id: string;
+  title: string;
+  divarPostToken: string;
+  state: string;
+  company: ICompany;
+  companyId: string;
+  form: IForm;
+  formId: string;
+  payments: any;
+  submissions: any;
+  isDeleted: boolean;
+  createdAt: string;
+  updatedAt: string;
+}

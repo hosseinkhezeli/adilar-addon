@@ -1,6 +1,7 @@
 import { http } from '@/services/core/http';
 import { routes } from './routes';
 import {
+  ISubmitAdFormAsCandidate,
   TGetAdFormAsCandidateParams,
   TResumeFileRes,
   TSubmitAdFormBody,
@@ -9,7 +10,7 @@ import {
 // Ad as Candidate
 export const getAdFormAsCandidate = (
   params: TGetAdFormAsCandidateParams
-): Promise<unknown> => {
+): Promise<ISubmitAdFormAsCandidate> => {
   return http.get(routes.getAdFormAsCandidate(params?.adId));
 };
 

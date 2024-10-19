@@ -90,7 +90,7 @@ export function typeAdapter(type: string): IUseFormInput['type'] {
   }
 }
 
-export function inputListAdapter(fields: IFormField[]) {
+export function inputListAdapter(fields: IFormField[] | undefined) {
   // @ts-ignore
   const inputList: IUseFormInput[] = fields
     ?.filter((field) => field.type !== 'File')

@@ -1,14 +1,8 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import {
-  IGetResumeDataProps,
-  TAdFormDto,
-  TIntroductionDto,
-  TSubmitBasicInfoBody,
-} from './types';
+import { TAdFormDto, TIntroductionDto, TSubmitBasicInfoBody } from './types';
 import {
   getAdByDivarPostToken,
   getFormFields,
-  getResumeData,
   submitBasicInfo,
   submitAdForm,
   submitIntroduction,
@@ -21,15 +15,6 @@ export const useSubmitIntroduction = () =>
     mutationKey: ['submit-introduction'],
     mutationFn: (params: TIntroductionDto) => submitIntroduction(params),
   });
-//______________________________________________________________
-
-//Resume Data
-export const useGetResumeData = ({ id }: IGetResumeDataProps) => {
-  return useQuery({
-    queryKey: ['resumeData', id],
-    queryFn: () => getResumeData({ id }),
-  });
-};
 //______________________________________________________________
 
 //Advertisement

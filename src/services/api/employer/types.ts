@@ -8,10 +8,6 @@ export type TIntroductionRes = {
   token: string;
 };
 
-export interface IGetResumeDataProps {
-  id: string | number;
-}
-
 export type TSubmitBasicInfoBody = {
   firstName: string;
   lastName: string;

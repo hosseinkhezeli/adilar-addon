@@ -1,6 +1,6 @@
 'use client';
 //@3rd Party
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 //_______________________________________________________________
@@ -29,9 +29,17 @@ export function usePositionForm({ handleStateChange }: TProps) {
     useSubmitAdFormAsCandidate();
   const { mutate: submitResumeFile, isPending: isSubmittingResumeFile } =
     useSubmitResumeFile();
-  const { data: ad } = useGetAdByDivarPostToken(postToken);
+  const { data: ad, isSuccess } = useGetAdByDivarPostToken(postToken);
   const form = useForm();
-  const { inputList } = inputListAdapter(mockData);
+  const adInputList = useMemo(
+    () => ad?.form?.fields?.map((field) => field?.field),
+    [isSuccess]
+  );
+  const isResumeRequired = useMemo(
+    () => ad?.form?.isResumeUploadingRequired,
+    [isSuccess]
+  );
+  const { inputList } = inputListAdapter(adInputList);
   const fileInput = mockData.find((field) => field.type === 'File');
   const [resumeFile, setResumeFile] = useState<File | null>(null);
   const handleGetFileFromUploader = (
@@ -69,26 +77,6 @@ export function usePositionForm({ handleStateChange }: TProps) {
             ? new Date(fieldValue || Date.now())?.toISOString()
             : fieldValue,
       };
-      // Use a switch statement for better readability and efficiency
-      // switch (fieldType) {
-      //   case 'date-picker':
-      //     return {
-      //       fieldId,
-      //       dateTimeValue: new Date(fieldValue || Date.now())?.toISOString(),
-      //     };
-      //   case 'select':
-      //   case 'multi-select':
-      //     return { fieldId, optionId: fieldValue };
-      //   case 'number':
-      //     return { fieldId, numberValue: fieldValue };
-      //   case 'text':
-      //   case 'email':
-      //   case 'phone':
-      //   case 'text-area':
-      //     return { fieldId, value: fieldValue };
-      //   default:
-      //     return { fieldId };
-      // }
     });
     const formData = new FormData();
     formData.append('File', resumeFile as Blob);
@@ -136,6 +124,7 @@ export function usePositionForm({ handleStateChange }: TProps) {
     resumeFile,
     handleClearResumeFile,
     handleSubmit,
+    isResumeRequired,
   };
 }
 //Delete this S@#$t

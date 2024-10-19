@@ -17,6 +17,8 @@ export function PreInvoice() {
     onSubmitDiscount,
     coupon,
     preInvoiceInfo,
+    onSubmitPayment,
+    isSubmitting,
   } = usePreInvoices();
 
   return (
@@ -49,6 +51,8 @@ export function PreInvoice() {
 
       <Button
         variant="contained"
+        onClick={onSubmitPayment}
+        isLoading={isSubmitting}
         sx={{
           position: 'fixed',
           width: 'calc(100% - 32px)',

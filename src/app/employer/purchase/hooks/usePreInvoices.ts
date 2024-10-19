@@ -1,14 +1,20 @@
 'use client';
 //@3rd Party
 import { useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 //___________________________________________________________
 
 //@Hooks
 import usePurchaseStore from '@/store/purchase/purchaseSlice';
+import { useSendToPayment } from '@/services/api/finance/hooks';
 //___________________________________________________________
 
 export function usePreInvoices() {
   const { plan } = usePurchaseStore();
+  const searchParams = useSearchParams();
+  const advertisementId = searchParams?.get('advertisement_id');
+
+  const { mutate: sendToPayment, isPending: isSubmitting } = useSendToPayment();
   const taxPrice = (plan?.price || 0) * 0.09;
   const [discount, setDiscount] = useState<number>(0);
   const [coupon, setCoupon] = useState<string>('');
@@ -35,6 +41,17 @@ export function usePreInvoices() {
   const onSubmitDiscount = (coupon: string) => {
     console.log(coupon);
   };
+
+  const onSubmitPayment = () => {
+    sendToPayment(
+      { advertisementId: advertisementId },
+      {
+        onSuccess: (data) => {
+          console.log(data);
+        },
+      }
+    );
+  };
   return {
     plan,
     taxPrice,
@@ -44,5 +61,7 @@ export function usePreInvoices() {
     onSubmitDiscount,
     coupon,
     preInvoiceInfo,
+    onSubmitPayment,
+    isSubmitting,
   };
 }

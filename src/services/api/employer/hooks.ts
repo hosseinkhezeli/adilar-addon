@@ -60,7 +60,7 @@ export const useGetAdByDivarPostToken = (postToken: string | null) => {
   return useQuery({
     queryKey: ['advertisement', postToken],
     queryFn: () => getAdByDivarPostToken(postToken),
-    enabled: !!postToken || !!token,
+    enabled: !!postToken && !!token,
     staleTime: 0,
     refetchOnWindowFocus: false,
   });

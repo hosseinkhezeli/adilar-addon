@@ -17,7 +17,9 @@ export function ProviderLayout({ children }: Props) {
   return (
     <QueryClientProvider client={client}>
       <ThemeProvider>
-        <SnackbarProvider>
+        <SnackbarProvider
+          anchorOrigin={{ horizontal: 'center', vertical: 'top' }}
+        >
           {children}
           <ProgressBar
             height="4px"

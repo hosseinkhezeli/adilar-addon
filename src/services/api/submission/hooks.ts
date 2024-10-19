@@ -1,6 +1,7 @@
 import {} from '@/services/api/advertisement/services';
 import {
   getSubmission,
+  setApproval,
   setIsReviewed,
 } from '@/services/api/submission/services';
 import useUserStore from '@/store/user/userSlice';
@@ -20,5 +21,12 @@ export const useSetIsReviewed = () => {
   return useMutation({
     mutationKey: ['is-reviewed'],
     mutationFn: setIsReviewed,
+  });
+};
+
+export const useSetApproval = () => {
+  return useMutation({
+    mutationKey: ['approval-applicant'],
+    mutationFn: setApproval,
   });
 };

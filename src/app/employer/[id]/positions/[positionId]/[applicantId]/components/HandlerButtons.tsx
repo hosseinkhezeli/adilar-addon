@@ -3,10 +3,17 @@ import { Button, Stack } from '@mui/material';
 
 interface IHandlerButtons {
   onReject(id: string | number | null | undefined): void;
+  onApprove(): void;
+  isApprovalLoading: boolean;
   nextId: string | number | null | undefined;
 }
 
-const HandlerButtons = ({ onReject, nextId }: IHandlerButtons) => {
+const HandlerButtons = ({
+  onApprove,
+  onReject,
+  isApprovalLoading,
+  nextId,
+}: IHandlerButtons) => {
   return (
     <Stack
       direction="row"
@@ -33,6 +40,8 @@ const HandlerButtons = ({ onReject, nextId }: IHandlerButtons) => {
           flexGrow: 1,
           color: 'common.white',
         }}
+        onClick={onApprove}
+        isLoading={isApprovalLoading}
       >
         تائید
       </Button>

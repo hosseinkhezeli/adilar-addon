@@ -32,35 +32,36 @@ export function useApplicantList() {
   const [selectedTab, setSelectedTab] = useState<string>(
     searchParams.has('state') ? searchParams.get('state')! : 'Pending'
   );
-  const tabs: { label: ReactNode }[] = [
-    {
-      label: (
-        <Typography variant="caption1.bold" color="grey.15">
-          در انتظار بررسی
-        </Typography>
-      ),
-    },
-    {
-      label: (
-        <Typography variant="caption1.bold" color="grey.15">
-          تایید شده
-        </Typography>
-      ),
-    },
-    {
-      label: (
-        <Typography variant="caption1.bold" color="grey.15">
-          رد شده
-        </Typography>
-      ),
-    },
-  ];
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useGetApplicantList({
       advertisementId: params.positionId,
       state: selectedTab,
     });
+
+  const tabs: { label: ReactNode }[] = [
+    {
+      label: (
+        <Typography variant="caption1.bold" color="grey.15">
+          {`در انتظار بررسی (${data?.pages[0].submissionsByStateResult.find((item) => item.state == 'Pending')?.count || 0})`}
+        </Typography>
+      ),
+    },
+    {
+      label: (
+        <Typography variant="caption1.bold" color="grey.15">
+          {`تایید شده (${data?.pages[0].submissionsByStateResult.find((item) => item.state == 'Accepted')?.count || 0})`}
+        </Typography>
+      ),
+    },
+    {
+      label: (
+        <Typography variant="caption1.bold" color="grey.15">
+          {`رد شده (${data?.pages[0].submissionsByStateResult.find((item) => item.state == 'Rejected')?.count || 0})`}
+        </Typography>
+      ),
+    },
+  ];
 
   function handleFetchOnScroll(e: UIEvent) {
     const at20PercentEnd =

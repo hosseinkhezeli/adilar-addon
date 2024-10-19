@@ -1,5 +1,6 @@
 import {
   useGetSubmission,
+  useSetApproval,
   useSetIsReviewed,
 } from '@/services/api/submission/hooks';
 import { TCategorySection } from '@/services/api/submission/types';
@@ -11,6 +12,7 @@ import {
   useRouter,
   useSearchParams,
 } from 'next/navigation';
+import { enqueueSnackbar } from 'notistack';
 import { TouchEvent, useEffect, useRef, useState } from 'react';
 
 export const categoryTitle: {
@@ -40,6 +42,8 @@ export function useApplicant() {
   const { data, isLoading } = useGetSubmission({ id: params.applicantId });
 
   const { mutate: setIsReviewedMutate } = useSetIsReviewed();
+  const { mutate: setApprovalMutate, isPending: isApprovalLoading } =
+    useSetApproval();
 
   function handleCloseModal() {
     setStatusModal(false);
@@ -114,6 +118,22 @@ export function useApplicant() {
     setStartTouchPosition(null);
   }
 
+  function onApprove() {
+    if (data) {
+      setApprovalMutate(
+        { id: data.id },
+        {
+          onSuccess() {
+            enqueueSnackbar('رزومه تایید شد', { variant: 'success' });
+          },
+          onError() {
+            enqueueSnackbar('ثبت ناموفق', { variant: 'error' });
+          },
+        }
+      );
+    }
+  }
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       screenWidth.current = window.innerWidth;
@@ -138,7 +158,9 @@ export function useApplicant() {
     isLoading,
     data,
     statusModal,
+    isApprovalLoading,
     customPush,
+    onApprove,
     onTouchStart,
     onTouchMove,
     onTouchEnd,

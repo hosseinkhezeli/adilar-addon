@@ -28,3 +28,7 @@ export interface ISetIsReviewedProps {
 export interface ISetIsReviewedResponse {
   status: boolean;
 }
+
+export interface ISetApprovalProps {
+  id: number | string;
+}

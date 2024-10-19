@@ -15,8 +15,10 @@ const Applicant = () => {
     isLoading,
     data,
     statusModal,
-    handleCloseModal,
+    isApprovalLoading,
     customPush,
+    onApprove,
+    handleCloseModal,
     onTouchStart,
     onTouchMove,
     onTouchEnd,
@@ -67,6 +69,8 @@ const Applicant = () => {
                 >
                   <DownloadResume />
                   <HandlerButtons
+                    isApprovalLoading={isApprovalLoading}
+                    onApprove={onApprove}
                     onReject={customPush}
                     nextId={data?.nextSubmissionId}
                   />

@@ -2,6 +2,7 @@ import { submissionRoutes } from '@/services/api/submission/routes';
 import {
   IGetSubmissionProps,
   IGetSubmissionResponse,
+  ISetApprovalProps,
   ISetIsReviewedProps,
 } from '@/services/api/submission/types';
 import { http } from '@/services/core/http';
@@ -14,6 +15,14 @@ export const getSubmission = ({
 
 export const setIsReviewed = ({ id }: ISetIsReviewedProps) => {
   return http.patch(submissionRoutes.setIsReviewed(id), JSON.stringify(true), {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+};
+
+export const setApproval = ({ id }: ISetApprovalProps) => {
+  return http.patch(submissionRoutes.setApproval(id), JSON.stringify(true), {
     headers: {
       'Content-Type': 'application/json',
     },

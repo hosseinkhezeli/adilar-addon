@@ -25,6 +25,12 @@ export interface IGetApplicantListProps {
 
 export interface IGetApplicantListResponse {
   submissions: ISubmission[];
+  submissionsByStateResult: ISubmissionsByStateResult[];
+}
+
+export interface ISubmissionsByStateResult {
+  state: string;
+  count: number;
 }
 
 export interface ISubmission {

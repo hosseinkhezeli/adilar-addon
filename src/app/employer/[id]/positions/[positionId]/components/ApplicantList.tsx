@@ -55,6 +55,7 @@ export function ApplicantList() {
                       <ApplicantCard
                         key={index}
                         id={applicant?.id}
+                        isReviewed={applicant?.isReviewed}
                         createdAt={applicant?.submissionDateTime}
                         candidate={{
                           fistName: applicant?.firstName || '-',

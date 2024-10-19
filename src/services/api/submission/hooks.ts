@@ -1,7 +1,10 @@
 import {} from '@/services/api/advertisement/services';
-import { getSubmission } from '@/services/api/submission/services';
+import {
+  getSubmission,
+  setIsReviewed,
+} from '@/services/api/submission/services';
 import useUserStore from '@/store/user/userSlice';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 
 export const useGetSubmission = ({ id }: { id: number | string }) => {
   const { token } = useUserStore();
@@ -10,5 +13,12 @@ export const useGetSubmission = ({ id }: { id: number | string }) => {
     queryFn: () => getSubmission({ id }),
     staleTime: 1000 * 60 * 60,
     enabled: Boolean(token),
+  });
+};
+
+export const useSetIsReviewed = () => {
+  return useMutation({
+    mutationKey: ['is-reviewed'],
+    mutationFn: setIsReviewed,
   });
 };

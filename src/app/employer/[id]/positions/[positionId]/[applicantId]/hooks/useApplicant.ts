@@ -1,7 +1,16 @@
-import { useGetSubmission } from '@/services/api/submission/hooks';
+import {
+  useGetSubmission,
+  useSetIsReviewed,
+} from '@/services/api/submission/hooks';
 import { TCategorySection } from '@/services/api/submission/types';
+import { useQueryClient } from '@tanstack/react-query';
 import { Route } from 'next';
-import { useParams, usePathname, useRouter } from 'next/navigation';
+import {
+  useParams,
+  usePathname,
+  useRouter,
+  useSearchParams,
+} from 'next/navigation';
 import { TouchEvent, useEffect, useRef, useState } from 'react';
 
 export const categoryTitle: {
@@ -11,7 +20,9 @@ export const categoryTitle: {
 };
 
 export function useApplicant() {
+  const QC = useQueryClient();
   const params = useParams<{ applicantId: string }>();
+  const searchParams = useSearchParams();
   const router = useRouter();
   const pathName = usePathname();
 
@@ -27,6 +38,8 @@ export function useApplicant() {
   const screenWidth = useRef<number>(0);
 
   const { data, isLoading } = useGetSubmission({ id: params.applicantId });
+
+  const { mutate: setIsReviewedMutate } = useSetIsReviewed();
 
   function handleCloseModal() {
     setStatusModal(false);
@@ -106,6 +119,19 @@ export function useApplicant() {
       screenWidth.current = window.innerWidth;
     }
   }, []);
+
+  useEffect(() => {
+    if (data && searchParams.get('isReviewed') == 'false') {
+      setIsReviewedMutate(
+        { id: data.id },
+        {
+          onSuccess: () => {
+            QC.refetchQueries({ queryKey: ['applicantList'] });
+          },
+        }
+      );
+    }
+  }, [isLoading]);
 
   return {
     elementRef,

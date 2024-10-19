@@ -20,3 +20,11 @@ export interface IField {
   semanticType: string;
   priority: number;
 }
+
+export interface ISetIsReviewedProps {
+  id: number | string;
+}
+
+export interface ISetIsReviewedResponse {
+  status: boolean;
+}

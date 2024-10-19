@@ -20,13 +20,16 @@ const HeaderPositions = ({
   const { push } = useRouter();
   const params = useParams();
   return (
-    <Stack py={3} bgcolor={params?.resumeId ? 'common.white' : 'background.3'}>
+    <Stack
+      py={3}
+      bgcolor={params?.applicantId ? 'common.white' : 'background.3'}
+    >
       <Stack direction="row" position="relative" mb={handleSearch ? 0 : 2}>
-        {params?.positionId || params?.resumeId ? (
+        {params?.positionId || params?.applicantId ? (
           <IconButton
             onClick={() => {
-              if (params?.resumeId) {
-                push(`/employer/${params?.id}/positions/${params?.resumeId}`);
+              if (params?.applicantId) {
+                push(`/employer/${params?.id}/positions/${params?.positionId}`);
               } else {
                 push(`/employer/${params?.id}/positions`);
               }

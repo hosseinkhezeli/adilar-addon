@@ -12,7 +12,6 @@ type TPositionList = {
 
 export function PositionList({ id }: TPositionList) {
   const {
-    positionsMock,
     searchValue,
     data,
     handleNavigation,
@@ -34,30 +33,36 @@ export function PositionList({ id }: TPositionList) {
         }}
         onScroll={handleFetchOnScroll}
       >
-        {data?.pages.map((page, idx, arr) => (
-          <Fragment key={idx}>
-            {page?.map((p, index, arr) => {
-              const position = {
-                id: '1',
-                title: 'برنامه نویس فرانت',
-                location: { title: 'دفتر مرکزی تهران' },
-                createdAt: new Date(Date.now()),
-                candidates: { count: 64 },
-                lastCandidateSubmission: new Date(Date.now()),
-                unreadCount: 4,
-              };
-              return (
-                <>
-                  <PositionCard
-                    positionInfo={{ ...position }}
-                    onClick={handleNavigation}
-                  />
-                  {idx < arr.length - 1 && <Divider />}
-                </>
-              );
-            })}
-          </Fragment>
-        ))}
+        {!data
+          ? 'loading'
+          : data.pages.map((page, idx) => (
+              <Fragment key={idx}>
+                {page?.advertisements?.map((item, index, arr) => {
+                  return (
+                    <>
+                      <PositionCard
+                        positionInfo={{
+                          id: item.id,
+                          title: item.title,
+                          unreadCount: item.unreadSubmissionsCount,
+                          createdAt: item.createdAt,
+                          candidates: {
+                            count: item.submissionsCount,
+                          },
+                          location: {
+                            title: item.companyName,
+                          },
+                          lastCandidateSubmission: item.lastSubmissionDateTime,
+                        }}
+                        onClick={handleNavigation}
+                      />
+                      {idx < arr.length - 1 && <Divider />}
+                    </>
+                  );
+                })}
+              </Fragment>
+            ))}
+
         {/* {positionsMock.map((position, idx, arr) => (
           <Fragment key={position.title + idx}>
             <PositionCard

@@ -9,7 +9,7 @@ type TPositionPageParams = {
 const Page = ({ params }: TPositionPageParams) => {
   return (
     <Stack height="100%" overflow="auto">
-      <ApplicantList {...params} />
+      <ApplicantList />
     </Stack>
   );
 };

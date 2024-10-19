@@ -2,7 +2,7 @@ import React from 'react';
 import { Badge, Typography } from '@mui/material';
 import { IPositionCard } from '@/app/employer/[id]/positions/hooks/usePositionList';
 import { LabelValue } from '@/app/components/LabelValueField';
-import { dateToShamsi } from '@/utils/methods';
+import { dateToShamsi, truncateString } from '@/utils/methods';
 import { Card, CardColumn, SubtitleText } from '@/app/components/Card';
 
 type TPositionCardProps = {
@@ -15,7 +15,7 @@ export function PositionCard(props: TPositionCardProps) {
     <Card onClick={() => props?.onClick?.(props?.positionInfo?.id)}>
       <CardColumn>
         <Typography variant={'body3.medium'}>
-          {props?.positionInfo?.title}
+          {truncateString(props?.positionInfo?.title || '', 15)}
         </Typography>
         <LabelValue
           fieldLabel={'تاریخ ساخت'}
@@ -50,11 +50,30 @@ export function PositionCard(props: TPositionCardProps) {
         </Badge>
         <LabelValue
           fieldLabel={'آخرین کارجو'}
-          fieldValue={dateToShamsi(
+          fieldValue={generateDayName(
             props?.positionInfo?.lastCandidateSubmission
           )}
         />
       </CardColumn>
     </Card>
   );
+}
+
+function generateDayName(date: Date | string | null | undefined) {
+  if (!date) return '-';
+  let dateValue = '';
+  const lastDay = new Date(date).getDate();
+  const today = new Date().getDate();
+  switch (lastDay) {
+    case today:
+      dateValue = 'امروز';
+      break;
+    case today - 1:
+      dateValue = 'دیروز';
+      break;
+    default:
+      return dateToShamsi(date);
+  }
+
+  return dateValue;
 }

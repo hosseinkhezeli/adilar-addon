@@ -3,7 +3,7 @@ import { Box, Button, styled, Typography } from '@mui/material';
 export const Card = styled(Button)(({ theme }) => ({
   width: '100%',
   display: 'flex',
-  alignItems: 'center',
+  alignItems: 'stretch',
   padding: '16px 12px',
   minHeight: '77px',
   gap: 2,
@@ -30,4 +30,13 @@ export const CardList = styled(Box)({
   flexDirection: 'column',
   height: '100%',
   overflowY: 'auto',
+});
+
+export const UnreadBadge = styled(Box)({
+  width: 6,
+  height: 6,
+  position: 'absolute',
+  right: 0,
+  top: 0,
+  borderRadius: '100%',
 });

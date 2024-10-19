@@ -1,27 +1,37 @@
 import React, { SyntheticEvent } from 'react';
-import { useGetApplicantList } from '@/services/api/employer/hooks';
 import { Typography } from '@mui/material';
 import { Route } from 'next';
-import { usePathname, useRouter } from 'next/navigation';
+import {
+  useParams,
+  usePathname,
+  useRouter,
+  useSearchParams,
+} from 'next/navigation';
 import { ReactNode, UIEvent, useState } from 'react';
+import { useGetApplicantList } from '@/services/api/advertisement/hooks';
 
 export type TApplicantCard = {
   id: string;
   file?: File | null;
-  candidateId: string;
-  candidate: {
-    fistName: string;
-    lastName: string;
+  candidate?: {
+    fistName?: string;
+    lastName?: string;
   };
-  createdAt: string | Date;
+  createdAt?: string | Date;
+  isReviewed?: boolean;
   onClick?(): void;
 };
 
 export function useApplicantList() {
   const { push: navigateTo } = useRouter();
   const pathName = usePathname();
+  const params = useParams<{ positionId: string }>();
+  const searchParams = useSearchParams();
   const [searchValue, setSearchValue] = useState<string>();
   const [statusModal, setStatusModal] = useState<boolean>(true);
+  const [selectedTab, setSelectedTab] = useState<string>(
+    searchParams.has('state') ? searchParams.get('state')! : 'Pending'
+  );
   const tabs: { label: ReactNode }[] = [
     {
       label: (
@@ -47,7 +57,10 @@ export function useApplicantList() {
   ];
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useGetApplicantList();
+    useGetApplicantList({
+      advertisementId: params.positionId,
+      state: selectedTab,
+    });
 
   function handleFetchOnScroll(e: UIEvent) {
     const at20PercentEnd =
@@ -71,7 +84,15 @@ export function useApplicantList() {
     setStatusModal(false);
   }
 
-  function handleTabsFilter(e: SyntheticEvent, value: number) {}
+  function handleTabsFilter(e: SyntheticEvent, value: number) {
+    if (value == 0) {
+      setSelectedTab('Pending');
+    } else if (value == 1) {
+      setSelectedTab('Accepted');
+    } else {
+      setSelectedTab('Rejected');
+    }
+  }
 
   return {
     applicantMock,

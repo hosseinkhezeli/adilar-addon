@@ -1,5 +1,6 @@
-import { useGetPositionList } from '@/services/api/employer/hooks';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useGetPositionList } from '@/services/api/advertisement/hooks';
+import { Route } from 'next';
+import { useRouter } from 'next/navigation';
 import { UIEvent, useState } from 'react';
 
 type TUsePositionList = {
@@ -11,11 +12,11 @@ export interface IPositionCard {
   location: {
     title: string;
   };
-  createdAt: Date;
+  createdAt: Date | string;
   candidates: {
     count: number;
   };
-  lastCandidateSubmission: Date;
+  lastCandidateSubmission: Date | string | null;
   unreadCount: number;
 }
 
@@ -36,7 +37,7 @@ const usePositionList = ({ id }: TUsePositionList) => {
   }
 
   const handleNavigation = (id: string | undefined) => {
-    navigateTo(`positions/${id}`);
+    navigateTo(`positions/${id}` as Route);
   };
 
   const handleSearch = (value: string) => {

@@ -12,14 +12,6 @@ export interface IGetResumeDataProps {
   id: string | number;
 }
 
-export interface IGetApplicantListProps {
-  pageParam: string | number;
-}
-
-export interface IGetPositionListProps {
-  pageParam: string | number;
-}
-
 export type TSubmitBasicInfoBody = {
   firstName: string;
   lastName: string;

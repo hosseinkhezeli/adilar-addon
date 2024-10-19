@@ -1,6 +1,6 @@
 'use client';
 //@3rd Party
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 //_______________________________________________________________
@@ -10,23 +10,45 @@ import { inputListAdapter } from '@/utils/methods';
 //_______________________________________________________________
 //@Types
 import { TSubmissionState } from './usePositionSubmission';
+import { useGetAdByDivarPostToken } from '@/services/api/employer/hooks';
+import { useSearchParams } from 'next/navigation';
+import {
+  useSubmitAdFormAsCandidate,
+  useSubmitResumeFile,
+} from '@/services/api/candidate/hooks';
+import { TSubmissionAnswer } from '@/services/api/candidate/types';
+import { enqueueSnackbar } from 'notistack';
 
 type TProps = {
   handleStateChange: (state: TSubmissionState) => void;
 };
 //_______________________________________________________________
 export function usePositionForm({ handleStateChange }: TProps) {
+  const postToken = useSearchParams().get('post_token');
+  const { mutate: submitAdForm, isPending: isSubmitting } =
+    useSubmitAdFormAsCandidate();
+  const { mutate: submitResumeFile, isPending: isSubmittingResumeFile } =
+    useSubmitResumeFile();
+  const { data: ad, isSuccess } = useGetAdByDivarPostToken(postToken);
   const form = useForm();
-  const { inputList } = inputListAdapter(mockData);
+  const adInputList = useMemo(
+    () => ad?.form?.fields?.map((field) => field?.field),
+    [isSuccess]
+  );
+  const isResumeRequired = useMemo(
+    () => ad?.form?.isResumeUploadingRequired,
+    [isSuccess]
+  );
+  const { inputList } = inputListAdapter(adInputList);
   const fileInput = mockData.find((field) => field.type === 'File');
   const [resumeFile, setResumeFile] = useState<File | null>(null);
   const handleGetFileFromUploader = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const file = event.target.files?.[0];
+
     if (file) {
       setResumeFile(file);
-      console.log('Selected file:', file);
     }
   };
   const handleClearResumeFile = () => {
@@ -34,7 +56,64 @@ export function usePositionForm({ handleStateChange }: TProps) {
   };
 
   const handleSubmit = (data: any) => {
-    handleStateChange('done');
+    const fieldIds = Object.keys(data);
+
+    // Create a mapping of fieldId to its type for quick lookup
+    const fieldTypeMap = inputList.reduce(
+      (acc, field) => {
+        acc[field.name as string] = field.type as string;
+        return acc;
+      },
+      {} as Record<string, string>
+    );
+
+    const submissionAnswers = fieldIds?.map((fieldId) => {
+      const fieldType = fieldTypeMap[fieldId as keyof typeof fieldTypeMap];
+      const fieldValue = data[fieldId];
+      return {
+        fieldId,
+        value:
+          fieldType === 'date-picker'
+            ? new Date(fieldValue || Date.now())?.toISOString()
+            : fieldValue,
+      };
+    });
+    const formData = new FormData();
+    formData.append('File', resumeFile as Blob);
+    submitResumeFile(formData, {
+      onSuccess: (data) => {
+        submitAdForm(
+          {
+            submissionAnswers: submissionAnswers as TSubmissionAnswer[],
+            advertisementId: ad?.id,
+            resumeFileId: data?.id,
+          },
+          {
+            onSuccess: () => {
+              handleStateChange('done');
+              enqueueSnackbar({
+                message: 'ثبت رزومه با موفقیت انجام شد',
+                variant: 'success',
+              });
+            },
+            onError: (error) => {
+              enqueueSnackbar({
+                message: 'ثبت رزومه با موفقیت انجام نشد',
+                variant: 'error',
+              });
+              console.error('Error submitting file:', error);
+            },
+          }
+        );
+      },
+      onError: (error) => {
+        enqueueSnackbar({
+          message: 'ثبت رزومه با موفقیت انجام نشد',
+          variant: 'error',
+        });
+        console.error('Error submitting file:', error);
+      },
+    });
   };
 
   return {
@@ -45,6 +124,7 @@ export function usePositionForm({ handleStateChange }: TProps) {
     resumeFile,
     handleClearResumeFile,
     handleSubmit,
+    isResumeRequired,
   };
 }
 //Delete this S@#$t

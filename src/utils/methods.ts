@@ -93,14 +93,14 @@ export function typeAdapter(type: string): IUseFormInput['type'] {
 export function inputListAdapter(fields: IFormField[]) {
   // @ts-ignore
   const inputList: IUseFormInput[] = fields
-    .filter((field) => field.type !== 'File')
-    .map((field) => {
+    ?.filter((field) => field.type !== 'File')
+    ?.map((field) => {
       return {
         label: field?.name || '-',
-        name: field?.semanticType || '-',
+        name: field?.id || '-',
         type: typeAdapter(field?.type) || 'text',
         props: {
-          ...(field.type === 'Date' && {
+          ...(field?.type === 'Date' && {
             className: 'rmdp-mobile',
             mobileLabels: {
               CANCEL: 'بستن',
@@ -108,12 +108,12 @@ export function inputListAdapter(fields: IFormField[]) {
             },
           }),
         },
-        ...(field.isRequiredByDefault && {
+        ...(field?.isRequiredByDefault && {
           rules: { required: true },
         }),
-        options: field.options.map((option) => ({
-          label: option.title,
-          value: option.value,
+        options: field?.options?.map((option) => ({
+          label: option?.title,
+          value: option?.value,
         })),
       };
     });

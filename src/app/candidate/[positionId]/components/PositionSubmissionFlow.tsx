@@ -6,7 +6,6 @@ import { SubmissionSuccess } from './SubmissionSuccess';
 
 export function PositionSubmissionFlow() {
   const { state, handleStateChange } = usePositionSubmission();
-  console.log(state);
   return (
     <>
       <Stack sx={{ padding: 4, gap: 4 }}>

@@ -45,8 +45,5 @@ export const getFormFields = (): Promise<TFormFieldsRes> => {
 export const submitAdForm = ({
   body,
 }: TSubmitAdFormParams): Promise<TFormFieldsRes> => {
-  return http.post(routes.submitAdForm, body).then((response) => {
-    console.log('Axios response:', response);
-    return response.data; // Ensure you return the data
-  });
+  return http.post(routes.submitAdForm, body);
 };

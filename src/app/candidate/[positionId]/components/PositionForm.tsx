@@ -34,6 +34,7 @@ export function PositionForm({ handleStateChange }: TProps) {
     handleClearResumeFile,
     resumeFile,
     handleSubmit,
+    isResumeRequired,
   } = usePositionForm({ handleStateChange });
   return (
     <Container>
@@ -51,6 +52,7 @@ export function PositionForm({ handleStateChange }: TProps) {
         <Button
           variant="contained"
           type="submit"
+          disabled={isResumeRequired && !resumeFile}
           sx={{
             position: 'fixed',
             width: 'calc(100% - 32px)',
@@ -66,6 +68,7 @@ export function PositionForm({ handleStateChange }: TProps) {
         <Stack sx={{ gap: 4, width: '100%', px: 2 }}>
           <Typography variant="caption1">
             در این بخش فایل رزومه شخصی خود را بارگذاری کنید
+            {isResumeRequired && <Typography color="error.main">*</Typography>}
           </Typography>
           <UploaderButton
             onFileChange={handleGetFileFromUploader}

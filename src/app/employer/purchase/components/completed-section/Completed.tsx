@@ -19,12 +19,12 @@ import CountdownTimer from './CountdownTimer';
 
 //@Types
 type TSuccessState = {
-  trackingCode: number | string;
+  trackingCode: null | string;
   onClick: () => void;
   isLoading: boolean;
 };
 type TUnSuccessState = {
-  trackingCode: number | string;
+  trackingCode: null | string;
   onClickReturn: () => void;
   onClickExit: () => void;
   isLoading: boolean;
@@ -42,7 +42,7 @@ export function Completed() {
 
   return (
     <Container>
-      {isSuccess ? (
+      {isSuccess === 'success' ? (
         <SuccessState
           onClick={onClickSuccess}
           trackingCode={trackingCode}

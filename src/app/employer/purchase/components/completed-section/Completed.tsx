@@ -21,11 +21,13 @@ import CountdownTimer from './CountdownTimer';
 type TSuccessState = {
   trackingCode: number | string;
   onClick: () => void;
+  isLoading: boolean;
 };
 type TUnSuccessState = {
   trackingCode: number | string;
   onClickReturn: () => void;
   onClickExit: () => void;
+  isLoading: boolean;
 };
 
 export function Completed() {
@@ -35,24 +37,30 @@ export function Completed() {
     onClickExit,
     trackingCode,
     isSuccess,
+    isNavigating,
   } = useComplete();
 
   return (
     <Container>
       {isSuccess ? (
-        <SuccessState onClick={onClickSuccess} trackingCode={trackingCode} />
+        <SuccessState
+          onClick={onClickSuccess}
+          trackingCode={trackingCode}
+          isLoading={isNavigating}
+        />
       ) : (
         <UnSuccessState
           onClickExit={onClickExit}
           onClickReturn={onClickReturn}
           trackingCode={trackingCode}
+          isLoading={isNavigating}
         />
       )}
     </Container>
   );
 }
 
-const SuccessState = ({ trackingCode, onClick }: TSuccessState) => {
+const SuccessState = ({ trackingCode, onClick, isLoading }: TSuccessState) => {
   return (
     <>
       <Title>رزومه شما با موفقیت ارسال شد</Title>
@@ -73,14 +81,19 @@ const SuccessState = ({ trackingCode, onClick }: TSuccessState) => {
           gap: 6,
         }}
       >
-        <CountdownTimer onTimeUp={onClick} />
+        <CountdownTimer onTimeUp={onClick} title={<>تا رفتن به فرم ساز</>} />
         <Box
           sx={{
             display: 'flex',
             gap: 2,
           }}
         >
-          <Button variant="outlined" fullWidth onClick={onClick}>
+          <Button
+            variant="outlined"
+            fullWidth
+            onClick={onClick}
+            isLoading={isLoading}
+          >
             برو به فرم ساز آدیلار
           </Button>
         </Box>
@@ -93,6 +106,7 @@ const UnSuccessState = ({
   onClickExit,
   onClickReturn,
   trackingCode,
+  isLoading,
 }: TUnSuccessState) => {
   return (
     <>
@@ -115,17 +129,30 @@ const UnSuccessState = ({
           gap: 6,
         }}
       >
-        <CountdownTimer onTimeUp={onClickReturn} />
+        <CountdownTimer
+          onTimeUp={onClickReturn}
+          title={<>تا رفتن به پرداخت مجدد</>}
+        />
         <Box
           sx={{
             display: 'flex',
             gap: 2,
           }}
         >
-          <Button variant="contained" fullWidth onClick={onClickReturn}>
+          <Button
+            variant="contained"
+            fullWidth
+            onClick={onClickReturn}
+            isLoading={isLoading}
+          >
             پرداخت مجدد
           </Button>
-          <Button variant="outlined" fullWidth onClick={onClickExit}>
+          <Button
+            variant="outlined"
+            fullWidth
+            onClick={onClickExit}
+            isLoading={isLoading}
+          >
             انصراف
           </Button>
         </Box>

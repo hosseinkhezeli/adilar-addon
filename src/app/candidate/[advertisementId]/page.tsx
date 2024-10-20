@@ -15,7 +15,7 @@ import { AdilarLogo } from '@/app/components/AdilarLogo';
 //@Types
 type TParams = {
   params: { advertisementId: string };
-  searchParams: { state: 'init' | 'logged-in' };
+  searchParams: { state: 'init' | 'logged-in'; post_token: string | null };
 };
 //_______________________________________________________________
 
@@ -29,7 +29,7 @@ const Page = ({ params, searchParams }: TParams) => {
         </>
       ) : (
         <>
-          <FormHeader />
+          <FormHeader postToken={searchParams?.post_token} />
           <PositionSubmissionFlow />
         </>
       )}

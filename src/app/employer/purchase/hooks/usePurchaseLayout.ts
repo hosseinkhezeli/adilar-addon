@@ -55,6 +55,7 @@ export function usePurchaseLayout() {
     if (post_token && advertisement_id) {
       setAdInfo(post_token, advertisement_id);
     }
+    return reset();
   }, [tokenParam, post_token, advertisement_id, loading]);
   return { currentState };
 }

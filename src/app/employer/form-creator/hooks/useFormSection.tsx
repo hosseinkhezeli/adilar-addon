@@ -22,6 +22,7 @@ export function useFormSection() {
   const { reset } = usePurchaseStore();
   const searchParams = useSearchParams();
   const postToken = searchParams.get('post_token');
+  const advertisementId = searchParams.get('advertisement_id');
   const { mutateAsync: submitAdForm, isPending: isSubmittingAdForm } =
     useSubmitAdForm();
   const { data: adData, isLoading: isLoadingAdData } =
@@ -163,6 +164,10 @@ export function useFormSection() {
     });
   }
   const handleSubmitForm = (data: TAdFormDto) => {
+    const body = {
+      ...data,
+      advertisementId: advertisementId,
+    };
     submitAdForm(data, {
       onSuccess: () => {
         enqueueSnackbar({

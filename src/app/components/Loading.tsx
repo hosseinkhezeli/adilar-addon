@@ -21,7 +21,8 @@ export function SvgLoading() {
   return (
     <Stack
       width={'100vw'}
-      height={'100vh'}
+      maxHeight={'100vh'}
+      height={'100%'}
       alignItems={'center'}
       justifyContent={'center'}
     >

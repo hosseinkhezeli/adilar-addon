@@ -8,6 +8,7 @@ import { HeaderPositions } from '@/app/employer/positions/components/HeaderPosit
 import { SwipeTutorial } from '@/app/components/SwipeTutorial';
 import { CustomTabs } from '@/app/components/CustomTabs';
 import { EmptyStateApplicantList } from '@/app/employer/positions/[positionId]/components/EmptyStateApplicantList';
+import { SvgLoading } from '@/app/components/Loading';
 
 export function ApplicantList() {
   const {
@@ -47,7 +48,7 @@ export function ApplicantList() {
         onScroll={handleFetchOnScroll}
       >
         {!data ? (
-          'loading'
+          <SvgLoading />
         ) : data.pages.length === 0 ? (
           <EmptyStateApplicantList />
         ) : (

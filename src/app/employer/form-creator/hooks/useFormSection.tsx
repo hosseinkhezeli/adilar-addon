@@ -164,11 +164,11 @@ export function useFormSection() {
     });
   }
   const handleSubmitForm = (data: TAdFormDto) => {
-    const body = {
+    const body: TAdFormDto = {
       ...data,
-      advertisementId: advertisementId,
+      advertisementId: advertisementId || '404_advertisement_id',
     };
-    submitAdForm(data, {
+    submitAdForm(body, {
       onSuccess: () => {
         enqueueSnackbar({
           message: 'فرم با موفقیت ساخته شد',

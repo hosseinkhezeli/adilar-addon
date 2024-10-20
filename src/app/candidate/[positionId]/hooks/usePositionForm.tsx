@@ -105,7 +105,7 @@ export function usePositionForm({ handleStateChange }: TProps) {
               });
             },
             onError: (error) => {
-              enqueueSnackbar('ثبت رزومه با موفقیت انجام نشد', {
+              enqueueSnackbar('در روند ثبت رزومه خطایی رخ داد', {
                 variant: 'error',
                 anchorOrigin: { horizontal: 'center', vertical: 'top' },
               });
@@ -115,7 +115,7 @@ export function usePositionForm({ handleStateChange }: TProps) {
         );
       },
       onError: (error) => {
-        enqueueSnackbar('ثبت رزومه با موفقیت انجام نشد', { variant: 'error' });
+        enqueueSnackbar('در روند ثبت رزومه خطایی رخ داد', { variant: 'error' });
         console.error('Error submitting file:', error);
       },
     });

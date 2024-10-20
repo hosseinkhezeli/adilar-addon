@@ -22,12 +22,13 @@ export function ApplicantList() {
     handleCloseModal,
     handleTabsFilter,
     isNavigating,
+    advertisement,
   } = useApplicantList();
 
   return (
     <>
       <HeaderPositions
-        title="برنامه نویس فرانت اند"
+        title={`رزومه های ${advertisement?.title || ''}`}
         value={searchValue}
         handleSearch={handleSearch}
       >

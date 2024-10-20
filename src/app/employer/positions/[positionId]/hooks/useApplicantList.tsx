@@ -9,6 +9,9 @@ import {
 } from 'next/navigation';
 import { ReactNode, UIEvent, useState } from 'react';
 import { useGetApplicantList } from '@/services/api/advertisement/hooks';
+import useAdvertisementStore from '@/store/advertisement/advertisementSlice';
+import useUserStore from '@/store/user/userSlice';
+import { useSetViewedTutorial } from '@/services/api/auth/hooks';
 
 export type TApplicantCard = {
   id: string;
@@ -23,6 +26,8 @@ export type TApplicantCard = {
 };
 
 export function useApplicantList() {
+  const { advertisement } = useAdvertisementStore();
+  const { user } = useUserStore();
   const { push: navigateTo } = useRouter();
   const [isNavigating, startTransition] = useTransition();
   const pathName = usePathname();
@@ -31,10 +36,12 @@ export function useApplicantList() {
   const [searchValue, setSearchValue] = useState<string>(
     searchParams.get('textSearch') || ''
   );
-  const [statusModal, setStatusModal] = useState<boolean>(true);
+  const [statusModal, setStatusModal] = useState<boolean>(false);
   const [selectedTab, setSelectedTab] = useState<string>(
     searchParams.has('state') ? searchParams.get('state')! : 'Pending'
   );
+
+  const { mutate: handleSetViewedTutorialMutate } = useSetViewedTutorial();
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useGetApplicantList({
@@ -91,7 +98,17 @@ export function useApplicantList() {
   }
 
   function handleCloseModal() {
-    setStatusModal(false);
+    handleSetViewedTutorialMutate(
+      { viewedAdSubmissionTutorial: true },
+      {
+        onSuccess() {
+          setStatusModal(false);
+        },
+        onError() {
+          setStatusModal(false);
+        },
+      }
+    );
   }
 
   function handleTabsFilter(e: SyntheticEvent, value: number) {
@@ -117,11 +134,18 @@ export function useApplicantList() {
     return () => clearTimeout(id);
   }, [searchValue]);
 
+  useEffect(() => {
+    if (!user?.viewedAdSubmissionTutorial) {
+      setStatusModal(true);
+    }
+  }, [user?.viewedAdSubmissionTutorial]);
+
   return {
     searchValue,
     data,
     statusModal,
     tabs,
+    advertisement,
     handleSearch,
     handleNavigate,
     handleFetchOnScroll,

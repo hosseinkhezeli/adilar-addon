@@ -1,4 +1,6 @@
 import { useGetPositionList } from '@/services/api/advertisement/hooks';
+import { IAdvertisement } from '@/services/api/advertisement/types';
+import useAdvertisementStore from '@/store/advertisement/advertisementSlice';
 import { Route } from 'next';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { UIEvent, useEffect, useState, useTransition } from 'react';
@@ -18,6 +20,7 @@ export interface IPositionCard {
 }
 
 const usePositionList = () => {
+  const { setAdvertisement } = useAdvertisementStore();
   const { push: navigateTo } = useRouter();
   const [isNavigating, startTransition] = useTransition();
   const pathName = usePathname();
@@ -39,6 +42,14 @@ const usePositionList = () => {
   }
 
   const handleNavigation = (id: string | undefined) => {
+    let ad: IAdvertisement | undefined;
+    for (const page of data?.pages || []) {
+      ad = page.advertisements.find((advertisement) => advertisement.id === id);
+      if (ad) {
+        break;
+      }
+    }
+    setAdvertisement(ad);
     startTransition(() => {
       navigateTo(`positions/${id}` as Route);
     });

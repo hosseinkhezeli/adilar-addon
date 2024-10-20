@@ -4,6 +4,7 @@ import { SearchInput } from '@/app/components/SearchInput';
 import { IconButton, Stack, Typography } from '@mui/material';
 import { useParams, useRouter } from 'next/navigation';
 import SvgArrowRight1 from 'ideep-design-system-2/icons/ArrowRight1';
+import SvgAdd from 'ideep-design-system-2/icons/Add';
 
 interface IHeaderPositions {
   title: string;
@@ -42,7 +43,23 @@ const HeaderPositions = ({
           >
             <SvgArrowRight1 primarycolor="inherit" strokeWidth={2} />
           </IconButton>
-        ) : null}
+        ) : (
+          <IconButton
+            onClick={() => {}}
+            sx={{
+              position: 'absolute',
+              left: 16,
+              stroke: (theme) => theme.palette.primary.main,
+            }}
+          >
+            <SvgAdd
+              primarycolor="inherit"
+              style={{
+                transform: 'rotate(45deg)',
+              }}
+            />
+          </IconButton>
+        )}
         <Typography
           variant="body3.medium"
           color="text.16"

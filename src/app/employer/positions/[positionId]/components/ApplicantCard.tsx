@@ -6,8 +6,16 @@ import { Box, IconButton, useTheme } from '@mui/material';
 import { TApplicantCard } from '@/app/employer/positions/[positionId]/hooks/useApplicantList';
 import SvgTickCircle from 'ideep-design-system-2/icons/TickCircle';
 import SvgCloseCircle from 'ideep-design-system-2/icons/CloseCircle';
+import { useSetApproval } from '@/services/api/submission/hooks';
+import { enqueueSnackbar } from 'notistack';
+import { useQueryClient } from '@tanstack/react-query';
 
-export function ApplicantCard(applicantInfo: TApplicantCard) {
+interface IApplicantCard {
+  applicantInfo: TApplicantCard;
+}
+
+export function ApplicantCard({ applicantInfo }: IApplicantCard) {
+  const QC = useQueryClient();
   const { typography, palette } = useTheme();
   const [translateX, setTranslateX] = useState<number>(0);
   const [isSwiping, setIsSwiping] = useState<boolean>(false);
@@ -19,6 +27,55 @@ export function ApplicantCard(applicantInfo: TApplicantCard) {
     clientY: 0,
   });
   const maxSwipeDistance = 80; // Maximum swipe distance in pixels
+
+  const { mutate: setApprovalMutate, isPending: isApprovalLoading } =
+    useSetApproval();
+
+  function onApprove() {
+    if (applicantInfo.id) {
+      setApprovalMutate(
+        { id: applicantInfo.id, isApprove: true },
+        {
+          onSuccess() {
+            enqueueSnackbar('رزومه تایید شد', { variant: 'success' });
+            QC.refetchQueries({ queryKey: ['applicantList'] });
+            QC.refetchQueries({
+              queryKey: ['get-submission', applicantInfo.id],
+            });
+            setTranslateX(0);
+          },
+          onError() {
+            enqueueSnackbar('ثبت ناموفق، اروری رخ داده است', {
+              variant: 'error',
+            });
+          },
+        }
+      );
+    }
+  }
+
+  function onReject() {
+    if (applicantInfo.id) {
+      setApprovalMutate(
+        { id: applicantInfo.id, isApprove: false },
+        {
+          onSuccess() {
+            enqueueSnackbar('رزومه رد شد', { variant: 'success' });
+            QC.refetchQueries({ queryKey: ['applicantList'] });
+            QC.refetchQueries({
+              queryKey: ['get-submission', applicantInfo.id],
+            });
+            setTranslateX(0);
+          },
+          onError() {
+            enqueueSnackbar('ثبت ناموفق، اروری رخ داده است', {
+              variant: 'error',
+            });
+          },
+        }
+      );
+    }
+  }
 
   const handleTouchStart = (event: TouchEvent<HTMLDivElement>) => {
     setIsSwiping(true);
@@ -88,7 +145,7 @@ export function ApplicantCard(applicantInfo: TApplicantCard) {
           <IconButton
             onClick={(e) => {
               e.stopPropagation();
-              setTranslateX(0);
+              onApprove();
             }}
             sx={{
               transform: `scaleX(${Math.abs(translateX * 1.25)}%)`,
@@ -110,7 +167,7 @@ export function ApplicantCard(applicantInfo: TApplicantCard) {
           <IconButton
             onClick={(e) => {
               e.stopPropagation();
-              setTranslateX(0);
+              onReject();
             }}
             sx={{
               transform: `scaleX(${Math.abs(translateX * 1.25)}%)`,

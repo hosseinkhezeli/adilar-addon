@@ -49,7 +49,7 @@ export function ApplicantList() {
       >
         {!data ? (
           <SvgLoading />
-        ) : data.pages.length === 0 ? (
+        ) : data.pages[0].submissions.length === 0 ? (
           <EmptyStateApplicantList />
         ) : (
           data?.pages.map((page, idx) => (
@@ -58,18 +58,19 @@ export function ApplicantList() {
                 return (
                   <Fragment key={applicant.id}>
                     <ApplicantCard
-                      id={applicant?.id}
-                      isReviewed={applicant?.isReviewed}
-                      createdAt={applicant?.submissionDateTime}
-                      candidate={{
-                        fistName: applicant?.firstName || '-',
-                        lastName: applicant?.lastName || '-',
+                      applicantInfo={{
+                        id: applicant?.id,
+                        isReviewed: applicant?.isReviewed,
+                        createdAt: applicant?.submissionDateTime,
+                        candidate: {
+                          fistName: applicant?.firstName || '-',
+                          lastName: applicant?.lastName || '-',
+                        },
+                        onClick: () =>
+                          handleNavigate({
+                            id: applicant.id,
+                          }),
                       }}
-                      onClick={() =>
-                        handleNavigate({
-                          id: applicant.id,
-                        })
-                      }
                     />
                     {idx < arr.length - 1 && <Divider />}
                   </Fragment>

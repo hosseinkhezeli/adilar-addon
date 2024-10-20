@@ -5,8 +5,9 @@ import { PDFIcon } from '@/app/icons/PDFIcon';
 
 interface IDownloadResume {
   resumeId: string;
+  fullName: string;
 }
-const DownloadResume = ({ resumeId }: IDownloadResume) => {
+const DownloadResume = ({ resumeId, fullName }: IDownloadResume) => {
   return (
     <Stack
       sx={{
@@ -28,11 +29,15 @@ const DownloadResume = ({ resumeId }: IDownloadResume) => {
             `${process.env.NEXT_PUBLIC_API_URL}/api/File/asset/${resumeId}`
           );
           const file = await res.blob();
-          console.log(file);
 
           const url = URL.createObjectURL(file);
           const a = document.createElement('a');
           a.href = url;
+          a.download = `${fullName}-resume`;
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          URL.revokeObjectURL(url);
         }}
       >
         <Typography

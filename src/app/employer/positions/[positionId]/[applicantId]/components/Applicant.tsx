@@ -66,7 +66,18 @@ const Applicant = () => {
                     mb: 8,
                   }}
                 >
-                  <DownloadResume resumeId={data.resumeId} />
+                  <DownloadResume
+                    resumeId={data.resumeId}
+                    fullName={
+                      data.fields.find(
+                        (item) => item.semanticType == 'FirstName'
+                      )?.value +
+                      ' ' +
+                      data.fields.find(
+                        (item) => item.semanticType == 'LastName'
+                      )?.value
+                    }
+                  />
                   <HandlerButtons
                     isApprovalLoading={isApprovalLoading}
                     onApprove={handleApplicant.onApprove}

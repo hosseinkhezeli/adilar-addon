@@ -20,6 +20,18 @@ export type TFormFieldType =
   | 'File'
   | 'Number';
 
+export type TSemanticFieldType =
+  | 'BirthDate'
+  | 'Address'
+  | 'FirstName'
+  | 'LastName'
+  | 'PhoneNumber'
+  | 'Email'
+  | 'Gender'
+  | 'NationalCode'
+  | 'MaritalStatus'
+  | 'MilitaryServiceStatus';
+
 export type TCategoryFieldType = 'Personal';
 
 export interface IFormField {
@@ -30,7 +42,7 @@ export interface IFormField {
   defaultPriority: number;
   isRequiredByDefault: boolean;
   category: string;
-  semanticType: string;
+  semanticType: TSemanticFieldType;
   user: IUserRes | null;
   userId: string | null;
   formFields: any | null;

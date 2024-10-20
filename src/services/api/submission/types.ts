@@ -1,4 +1,8 @@
-import { TCategoryFieldType, TFormFieldType } from '@/types/common-types';
+import {
+  TCategoryFieldType,
+  TFormFieldType,
+  TSemanticFieldType,
+} from '@/types/common-types';
 
 export interface IGetSubmissionProps {
   id: string | number;
@@ -16,9 +20,9 @@ export interface IField {
   id: string;
   name: string;
   value: string | null;
-  type: string;
+  type: TFormFieldType;
   category: TCategoryFieldType;
-  semanticType: TFormFieldType;
+  semanticType: TSemanticFieldType;
   priority: number;
 }
 

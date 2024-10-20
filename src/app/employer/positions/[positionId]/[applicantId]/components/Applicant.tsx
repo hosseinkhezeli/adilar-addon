@@ -16,8 +16,7 @@ const Applicant = () => {
     data,
     statusModal,
     isApprovalLoading,
-    customPush,
-    onApprove,
+    handleApplicant,
     handleCloseModal,
     onTouchStart,
     onTouchMove,
@@ -67,12 +66,11 @@ const Applicant = () => {
                     mb: 8,
                   }}
                 >
-                  <DownloadResume />
+                  <DownloadResume resumeId={data.resumeId} />
                   <HandlerButtons
                     isApprovalLoading={isApprovalLoading}
-                    onApprove={onApprove}
-                    onReject={customPush}
-                    nextId={data?.nextSubmissionId}
+                    onApprove={handleApplicant.onApprove}
+                    onReject={handleApplicant.onReject}
                   />
                 </Stack>
               </>

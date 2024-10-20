@@ -3,7 +3,6 @@ import {
   useSetApproval,
   useSetIsReviewed,
 } from '@/services/api/submission/hooks';
-import { TCategorySection } from '@/services/api/submission/types';
 import { useQueryClient } from '@tanstack/react-query';
 import { Route } from 'next';
 import {
@@ -14,12 +13,6 @@ import {
 } from 'next/navigation';
 import { enqueueSnackbar } from 'notistack';
 import { TouchEvent, useEffect, useRef, useState } from 'react';
-
-export const categoryTitle: {
-  [key in TCategorySection]: string;
-} = {
-  Personal: 'اطلاعات شخصی',
-};
 
 export function useApplicant() {
   const QC = useQueryClient();
@@ -121,10 +114,11 @@ export function useApplicant() {
   function onApprove() {
     if (data) {
       setApprovalMutate(
-        { id: data.id },
+        { id: data.id, isApprove: true },
         {
           onSuccess() {
             enqueueSnackbar('رزومه تایید شد', { variant: 'success' });
+            QC.refetchQueries({ queryKey: ['applicantList'] });
           },
           onError() {
             enqueueSnackbar('ثبت ناموفق', { variant: 'error' });
@@ -133,6 +127,31 @@ export function useApplicant() {
       );
     }
   }
+
+  function onReject() {
+    if (data) {
+      setApprovalMutate(
+        { id: data.id, isApprove: false },
+        {
+          onSuccess() {
+            enqueueSnackbar('رزومه رد شد', { variant: 'success' });
+            QC.refetchQueries({ queryKey: ['applicantList'] });
+            customPush(data.nextSubmissionId);
+          },
+          onError() {
+            enqueueSnackbar('ثبت ناموفق، اروری رخ داده است', {
+              variant: 'error',
+            });
+          },
+        }
+      );
+    }
+  }
+
+  const handleApplicant = {
+    onApprove,
+    onReject,
+  };
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -147,6 +166,7 @@ export function useApplicant() {
         {
           onSuccess: () => {
             QC.refetchQueries({ queryKey: ['applicantList'] });
+            QC.refetchQueries({ queryKey: ['positionList'] });
           },
         }
       );
@@ -159,8 +179,7 @@ export function useApplicant() {
     data,
     statusModal,
     isApprovalLoading,
-    customPush,
-    onApprove,
+    handleApplicant,
     onTouchStart,
     onTouchMove,
     onTouchEnd,

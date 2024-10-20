@@ -32,4 +32,5 @@ export interface ISetIsReviewedResponse {
 
 export interface ISetApprovalProps {
   id: number | string;
+  isApprove: boolean;
 }

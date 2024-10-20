@@ -21,10 +21,14 @@ export const setIsReviewed = ({ id }: ISetIsReviewedProps) => {
   });
 };
 
-export const setApproval = ({ id }: ISetApprovalProps) => {
-  return http.patch(submissionRoutes.setApproval(id), JSON.stringify(true), {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
+export const setApproval = ({ id, isApprove }: ISetApprovalProps) => {
+  return http.patch(
+    submissionRoutes.setApproval(id),
+    JSON.stringify(isApprove),
+    {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
+  );
 };

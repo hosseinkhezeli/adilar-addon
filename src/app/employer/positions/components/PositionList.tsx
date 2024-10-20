@@ -14,6 +14,7 @@ export function PositionList() {
     handleNavigation,
     handleSearch,
     handleFetchOnScroll,
+    isNavigating,
   } = usePositionList();
   return (
     <>
@@ -28,7 +29,7 @@ export function PositionList() {
         }}
         onScroll={handleFetchOnScroll}
       >
-        {!data ? (
+        {!data || isNavigating ? (
           <SvgLoading />
         ) : (
           data.pages.map((page, idx) => (

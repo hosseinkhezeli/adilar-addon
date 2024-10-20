@@ -21,6 +21,7 @@ export function ApplicantList() {
     handleFetchOnScroll,
     handleCloseModal,
     handleTabsFilter,
+    isNavigating,
   } = useApplicantList();
 
   return (
@@ -47,7 +48,7 @@ export function ApplicantList() {
         }}
         onScroll={handleFetchOnScroll}
       >
-        {!data ? (
+        {!data || isNavigating ? (
           <SvgLoading />
         ) : data.pages[0].submissions.length === 0 ? (
           <EmptyStateApplicantList />

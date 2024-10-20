@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useEffect } from 'react';
+import React, { SyntheticEvent, useEffect, useTransition } from 'react';
 import { Typography } from '@mui/material';
 import { Route } from 'next';
 import {
@@ -24,6 +24,7 @@ export type TApplicantCard = {
 
 export function useApplicantList() {
   const { push: navigateTo } = useRouter();
+  const [isNavigating, startTransition] = useTransition();
   const pathName = usePathname();
   const params = useParams<{ positionId: string }>();
   const searchParams = useSearchParams();
@@ -80,7 +81,9 @@ export function useApplicantList() {
     if (!data) {
       return null;
     }
-    navigateTo(`${pathName}/${id}` as Route);
+    startTransition(() => {
+      navigateTo(`${pathName}/${id}` as Route);
+    });
   }
 
   function handleSearch(value: string) {
@@ -124,5 +127,6 @@ export function useApplicantList() {
     handleFetchOnScroll,
     handleCloseModal,
     handleTabsFilter,
+    isNavigating,
   };
 }

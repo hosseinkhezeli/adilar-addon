@@ -4,39 +4,55 @@ import Image from 'next/image';
 //_______________________________________________________________
 
 //@Mui
-import { Button, Stack, Typography, styled } from '@mui/material';
+import { Box, Button, Stack, Typography, styled } from '@mui/material';
 //_______________________________________________________________
 
 //@Hooks
-import { useComplete } from '../hooks/useComplete';
+import { useComplete } from '../../hooks/useComplete';
 //_______________________________________________________________
 
 //@Assets
 import SvgSuccess from '@/assets/images/payment-successful.svg';
 import SvgUnSuccess from '@/assets/images/payment-unsuccessful.svg';
+import CountdownTimer from './CountdownTimer';
 //_______________________________________________________________
 
 //@Types
-type TState = {
+type TSuccessState = {
   trackingCode: number | string;
   onClick: () => void;
 };
+type TUnSuccessState = {
+  trackingCode: number | string;
+  onClickReturn: () => void;
+  onClickExit: () => void;
+};
 
 export function Completed() {
-  const { onClick, trackingCode, isSuccess } = useComplete();
+  const {
+    onClickSuccess,
+    onClickReturn,
+    onClickExit,
+    trackingCode,
+    isSuccess,
+  } = useComplete();
 
   return (
     <Container>
       {isSuccess ? (
-        <SuccessState onClick={onClick} trackingCode={trackingCode} />
+        <SuccessState onClick={onClickSuccess} trackingCode={trackingCode} />
       ) : (
-        <UnSuccessState onClick={onClick} trackingCode={trackingCode} />
+        <UnSuccessState
+          onClickExit={onClickExit}
+          onClickReturn={onClickReturn}
+          trackingCode={trackingCode}
+        />
       )}
     </Container>
   );
 }
 
-const SuccessState = ({ trackingCode, onClick }: TState) => {
+const SuccessState = ({ trackingCode, onClick }: TSuccessState) => {
   return (
     <>
       <Title>رزومه شما با موفقیت ارسال شد</Title>
@@ -48,23 +64,36 @@ const SuccessState = ({ trackingCode, onClick }: TState) => {
         height={155}
         style={{ margin: '0 auto', width: '100%' }}
       />
-      <Button
-        variant="outlined"
+      <Stack
         sx={{
           position: 'fixed',
           width: 'calc(100% - 32px)',
           margin: '0 auto',
           bottom: 16,
+          gap: 6,
         }}
-        onClick={onClick}
       >
-        برو به فرم ساز آدیلار
-      </Button>
+        <CountdownTimer onTimeUp={onClick} />
+        <Box
+          sx={{
+            display: 'flex',
+            gap: 2,
+          }}
+        >
+          <Button variant="outlined" fullWidth onClick={onClick}>
+            برو به فرم ساز آدیلار
+          </Button>
+        </Box>
+      </Stack>
     </>
   );
 };
 
-const UnSuccessState = ({ onClick, trackingCode }: TState) => {
+const UnSuccessState = ({
+  onClickExit,
+  onClickReturn,
+  trackingCode,
+}: TUnSuccessState) => {
   return (
     <>
       <Title sx={{ color: 'error.main' }}>تراکنش ناموفق بود</Title>
@@ -76,18 +105,31 @@ const UnSuccessState = ({ onClick, trackingCode }: TState) => {
         height={155}
         style={{ margin: '0 auto', width: '100%' }}
       />
-      <Button
-        variant="outlined"
+
+      <Stack
         sx={{
           position: 'fixed',
           width: 'calc(100% - 32px)',
           margin: '0 auto',
           bottom: 16,
+          gap: 6,
         }}
-        onClick={onClick}
       >
-        بازگشت به صفحه پرداخت
-      </Button>
+        <CountdownTimer onTimeUp={onClickReturn} />
+        <Box
+          sx={{
+            display: 'flex',
+            gap: 2,
+          }}
+        >
+          <Button variant="contained" fullWidth onClick={onClickReturn}>
+            پرداخت مجدد
+          </Button>
+          <Button variant="outlined" fullWidth onClick={onClickExit}>
+            انصراف
+          </Button>
+        </Box>
+      </Stack>
     </>
   );
 };

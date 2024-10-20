@@ -5,15 +5,33 @@ import { useRouter } from 'next/navigation';
 
 //@Types
 import { Route } from 'next';
+
 //_______________________________________________________________
 
 export function useComplete() {
   //TODO: make these two dynamic from payment result
   const trackingCode = '458965221214';
-  const isSuccess = false;
+  const isSuccess = true;
+
   const { push: navigateTo } = useRouter();
-  const onClick = () => {
+  const onClickSuccess = () => {
+    //TODO:correct this address
     navigateTo('asdasda/form-creator' as Route);
   };
-  return { onClick, trackingCode, isSuccess };
+  const onClickReturn = () => {
+    //TODO:correct this address
+    navigateTo('divar' as Route);
+  };
+  const onClickExit = () => {
+    //TODO:correct this address
+    navigateTo('divar' as Route);
+  };
+
+  return {
+    onClickReturn,
+    onClickExit,
+    onClickSuccess,
+    trackingCode,
+    isSuccess,
+  };
 }

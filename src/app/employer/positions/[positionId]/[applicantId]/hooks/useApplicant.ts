@@ -119,6 +119,9 @@ export function useApplicant() {
           onSuccess() {
             enqueueSnackbar('رزومه تایید شد', { variant: 'success' });
             QC.refetchQueries({ queryKey: ['applicantList'] });
+            QC.refetchQueries({
+              queryKey: ['get-submission', params.applicantId],
+            });
           },
           onError() {
             enqueueSnackbar('ثبت ناموفق', { variant: 'error' });
@@ -136,6 +139,9 @@ export function useApplicant() {
           onSuccess() {
             enqueueSnackbar('رزومه رد شد', { variant: 'success' });
             QC.refetchQueries({ queryKey: ['applicantList'] });
+            QC.refetchQueries({
+              queryKey: ['get-submission', params.applicantId],
+            });
             customPush(data.nextSubmissionId);
           },
           onError() {
@@ -160,13 +166,16 @@ export function useApplicant() {
   }, []);
 
   useEffect(() => {
-    if (data && searchParams.get('isReviewed') == 'false') {
+    if (data && !data.isReviewed) {
       setIsReviewedMutate(
         { id: data.id },
         {
           onSuccess: () => {
             QC.refetchQueries({ queryKey: ['applicantList'] });
             QC.refetchQueries({ queryKey: ['positionList'] });
+            QC.refetchQueries({
+              queryKey: ['get-submission', params.applicantId],
+            });
           },
         }
       );

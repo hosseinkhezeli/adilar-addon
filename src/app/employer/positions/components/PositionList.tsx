@@ -33,7 +33,7 @@ export function PositionList() {
               <Fragment key={idx}>
                 {page?.advertisements?.map((item, index, arr) => {
                   return (
-                    <>
+                    <Fragment key={item.id}>
                       <PositionCard
                         positionInfo={{
                           id: item.id,
@@ -51,7 +51,7 @@ export function PositionList() {
                         onClick={handleNavigation}
                       />
                       {idx < arr.length - 1 && <Divider />}
-                    </>
+                    </Fragment>
                   );
                 })}
               </Fragment>

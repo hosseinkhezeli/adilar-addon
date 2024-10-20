@@ -8,7 +8,7 @@ interface IInfoSection {
   data?: IGetSubmissionResponse;
 }
 
-const fullNameArrayFiled = ['نام', 'نام خانوادگی'];
+const fullNameArrayFiled = ['FirstName', 'LastName'];
 const InfoSection = ({ data }: IInfoSection) => {
   const submissionData:
     | {
@@ -17,7 +17,7 @@ const InfoSection = ({ data }: IInfoSection) => {
         type: TFormFieldType;
       }[]
     | undefined = data?.fields
-    ?.filter((field) => !fullNameArrayFiled.includes(field.name))
+    ?.filter((field) => !fullNameArrayFiled.includes(field.semanticType))
     .map((field) => ({
       label: field?.name || '-',
       value: field?.value || '-',

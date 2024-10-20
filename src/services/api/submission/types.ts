@@ -1,4 +1,5 @@
 import {
+  TApplicantState,
   TCategoryFieldType,
   TFormFieldType,
   TSemanticFieldType,
@@ -9,6 +10,8 @@ export interface IGetSubmissionProps {
 }
 
 export interface IGetSubmissionResponse {
+  state: TApplicantState;
+  isReviewed: boolean;
   id: string;
   resumeId: string;
   nextSubmissionId: string | null;

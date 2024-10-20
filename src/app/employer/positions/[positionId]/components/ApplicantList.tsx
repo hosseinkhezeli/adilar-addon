@@ -7,6 +7,7 @@ import { ApplicantCard } from '@/app/employer/positions/[positionId]/components/
 import { HeaderPositions } from '@/app/employer/positions/components/HeaderPositions';
 import { SwipeTutorial } from '@/app/components/SwipeTutorial';
 import { CustomTabs } from '@/app/components/CustomTabs';
+import { EmptyStateApplicantList } from '@/app/employer/positions/[positionId]/components/EmptyStateApplicantList';
 
 export function ApplicantList() {
   const {
@@ -45,34 +46,37 @@ export function ApplicantList() {
         }}
         onScroll={handleFetchOnScroll}
       >
-        {!data
-          ? 'loading'
-          : data?.pages.map((page, idx) => (
-              <Fragment key={idx}>
-                {page?.submissions.map((applicant, index, arr) => {
-                  return (
-                    <>
-                      <ApplicantCard
-                        key={index}
-                        id={applicant?.id}
-                        isReviewed={applicant?.isReviewed}
-                        createdAt={applicant?.submissionDateTime}
-                        candidate={{
-                          fistName: applicant?.firstName || '-',
-                          lastName: applicant?.lastName || '-',
-                        }}
-                        onClick={() =>
-                          handleNavigate({
-                            id: applicant.id,
-                          })
-                        }
-                      />
-                      {idx < arr.length - 1 && <Divider />}
-                    </>
-                  );
-                })}
-              </Fragment>
-            ))}
+        {!data ? (
+          'loading'
+        ) : data.pages.length === 0 ? (
+          <EmptyStateApplicantList />
+        ) : (
+          data?.pages.map((page, idx) => (
+            <Fragment key={idx}>
+              {page?.submissions.map((applicant, index, arr) => {
+                return (
+                  <Fragment key={applicant.id}>
+                    <ApplicantCard
+                      id={applicant?.id}
+                      isReviewed={applicant?.isReviewed}
+                      createdAt={applicant?.submissionDateTime}
+                      candidate={{
+                        fistName: applicant?.firstName || '-',
+                        lastName: applicant?.lastName || '-',
+                      }}
+                      onClick={() =>
+                        handleNavigate({
+                          id: applicant.id,
+                        })
+                      }
+                    />
+                    {idx < arr.length - 1 && <Divider />}
+                  </Fragment>
+                );
+              })}
+            </Fragment>
+          ))
+        )}
       </CardList>
 
       <SwipeTutorial

@@ -15,11 +15,14 @@ export const MuiButton: Components<Theme>['MuiButton'] = {
     component: 'button',
   },
   styleOverrides: {
-    root: () => ({
+    root: ({ theme }) => ({
       minHeight: 44,
       fontWeight: 700,
       borderWidth: 2,
       borderRadius: 8,
+      '&.Mui-disabled': {
+        backgroundColor: theme.palette.background[6],
+      },
     }),
     text: ({ ownerState }) => ({
       ...(ownerState.isLoading

@@ -23,7 +23,9 @@ export function PurchaseLayout({
       <Typography variant="body3.medium">
         فرم‌ساز رزومه و دسته‌بندی رزومه‌ها
       </Typography>
-      <PurchaseProgress activeState={currentState} />
+      {currentState !== 'completed' && (
+        <PurchaseProgress activeState={currentState} />
+      )}
       {children}
     </Stack>
   );

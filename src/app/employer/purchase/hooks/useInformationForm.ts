@@ -93,7 +93,7 @@ export function useInformationForm() {
       onError: (error) => {
         console.log(error);
         enqueueSnackbar({
-          message: 'اطلاعات با موفقیت ثبت نشد',
+          message: 'در روند ثبت اطلاعات خطایی رخ داد',
           variant: 'error',
         });
       },

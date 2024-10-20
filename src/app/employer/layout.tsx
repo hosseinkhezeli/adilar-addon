@@ -4,7 +4,7 @@ import React from 'react';
 
 //@Components
 import { MainLayout } from '../components/MainLayout';
-import { AuthLayout } from './components/AuthLayout';
+import { AuthLayout } from '../components/AuthLayout';
 //_______________________________________________________________
 
 //@Types

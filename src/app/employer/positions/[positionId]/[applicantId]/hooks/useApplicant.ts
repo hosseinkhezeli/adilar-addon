@@ -3,19 +3,16 @@ import {
   useSetApproval,
   useSetIsReviewed,
 } from '@/services/api/submission/hooks';
+import useAdvertisementStore from '@/store/advertisement/advertisementSlice';
 import { useQueryClient } from '@tanstack/react-query';
 import { Route } from 'next';
-import {
-  useParams,
-  usePathname,
-  useRouter,
-  useSearchParams,
-} from 'next/navigation';
+import { useParams, usePathname, useRouter } from 'next/navigation';
 import { enqueueSnackbar } from 'notistack';
 import { TouchEvent, useEffect, useRef, useState } from 'react';
 
 export function useApplicant() {
   const QC = useQueryClient();
+  const { advertisement } = useAdvertisementStore();
   const params = useParams<{ applicantId: string }>();
   const router = useRouter();
   const pathName = usePathname();
@@ -190,6 +187,7 @@ export function useApplicant() {
     statusModal,
     isApprovalLoading,
     handleApplicant,
+    advertisement,
     onTouchStart,
     onTouchMove,
     onTouchEnd,

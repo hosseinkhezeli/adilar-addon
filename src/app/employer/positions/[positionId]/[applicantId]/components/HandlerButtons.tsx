@@ -23,19 +23,6 @@ const HandlerButtons = ({
       }}
     >
       <Button
-        color="error"
-        onClick={onReject}
-        sx={{
-          flexBasis: '0%',
-          flexGrow: 1,
-          backgroundColor: 'transparent',
-        }}
-        isLoading={isApprovalLoading}
-        {...(applicantState == 'Rejected' && { disabled: true })}
-      >
-        رد کردن
-      </Button>
-      <Button
         variant="contained"
         color="success"
         sx={{
@@ -48,6 +35,19 @@ const HandlerButtons = ({
         {...(applicantState == 'Accepted' && { disabled: true })}
       >
         تائید
+      </Button>
+      <Button
+        color="error"
+        onClick={onReject}
+        sx={{
+          flexBasis: '0%',
+          flexGrow: 1,
+          backgroundColor: 'transparent',
+        }}
+        isLoading={isApprovalLoading}
+        {...(applicantState == 'Rejected' && { disabled: true })}
+      >
+        رد کردن
       </Button>
     </Stack>
   );

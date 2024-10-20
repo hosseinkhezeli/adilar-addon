@@ -9,6 +9,7 @@ import {
 } from 'next/navigation';
 import { ReactNode, UIEvent, useState } from 'react';
 import { useGetApplicantList } from '@/services/api/advertisement/hooks';
+import useAdvertisementStore from '@/store/advertisement/advertisementSlice';
 
 export type TApplicantCard = {
   id: string;
@@ -23,6 +24,7 @@ export type TApplicantCard = {
 };
 
 export function useApplicantList() {
+  const { advertisement } = useAdvertisementStore();
   const { push: navigateTo } = useRouter();
   const [isNavigating, startTransition] = useTransition();
   const pathName = usePathname();
@@ -122,6 +124,7 @@ export function useApplicantList() {
     data,
     statusModal,
     tabs,
+    advertisement,
     handleSearch,
     handleNavigate,
     handleFetchOnScroll,

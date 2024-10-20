@@ -13,7 +13,7 @@ export interface IGetSubmissionResponse {
   state: TApplicantState;
   isReviewed: boolean;
   id: string;
-  resumeId: string;
+  resumeId: string | null;
   nextSubmissionId: string | null;
   previousSubmissionId: string | null;
   fields: IField[];

@@ -18,6 +18,7 @@ const Applicant = () => {
     statusModal,
     isApprovalLoading,
     handleApplicant,
+    advertisement,
     handleCloseModal,
     onTouchStart,
     onTouchMove,
@@ -26,7 +27,7 @@ const Applicant = () => {
 
   return (
     <>
-      <HeaderPositions title="برنامه نویس" />
+      <HeaderPositions title={advertisement?.title || ''} />
 
       {isLoading ? (
         <SvgLoading />
@@ -73,24 +74,29 @@ const Applicant = () => {
                     mb: 8,
                   }}
                 >
-                  <DownloadResume
-                    resumeId={data.resumeId}
-                    fullName={
-                      data.fields.find(
-                        (item) => item.semanticType == 'FirstName'
-                      )?.value +
-                      ' ' +
-                      data.fields.find(
-                        (item) => item.semanticType == 'LastName'
-                      )?.value
-                    }
-                  />
-                  <HandlerButtons
-                    applicantState={data.state}
-                    isApprovalLoading={isApprovalLoading}
-                    onApprove={handleApplicant.onApprove}
-                    onReject={handleApplicant.onReject}
-                  />
+                  {!data.resumeId ? null : (
+                    <DownloadResume
+                      resumeId={data.resumeId}
+                      fullName={
+                        data.fields.find(
+                          (item) => item.semanticType == 'FirstName'
+                        )?.value +
+                        ' ' +
+                        data.fields.find(
+                          (item) => item.semanticType == 'LastName'
+                        )?.value
+                      }
+                    />
+                  )}
+
+                  {data.state === 'Pending' && (
+                    <HandlerButtons
+                      applicantState={data.state}
+                      isApprovalLoading={isApprovalLoading}
+                      onApprove={handleApplicant.onApprove}
+                      onReject={handleApplicant.onReject}
+                    />
+                  )}
                 </Stack>
               </>
             )}

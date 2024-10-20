@@ -108,7 +108,7 @@ export function inputListAdapter(fields: IFormField[] | undefined) {
             },
           }),
         },
-        ...(field?.isRequiredByDefault && {
+        ...((field?.isRequiredByDefault || field?.isRequired) && {
           rules: { required: true },
         }),
         ...(field?.type === 'PhoneNumber' && {
@@ -117,6 +117,14 @@ export function inputListAdapter(fields: IFormField[] | undefined) {
         ...(field?.type === 'NationalCode' && {
           rules: { minLength: 10 },
         }),
+        ...((field?.isRequiredByDefault || field?.isRequired) &&
+          field?.type === 'PhoneNumber' && {
+            rules: { required: true, minLength: 11 },
+          }),
+        ...((field?.isRequiredByDefault || field?.isRequired) &&
+          field?.type === 'NationalCode' && {
+            rules: { required: true, minLength: 10 },
+          }),
         options: field?.options?.map((option) => ({
           label: option?.title,
           value: option?.id,

@@ -42,6 +42,7 @@ export interface IFormField {
   text: string | null;
   type: TFormFieldType;
   defaultPriority: number;
+  isRequired: boolean;
   isRequiredByDefault: boolean;
   category: string;
   semanticType: TSemanticFieldType;

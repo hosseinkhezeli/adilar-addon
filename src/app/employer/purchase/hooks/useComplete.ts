@@ -12,7 +12,8 @@ import { useTransition } from 'react';
 export function useComplete() {
   //TODO: make these two dynamic from payment result
   const trackingCode = '458965221214';
-  const isSuccess = true;
+  const isSuccess = false;
+  //___________________________________________________
   const [isNavigating, startTransition] = useTransition();
   const searchParams = useSearchParams();
   const postToken = searchParams.get('post_token');
@@ -37,9 +38,8 @@ export function useComplete() {
     });
   };
   const onClickExit = () => {
-    //TODO:correct this address
     startTransition(() => {
-      navigateTo('divar' as Route);
+      navigateTo(`https://divar.ir/v/${postToken}` as Route);
     });
   };
 

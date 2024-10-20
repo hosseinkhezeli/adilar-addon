@@ -22,6 +22,7 @@ import {
 //@Types
 import { TSubmissionState } from './usePositionSubmission';
 import { TSubmissionAnswer } from '@/services/api/candidate/types';
+import { IFormField } from '@/types/common-types';
 
 type TProps = {
   handleStateChange: (state: TSubmissionState) => void;
@@ -41,14 +42,19 @@ export function usePositionForm({ handleStateChange }: TProps) {
   const form = useForm();
 
   const adInputList = useMemo(
-    () => ad?.form?.fields?.map((field) => field?.field),
+    () =>
+      ad?.form?.fields?.map((field) => {
+        if (field?.field) {
+          return { ...field?.field, isRequired: field.isRequired };
+        }
+      }),
     [isSuccess]
   );
   const isResumeRequired = useMemo(
     () => ad?.form?.isResumeUploadingRequired,
     [isSuccess]
   );
-  const { inputList } = inputListAdapter(adInputList);
+  const { inputList } = inputListAdapter(adInputList as IFormField[]);
   const fileInput = mockData.find((field) => field?.type === 'File');
 
   const [resumeFile, setResumeFile] = useState<File | null>(null);

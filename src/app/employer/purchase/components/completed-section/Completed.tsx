@@ -70,7 +70,7 @@ const SuccessState = ({ trackingCode, onClick, isLoading }: TSuccessState) => {
         height={155}
         style={{ margin: '0 auto', width: '100%' }}
       />
-      <Title>رزومه شما با موفقیت ارسال شد</Title>
+      <Title>تراکنش با موفقیت انجام شد</Title>
       <Description>کد پیگیری : {trackingCode}</Description>
       <Stack
         sx={{

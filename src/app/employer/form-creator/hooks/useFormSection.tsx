@@ -22,6 +22,7 @@ export function useFormSection() {
   const { reset } = usePurchaseStore();
   const searchParams = useSearchParams();
   const postToken = searchParams.get('post_token');
+  const advertisementId = searchParams.get('advertisement_id');
   const { mutateAsync: submitAdForm, isPending: isSubmittingAdForm } =
     useSubmitAdForm();
   const { data: adData, isLoading: isLoadingAdData } =
@@ -163,7 +164,11 @@ export function useFormSection() {
     });
   }
   const handleSubmitForm = (data: TAdFormDto) => {
-    submitAdForm(data, {
+    const body: TAdFormDto = {
+      ...data,
+      advertisementId: advertisementId || '404_advertisement_id',
+    };
+    submitAdForm(body, {
       onSuccess: () => {
         enqueueSnackbar({
           message: 'فرم با موفقیت ساخته شد',

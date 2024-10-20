@@ -19,6 +19,7 @@ export type TSubmitBasicInfoBody = {
 export type TFormFieldsRes = IFormField[];
 
 export type TAdFormDto = {
+  advertisementId: string;
   isResumeUploadingRequired: boolean;
   name: string;
   addFormFieldsDto: [

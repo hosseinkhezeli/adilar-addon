@@ -16,7 +16,7 @@ export function PositionSubmissionFlow() {
   const { state, handleStateChange } = usePositionSubmission();
   return (
     <>
-      <Stack sx={{ padding: 4, gap: 4, maxHeight: '100vh', height: '100%' }}>
+      <Stack sx={{ padding: 4, gap: 4 }}>
         {state === 'submission' && (
           <PositionForm handleStateChange={handleStateChange} />
         )}

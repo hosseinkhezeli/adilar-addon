@@ -1,9 +1,11 @@
+import { useSetViewedTutorial } from '@/services/api/auth/hooks';
 import {
   useGetSubmission,
   useSetApproval,
   useSetIsReviewed,
 } from '@/services/api/submission/hooks';
 import useAdvertisementStore from '@/store/advertisement/advertisementSlice';
+import useUserStore from '@/store/user/userSlice';
 import { useQueryClient } from '@tanstack/react-query';
 import { Route } from 'next';
 import { useParams, usePathname, useRouter } from 'next/navigation';
@@ -13,11 +15,13 @@ import { TouchEvent, useEffect, useRef, useState } from 'react';
 export function useApplicant() {
   const QC = useQueryClient();
   const { advertisement } = useAdvertisementStore();
+  const { user } = useUserStore();
+
   const params = useParams<{ applicantId: string }>();
   const router = useRouter();
   const pathName = usePathname();
 
-  const [statusModal, setStatusModal] = useState<boolean>(true);
+  const [statusModal, setStatusModal] = useState<boolean>(false);
 
   const elementRef = useRef<HTMLDivElement>();
   const [startTouchPosition, setStartTouchPosition] = useState<{
@@ -28,6 +32,8 @@ export function useApplicant() {
   const startTouchAfterDistance = useRef<number>(10);
   const screenWidth = useRef<number>(0);
 
+  const { mutate: handleSetViewedTutorialMutate } = useSetViewedTutorial();
+
   const { data, isLoading } = useGetSubmission({ id: params.applicantId });
 
   const { mutate: setIsReviewedMutate } = useSetIsReviewed();
@@ -35,7 +41,17 @@ export function useApplicant() {
     useSetApproval();
 
   function handleCloseModal() {
-    setStatusModal(false);
+    handleSetViewedTutorialMutate(
+      { viewedSubmissionTutorial: true },
+      {
+        onSuccess() {
+          setStatusModal(false);
+        },
+        onError() {
+          setStatusModal(false);
+        },
+      }
+    );
   }
 
   function customPush(id: string | number | null) {
@@ -179,6 +195,12 @@ export function useApplicant() {
       );
     }
   }, [isLoading]);
+
+  useEffect(() => {
+    if (!user?.viewedSubmissionTutorial) {
+      setStatusModal(true);
+    }
+  }, [user?.viewedSubmissionTutorial]);
 
   return {
     elementRef,

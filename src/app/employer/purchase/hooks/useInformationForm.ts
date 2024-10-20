@@ -1,7 +1,7 @@
 'use client';
 //@3rd Party
 import { useForm } from 'react-hook-form';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { enqueueSnackbar } from 'notistack';
 //____________________________________________________
 
@@ -26,7 +26,14 @@ export function useInformationForm() {
   const pathname = usePathname();
   const { push: navigateTo } = useRouter();
   const nextState: TStepperState = 'pre_invoice';
-  const newSearchParams = new URLSearchParams({ state: nextState });
+  const searchParams = useSearchParams();
+  const postToken = searchParams.get('post_token');
+  const advertisementId = searchParams.get('advertisement_id');
+  const newSearchParams = new URLSearchParams({
+    state: nextState,
+    advertisement_id: advertisementId || '404_advertisement_id',
+    post_token: postToken || '404_post_token',
+  });
   //Form
   const form = useForm<TSubmitBasicInfoBody>();
   const InformationFormInputList: IUseFormInput[] = [

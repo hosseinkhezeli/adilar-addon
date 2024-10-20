@@ -1,16 +1,19 @@
 import React from 'react';
 import { Button, Stack } from '@mui/material';
+import { TApplicantState } from '@/types/common-types';
 
 interface IHandlerButtons {
   onReject(): void;
   onApprove(): void;
   isApprovalLoading: boolean;
+  applicantState: TApplicantState;
 }
 
 const HandlerButtons = ({
   onApprove,
   onReject,
   isApprovalLoading,
+  applicantState,
 }: IHandlerButtons) => {
   return (
     <Stack
@@ -28,6 +31,7 @@ const HandlerButtons = ({
           backgroundColor: 'transparent',
         }}
         isLoading={isApprovalLoading}
+        {...(applicantState == 'Rejected' && { disabled: true })}
       >
         رد کردن
       </Button>
@@ -41,6 +45,7 @@ const HandlerButtons = ({
         }}
         onClick={onApprove}
         isLoading={isApprovalLoading}
+        {...(applicantState == 'Accepted' && { disabled: true })}
       >
         تائید
       </Button>

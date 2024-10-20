@@ -85,13 +85,12 @@ const Applicant = () => {
                       )?.value
                     }
                   />
-                  {data.state === 'Pending' ? (
-                    <HandlerButtons
-                      isApprovalLoading={isApprovalLoading}
-                      onApprove={handleApplicant.onApprove}
-                      onReject={handleApplicant.onReject}
-                    />
-                  ) : null}
+                  <HandlerButtons
+                    applicantState={data.state}
+                    isApprovalLoading={isApprovalLoading}
+                    onApprove={handleApplicant.onApprove}
+                    onReject={handleApplicant.onReject}
+                  />
                 </Stack>
               </>
             )}

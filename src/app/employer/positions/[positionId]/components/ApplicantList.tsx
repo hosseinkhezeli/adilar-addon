@@ -51,9 +51,8 @@ export function ApplicantList() {
               <Fragment key={idx}>
                 {page?.submissions.map((applicant, index, arr) => {
                   return (
-                    <>
+                    <Fragment key={applicant.id}>
                       <ApplicantCard
-                        key={index}
                         id={applicant?.id}
                         isReviewed={applicant?.isReviewed}
                         createdAt={applicant?.submissionDateTime}
@@ -68,7 +67,7 @@ export function ApplicantList() {
                         }
                       />
                       {idx < arr.length - 1 && <Divider />}
-                    </>
+                    </Fragment>
                   );
                 })}
               </Fragment>

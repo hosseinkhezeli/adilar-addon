@@ -1,7 +1,7 @@
 import { useGetPositionList } from '@/services/api/advertisement/hooks';
 import { Route } from 'next';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { UIEvent, useEffect, useState } from 'react';
+import { UIEvent, useEffect, useState, useTransition } from 'react';
 
 export interface IPositionCard {
   id: string;
@@ -19,6 +19,7 @@ export interface IPositionCard {
 
 const usePositionList = () => {
   const { push: navigateTo } = useRouter();
+  const [isNavigating, startTransition] = useTransition();
   const pathName = usePathname();
   const searchParams = useSearchParams();
   const [searchValue, setSearchValue] = useState<string>(
@@ -38,7 +39,9 @@ const usePositionList = () => {
   }
 
   const handleNavigation = (id: string | undefined) => {
-    navigateTo(`positions/${id}` as Route);
+    startTransition(() => {
+      navigateTo(`positions/${id}` as Route);
+    });
   };
 
   const handleSearch = (value: string) => {
@@ -64,6 +67,7 @@ const usePositionList = () => {
     handleNavigation,
     handleSearch,
     handleFetchOnScroll,
+    isNavigating,
   };
 };
 

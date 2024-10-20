@@ -17,7 +17,6 @@ import { TouchEvent, useEffect, useRef, useState } from 'react';
 export function useApplicant() {
   const QC = useQueryClient();
   const params = useParams<{ applicantId: string }>();
-  const searchParams = useSearchParams();
   const router = useRouter();
   const pathName = usePathname();
 

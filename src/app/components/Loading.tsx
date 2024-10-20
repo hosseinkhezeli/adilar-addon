@@ -20,7 +20,8 @@ const AnimatedPath = styled('path')(({ index }: { index: number }) => ({
 export function SvgLoading() {
   return (
     <Stack
-      width={'100vw'}
+      maxWidth={'100vw'}
+      width="100%"
       maxHeight={'100vh'}
       height={'100%'}
       alignItems={'center'}

@@ -3,12 +3,13 @@
 import Image from 'next/image';
 //__________________________________________________________
 //@Mui
-import { Button, Stack, styled, Typography } from '@mui/material';
+import { Box, Button, Stack, styled, Typography } from '@mui/material';
 //__________________________________________________________
 
 //@Assets
 import SvgSuccess from '@/assets/images/success.svg';
 import { useSubmissionSuccess } from '../hooks/useSubmissionSuccess';
+import CountdownTimer from '@/app/components/CountdownTimer';
 //__________________________________________________________
 
 export function SubmissionSuccess() {
@@ -16,7 +17,6 @@ export function SubmissionSuccess() {
   return (
     <>
       <Container>
-        <Title>رزومه شما با موفقیت ارسال شد</Title>
         <Image
           src={SvgSuccess}
           alt="success"
@@ -24,21 +24,41 @@ export function SubmissionSuccess() {
           height={136}
           style={{ margin: '0 auto', width: '100%' }}
         />
+        <Title>رزومه شما با موفقیت ارسال شد</Title>
 
-        <Button
-          variant="outlined"
-          onClick={onClickReturn}
-          isLoading={isNavigating}
+        <Stack
           sx={{
             position: 'fixed',
             width: 'calc(100% - 32px)',
             margin: '0 auto',
             bottom: 16,
-            zIndex: 1000,
+
+            gap: 6,
           }}
         >
-          بازگشت به دیوار
-        </Button>
+          <CountdownTimer
+            onTimeUp={onClickReturn}
+            title={<>تا بازگشت به دیوار</>}
+          />
+          <Box
+            sx={{
+              display: 'flex',
+              gap: 2,
+            }}
+          >
+            <Button
+              variant="outlined"
+              onClick={onClickReturn}
+              isLoading={isNavigating}
+              fullWidth
+              sx={{
+                zIndex: 1000,
+              }}
+            >
+              بازگشت به دیوار
+            </Button>
+          </Box>
+        </Stack>
       </Container>
     </>
   );
@@ -47,7 +67,7 @@ export function SubmissionSuccess() {
 const Container = styled(Stack)(() => ({
   gap: 8,
   alignItems: 'center',
-  height: 'calc(100vh - 85px)',
+  height: 'calc(100vh - 152px)',
   justifyContent: 'center',
 }));
 const Title = styled(Typography)(({ theme }) => ({

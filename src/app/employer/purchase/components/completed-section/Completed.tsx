@@ -14,7 +14,7 @@ import { useComplete } from '../../hooks/useComplete';
 //@Assets
 import SvgSuccess from '@/assets/images/payment-successful.svg';
 import SvgUnSuccess from '@/assets/images/payment-unsuccessful.svg';
-import CountdownTimer from './CountdownTimer';
+import CountdownTimer from '@/app/components/CountdownTimer';
 //_______________________________________________________________
 
 //@Types
@@ -63,8 +63,6 @@ export function Completed() {
 const SuccessState = ({ trackingCode, onClick, isLoading }: TSuccessState) => {
   return (
     <>
-      <Title>رزومه شما با موفقیت ارسال شد</Title>
-      <Description>کد پیگیری : {trackingCode}</Description>
       <Image
         src={SvgSuccess}
         alt="success"
@@ -72,6 +70,8 @@ const SuccessState = ({ trackingCode, onClick, isLoading }: TSuccessState) => {
         height={155}
         style={{ margin: '0 auto', width: '100%' }}
       />
+      <Title>رزومه شما با موفقیت ارسال شد</Title>
+      <Description>کد پیگیری : {trackingCode}</Description>
       <Stack
         sx={{
           position: 'fixed',
@@ -89,7 +89,7 @@ const SuccessState = ({ trackingCode, onClick, isLoading }: TSuccessState) => {
           }}
         >
           <Button
-            variant="outlined"
+            variant="contained"
             fullWidth
             onClick={onClick}
             isLoading={isLoading}
@@ -110,8 +110,6 @@ const UnSuccessState = ({
 }: TUnSuccessState) => {
   return (
     <>
-      <Title sx={{ color: 'error.main' }}>تراکنش ناموفق بود</Title>
-      <Description>کد پیگیری : {trackingCode}</Description>
       <Image
         src={SvgUnSuccess}
         alt="success"
@@ -119,6 +117,8 @@ const UnSuccessState = ({
         height={155}
         style={{ margin: '0 auto', width: '100%' }}
       />
+      <Title sx={{ color: 'error.main' }}>تراکنش ناموفق بود</Title>
+      <Description>کد پیگیری : {trackingCode}</Description>
 
       <Stack
         sx={{

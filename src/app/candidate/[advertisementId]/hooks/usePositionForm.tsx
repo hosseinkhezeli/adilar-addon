@@ -35,6 +35,7 @@ export function usePositionForm({ handleStateChange }: TProps) {
     data: ad,
     isSuccess,
     isLoading: isLoadingAd,
+    error: errorAd,
   } = useGetAdByDivarPostToken(postToken);
   const form = useForm();
 
@@ -135,6 +136,7 @@ export function usePositionForm({ handleStateChange }: TProps) {
     handleSubmit,
     isResumeRequired,
     isLoadingAd,
+    errorAd,
   };
 }
 

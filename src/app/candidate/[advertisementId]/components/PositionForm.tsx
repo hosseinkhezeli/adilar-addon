@@ -37,11 +37,18 @@ export function PositionForm({ handleStateChange }: TProps) {
     handleSubmit,
     isResumeRequired,
     isLoadingAd,
+    errorAd,
   } = usePositionForm({ handleStateChange });
   return isLoadingAd || inputList?.length < 0 ? (
     <>
       <SvgLoading />
     </>
+  ) : errorAd?.message ? (
+    <Container>
+      <Typography sx={{ textAlign: 'center' }}>
+        خطایی رخ داد {errorAd.message.toString()}
+      </Typography>
+    </Container>
   ) : (
     <Container>
       <Form component="form" onSubmit={form.handleSubmit(handleSubmit)}>

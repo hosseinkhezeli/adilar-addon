@@ -10,6 +10,7 @@ import { useFieldArray, useForm } from 'react-hook-form';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { TAdFormDto } from '@/services/api/employer/types';
 import { enqueueSnackbar } from 'notistack';
+import usePurchaseStore from '@/store/purchase/purchaseSlice';
 
 const PRIORITY_START_POINT = 4;
 
@@ -18,13 +19,14 @@ type TForm = TAdFormDto;
 export function useFormSection() {
   //Dependencies
   const { push: navigateTo } = useRouter();
+  const { reset } = usePurchaseStore();
   const searchParams = useSearchParams();
   const postToken = searchParams.get('post_token');
   const { mutateAsync: submitAdForm, isPending: isSubmittingAdForm } =
     useSubmitAdForm();
   const { data: adData, isLoading: isLoadingAdData } =
     useGetAdByDivarPostToken(postToken);
-  console.log(adData);
+
   const form = useForm<TForm>({
     defaultValues: {
       isResumeUploadingRequired: false,
@@ -167,15 +169,14 @@ export function useFormSection() {
           message: 'فرم با موفقیت ساخته شد',
           variant: 'success',
         });
+        navigateTo('/employer/positions');
+        reset();
       },
       onError: () => {
         enqueueSnackbar({
           message: 'خطایی در ساخت فرم رخ داده است',
           variant: 'error',
         });
-      },
-      onSettled: () => {
-        console.log('HandleSubmitForm onSettled');
       },
     });
   };

@@ -8,6 +8,7 @@ import { HeaderPositions } from '@/app/employer/positions/components/HeaderPosit
 import { SwipeTutorial } from '@/app/components/SwipeTutorial';
 import { CustomTabs } from '@/app/components/CustomTabs';
 import { EmptyStateApplicantList } from '@/app/employer/positions/[positionId]/components/EmptyStateApplicantList';
+import { SvgLoading } from '@/app/components/Loading';
 
 export function ApplicantList() {
   const {
@@ -47,8 +48,8 @@ export function ApplicantList() {
         onScroll={handleFetchOnScroll}
       >
         {!data ? (
-          'loading'
-        ) : data.pages.length === 0 ? (
+          <SvgLoading />
+        ) : data.pages[0].submissions.length === 0 ? (
           <EmptyStateApplicantList />
         ) : (
           data?.pages.map((page, idx) => (
@@ -57,18 +58,19 @@ export function ApplicantList() {
                 return (
                   <Fragment key={applicant.id}>
                     <ApplicantCard
-                      id={applicant?.id}
-                      isReviewed={applicant?.isReviewed}
-                      createdAt={applicant?.submissionDateTime}
-                      candidate={{
-                        fistName: applicant?.firstName || '-',
-                        lastName: applicant?.lastName || '-',
+                      applicantInfo={{
+                        id: applicant?.id,
+                        isReviewed: applicant?.isReviewed,
+                        createdAt: applicant?.submissionDateTime,
+                        candidate: {
+                          fistName: applicant?.firstName || '-',
+                          lastName: applicant?.lastName || '-',
+                        },
+                        onClick: () =>
+                          handleNavigate({
+                            id: applicant.id,
+                          }),
                       }}
-                      onClick={() =>
-                        handleNavigate({
-                          id: applicant.id,
-                        })
-                      }
                     />
                     {idx < arr.length - 1 && <Divider />}
                   </Fragment>

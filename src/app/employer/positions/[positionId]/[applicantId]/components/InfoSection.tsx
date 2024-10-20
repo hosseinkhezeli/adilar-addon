@@ -1,14 +1,17 @@
 import React from 'react';
 import { Section } from '@/app/components/Section';
-import { Stack, Typography } from '@mui/material';
+import { Chip, Stack, Typography, useTheme } from '@mui/material';
 import { IGetSubmissionResponse } from '@/services/api/submission/types';
 import { TFormFieldType } from '@/types/common-types';
+import SvgClose from 'ideep-design-system-2/icons/Close';
+import SvgTick from 'ideep-design-system-2/icons/Tick';
 
 interface IInfoSection {
   data?: IGetSubmissionResponse;
 }
 
 const fullNameArrayFiled = ['FirstName', 'LastName'];
+
 const InfoSection = ({ data }: IInfoSection) => {
   const submissionData:
     | {
@@ -24,6 +27,8 @@ const InfoSection = ({ data }: IInfoSection) => {
       type: field.type as TFormFieldType,
     }));
 
+  const theme = useTheme();
+
   return (
     <Stack
       sx={{
@@ -31,7 +36,38 @@ const InfoSection = ({ data }: IInfoSection) => {
       }}
     >
       <Section
-        title="اطلاعات شخصی"
+        title={
+          <Stack direction="row" justifyContent="space-between">
+            <Typography variant="body3.medium">اطلاعات شخصی</Typography>
+            {data?.state !== 'Pending' && (
+              <Chip
+                sx={{
+                  ...theme.typography['caption1.bold'],
+                  backgroundColor:
+                    data?.state === 'Accepted' ? 'success.main' : 'error.main',
+                  px: 0,
+                  color:
+                    data?.state === 'Accepted'
+                      ? 'text.primary'
+                      : 'common.white',
+                  height: 24,
+                  '& .MuiChip-label': {
+                    pl: 2,
+                  },
+                }}
+                label={data?.state === 'Accepted' ? 'تایید شده' : 'رد شده'}
+                icon={
+                  data?.state === 'Accepted' ? (
+                    <SvgTick primarycolor={theme.palette.text['primary']} />
+                  ) : (
+                    <SvgClose primarycolor="white" />
+                  )
+                }
+                color="success"
+              />
+            )}
+          </Stack>
+        }
         containerProps={{
           sx: {
             height: 'auto',
@@ -45,7 +81,7 @@ const InfoSection = ({ data }: IInfoSection) => {
             mb: 4,
           }}
         >
-          {`${data?.fields?.find((field) => field.name == fullNameArrayFiled[0])?.value || '-'} ${data?.fields?.find((field) => field.name == fullNameArrayFiled[1])?.value || '-'}`}
+          {`${data?.fields?.find((field) => field.semanticType == fullNameArrayFiled[0])?.value || '-'} ${data?.fields?.find((field) => field.semanticType == fullNameArrayFiled[1])?.value || '-'}`}
         </Typography>
         <Stack gap={4}>
           {submissionData?.map((item) => (

@@ -1,4 +1,4 @@
-import React, { SyntheticEvent } from 'react';
+import React, { SyntheticEvent, useEffect } from 'react';
 import { Typography } from '@mui/material';
 import { Route } from 'next';
 import {
@@ -27,7 +27,9 @@ export function useApplicantList() {
   const pathName = usePathname();
   const params = useParams<{ positionId: string }>();
   const searchParams = useSearchParams();
-  const [searchValue, setSearchValue] = useState<string>();
+  const [searchValue, setSearchValue] = useState<string>(
+    searchParams.get('textSearch') || ''
+  );
   const [statusModal, setStatusModal] = useState<boolean>(true);
   const [selectedTab, setSelectedTab] = useState<string>(
     searchParams.has('state') ? searchParams.get('state')! : 'Pending'
@@ -37,6 +39,7 @@ export function useApplicantList() {
     useGetApplicantList({
       advertisementId: params.positionId,
       state: selectedTab,
+      textSearch: searchParams.get('textSearch') || '',
     });
 
   const tabs: { label: ReactNode }[] = [
@@ -97,6 +100,19 @@ export function useApplicantList() {
       setSelectedTab('Rejected');
     }
   }
+
+  function handlePushSearchValue() {
+    navigateTo(
+      `${pathName}${searchValue ? `?textSearch=${searchValue}` : ''}` as Route
+    );
+  }
+
+  useEffect(() => {
+    const id = setTimeout(() => {
+      handlePushSearchValue();
+    }, 750);
+    return () => clearTimeout(id);
+  }, [searchValue]);
 
   return {
     searchValue,

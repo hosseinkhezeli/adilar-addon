@@ -8,6 +8,7 @@ import { HandlerButtons } from '@/app/employer/positions/[positionId]/[applicant
 import { fadeIn } from '@/styles/animationKeyframes';
 import { SwipeTutorial } from '@/app/components/SwipeTutorial';
 import { useApplicant } from '@/app/employer/positions/[positionId]/[applicantId]/hooks/useApplicant';
+import { SvgLoading } from '@/app/components/Loading';
 
 const Applicant = () => {
   const {
@@ -28,7 +29,7 @@ const Applicant = () => {
       <HeaderPositions title="برنامه نویس" />
 
       {isLoading ? (
-        'loading'
+        <SvgLoading />
       ) : (
         <Stack
           sx={{
@@ -84,13 +85,12 @@ const Applicant = () => {
                       )?.value
                     }
                   />
-                  {data.state === 'Pending' ? (
-                    <HandlerButtons
-                      isApprovalLoading={isApprovalLoading}
-                      onApprove={handleApplicant.onApprove}
-                      onReject={handleApplicant.onReject}
-                    />
-                  ) : null}
+                  <HandlerButtons
+                    applicantState={data.state}
+                    isApprovalLoading={isApprovalLoading}
+                    onApprove={handleApplicant.onApprove}
+                    onReject={handleApplicant.onReject}
+                  />
                 </Stack>
               </>
             )}

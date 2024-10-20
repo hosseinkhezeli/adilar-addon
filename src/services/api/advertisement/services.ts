@@ -8,15 +8,19 @@ import {
 import { http } from '@/services/core/http';
 
 export const getPositionList = ({
-  pageParam,
+  pageNumber,
+  textSearch,
 }: IGetPositionListProps): Promise<IGetPositionListResponse> => {
-  return http.get(adRoutes.positionList(pageParam));
+  return http.get(adRoutes.positionList(pageNumber, textSearch));
 };
 
 export const getApplicantList = ({
   pageNumber,
   state,
   advertisementId,
+  textSearch,
 }: IGetApplicantListProps): Promise<IGetApplicantListResponse> => {
-  return http.get(adRoutes.applicantList(pageNumber, state, advertisementId));
+  return http.get(
+    adRoutes.applicantList(pageNumber, state, advertisementId, textSearch)
+  );
 };

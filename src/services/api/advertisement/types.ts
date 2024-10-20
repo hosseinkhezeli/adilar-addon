@@ -1,5 +1,6 @@
 export interface IGetPositionListProps {
-  pageParam: string | number;
+  pageNumber: string | number;
+  textSearch: string;
 }
 
 export interface IGetPositionListResponse {
@@ -21,6 +22,7 @@ export interface IGetApplicantListProps {
   pageNumber: string | number;
   state: string;
   advertisementId: string;
+  textSearch: string;
 }
 
 export interface IGetApplicantListResponse {

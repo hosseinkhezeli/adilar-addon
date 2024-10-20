@@ -1,7 +1,7 @@
 import { ICompany, IForm, TFormFieldType } from '@/types/common-types';
 
 export type TGetAdFormAsCandidateParams = {
-  adId: string;
+  postToken: string | null;
 };
 export type TSubmitAdFormBody = {
   submissionAnswers: TSubmissionAnswer[];

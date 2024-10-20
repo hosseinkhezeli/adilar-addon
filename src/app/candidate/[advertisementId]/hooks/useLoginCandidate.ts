@@ -1,25 +1,32 @@
 //@3rd Party
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Route } from 'next';
 import { useTransition } from 'react';
 //_______________________________________________________________
 
 //@Types
 type TUseLoginCandidateProps = {
-  positionId: string;
+  advertisementId: string;
 };
 //_______________________________________________________________
 
-export function useLoginCandidate({ positionId }: TUseLoginCandidateProps) {
+export function useLoginCandidate({
+  advertisementId,
+}: TUseLoginCandidateProps) {
   const { push: navigateTo } = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const postToken = searchParams.get('post_token');
   const nextState = 'logged-in';
+  const newSearchParams = new URLSearchParams({
+    post_token: postToken || '404_post_token',
+    state: nextState,
+  });
   const [isNavigating, startTransition] = useTransition();
 
-  const handleLogin = (id: string) => {
+  const handleLogin = () => {
     startTransition(() => {
-      const params = new URLSearchParams({ state: nextState });
-      navigateTo(`${pathname}?${params.toString()}` as Route);
+      navigateTo(`${pathname}?${newSearchParams.toString()}` as Route);
     });
   };
 

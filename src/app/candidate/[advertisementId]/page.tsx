@@ -3,7 +3,7 @@ import React from 'react';
 //_______________________________________________________________
 
 //@Components
-import { LoginCandidate } from '@/app/candidate/[positionId]/components/LoginCandidate';
+import { LoginCandidate } from '@/app/candidate/[advertisementId]/components/LoginCandidate';
 import { PositionSubmissionFlow } from './components/PositionSubmissionFlow';
 import { FormHeader } from './components/FormHeader';
 //_______________________________________________________________
@@ -14,7 +14,7 @@ import { AdilarLogo } from '@/app/components/AdilarLogo';
 
 //@Types
 type TParams = {
-  params: { positionId: string };
+  params: { advertisementId: string };
   searchParams: { state: 'init' | 'logged-in' };
 };
 //_______________________________________________________________
@@ -22,18 +22,16 @@ type TParams = {
 const Page = ({ params, searchParams }: TParams) => {
   return (
     <>
-      {searchParams.state === 'init' ? (
+      {searchParams.state !== 'logged-in' ? (
         <>
           <AdilarLogo />
-          <LoginCandidate positionId={params.positionId} />
+          <LoginCandidate advertisementId={params.advertisementId} />
         </>
-      ) : searchParams.state === 'logged-in' ? (
+      ) : (
         <>
           <FormHeader />
           <PositionSubmissionFlow />
         </>
-      ) : (
-        <>404</>
       )}
     </>
   );

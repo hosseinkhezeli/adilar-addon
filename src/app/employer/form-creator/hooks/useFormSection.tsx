@@ -24,7 +24,7 @@ export function useFormSection() {
     useSubmitAdForm();
   const { data: adData, isLoading: isLoadingAdData } =
     useGetAdByDivarPostToken(postToken);
-  console.log(adData);
+
   const form = useForm<TForm>({
     defaultValues: {
       isResumeUploadingRequired: false,
@@ -167,15 +167,13 @@ export function useFormSection() {
           message: 'فرم با موفقیت ساخته شد',
           variant: 'success',
         });
+        navigateTo('/employer/positions');
       },
       onError: () => {
         enqueueSnackbar({
           message: 'خطایی در ساخت فرم رخ داده است',
           variant: 'error',
         });
-      },
-      onSettled: () => {
-        console.log('HandleSubmitForm onSettled');
       },
     });
   };

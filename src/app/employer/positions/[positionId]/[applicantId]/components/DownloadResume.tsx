@@ -3,7 +3,10 @@ import { Button, Stack, Typography } from '@mui/material';
 import { DownloadIcon } from '@/app/icons/DownloadIcon';
 import { PDFIcon } from '@/app/icons/PDFIcon';
 
-const DownloadResume = () => {
+interface IDownloadResume {
+  resumeId: string;
+}
+const DownloadResume = ({ resumeId }: IDownloadResume) => {
   return (
     <Stack
       sx={{
@@ -20,6 +23,17 @@ const DownloadResume = () => {
           justifyContent: 'space-between',
           backgroundColor: 'transparent !important',
         }}
+        onClick={async () => {
+          const res = await fetch(
+            `${process.env.NEXT_PUBLIC_API_URL}/api/File/asset/${resumeId}`
+          );
+          const file = await res.blob();
+          console.log(file);
+
+          const url = URL.createObjectURL(file);
+          const a = document.createElement('a');
+          a.href = url;
+        }}
       >
         <Typography
           variant="caption1"
@@ -31,7 +45,7 @@ const DownloadResume = () => {
           }}
         >
           <PDFIcon />
-          دانلود
+          دانلود فایل رزومه
         </Typography>
       </Button>
     </Stack>

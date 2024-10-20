@@ -19,6 +19,7 @@ import { UploaderButton } from '@/app/components/UploaderButton';
 
 //@Types
 import { TSubmissionState } from '../hooks/usePositionSubmission';
+import { SvgLoading } from '@/app/components/Loading';
 //________________________________________________________________
 
 type TProps = {
@@ -35,8 +36,13 @@ export function PositionForm({ handleStateChange }: TProps) {
     resumeFile,
     handleSubmit,
     isResumeRequired,
+    isLoadingAd,
   } = usePositionForm({ handleStateChange });
-  return (
+  return isLoadingAd || inputList?.length < 0 ? (
+    <>
+      <SvgLoading />
+    </>
+  ) : (
     <Container>
       <Form component="form" onSubmit={form.handleSubmit(handleSubmit)}>
         <InputListWithUseForm

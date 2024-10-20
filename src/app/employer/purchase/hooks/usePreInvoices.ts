@@ -1,19 +1,21 @@
 'use client';
 //@3rd Party
 import { useState } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 //___________________________________________________________
 
 //@Hooks
 import usePurchaseStore from '@/store/purchase/purchaseSlice';
 import { useSendToPayment } from '@/services/api/finance/hooks';
+import { Route } from 'next';
+import { enqueueSnackbar } from 'notistack';
 //___________________________________________________________
 
 export function usePreInvoices() {
   const { plan } = usePurchaseStore();
   const searchParams = useSearchParams();
   const advertisementId = searchParams?.get('advertisement_id');
-
+  const { push: navigateTo } = useRouter();
   const { mutate: sendToPayment, isPending: isSubmitting } = useSendToPayment();
   const taxPrice = (plan?.price || 0) * 0.09;
   const [discount, setDiscount] = useState<number>(0);
@@ -47,7 +49,17 @@ export function usePreInvoices() {
       { advertisementId: advertisementId },
       {
         onSuccess: (data) => {
-          console.log(data);
+          enqueueSnackbar({
+            variant: 'success',
+            message: 'در حال انتقال به درگاه بانک',
+          });
+          navigateTo(data.url as Route);
+        },
+        onError: () => {
+          enqueueSnackbar({
+            variant: 'error',
+            message: 'در روند ثبت اطلاعات خطایی رخ داد',
+          });
         },
       }
     );

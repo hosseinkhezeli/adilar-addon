@@ -11,11 +11,16 @@ import { Box } from '@mui/material';
 import SvgAdd from 'ideep-design-system-2/icons/Add';
 //_______________________________________________________________
 
-export function FormHeader() {
+//@Types
+type TFormHeader = {
+  postToken: string | null;
+};
+
+export function FormHeader({ postToken }: TFormHeader) {
   return (
     <Box sx={styles.header}>
       <Link
-        href={'/'}
+        href={`https://divar.ir/v/${postToken}`}
         style={{
           position: 'absolute',
           right: 34,

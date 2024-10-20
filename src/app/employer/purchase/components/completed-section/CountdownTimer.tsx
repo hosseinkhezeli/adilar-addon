@@ -1,5 +1,5 @@
 import { Typography, styled } from '@mui/material';
-import React, { useReducer, useEffect } from 'react';
+import React, { useReducer, useEffect, ReactNode } from 'react';
 
 type TState = { seconds: number };
 type TAction = { type: 'TICK' | 'RESET' };
@@ -19,9 +19,10 @@ const reducer = (state: TState, action: TAction): TState => {
 
 type TCountDownTimer = {
   onTimeUp: () => void;
+  title: ReactNode;
 };
 
-export function CountdownTimer({ onTimeUp }: TCountDownTimer) {
+export function CountdownTimer({ onTimeUp, title }: TCountDownTimer) {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { seconds } = state;
 
@@ -33,13 +34,13 @@ export function CountdownTimer({ onTimeUp }: TCountDownTimer) {
 
       return () => clearInterval(intervalId);
     } else if (seconds === 0) {
-      // onTimeUp();
+      onTimeUp();
     }
   }, [seconds]);
 
   return (
     <Timer>
-      {`00:${seconds?.toString().padStart(2, '0')}`} تا رفتن به فرم ساز
+      {`00:${seconds?.toString().padStart(2, '0')}`} {title}
     </Timer>
   );
 }

@@ -3,16 +3,16 @@ import React, { useEffect, useState } from 'react';
 import BottomSheet from '@/app/components/BottomSheet';
 import { Box, Button, Stack, styled, Typography } from '@mui/material';
 import SvgTickCircle from 'ideep-design-system-2/icons/TickCircle';
-import { useLoginCandidate } from '@/app/candidate/[positionId]/hooks/useLoginCandidate';
+import { useLoginCandidate } from '@/app/candidate/[advertisementId]/hooks/useLoginCandidate';
 
 const TIMEOUT_DURATION = 3000;
 
 type TLoginCandidateProps = {
-  positionId: string;
+  advertisementId: string;
 };
 
-export function LoginCandidate({ positionId }: TLoginCandidateProps) {
-  const { handleLogin, isNavigating } = useLoginCandidate({ positionId });
+export function LoginCandidate({ advertisementId }: TLoginCandidateProps) {
+  const { handleLogin, isNavigating } = useLoginCandidate({ advertisementId });
 
   const [open, setOpen] = useState(false);
   useEffect(() => {
@@ -61,7 +61,7 @@ export function LoginCandidate({ positionId }: TLoginCandidateProps) {
         <Button
           variant={'contained'}
           fullWidth
-          onClick={() => handleLogin('1')}
+          onClick={handleLogin}
           isLoading={isNavigating}
         >
           ادامه

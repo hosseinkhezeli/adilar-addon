@@ -31,7 +31,11 @@ export function usePositionForm({ handleStateChange }: TProps) {
   const postToken = useSearchParams().get('post_token');
   const { mutate: submitAdForm } = useSubmitAdFormAsCandidate();
   const { mutate: submitResumeFile } = useSubmitResumeFile();
-  const { data: ad, isSuccess } = useGetAdByDivarPostToken(postToken);
+  const {
+    data: ad,
+    isSuccess,
+    isLoading: isLoadingAd,
+  } = useGetAdByDivarPostToken(postToken);
   const form = useForm();
 
   const adInputList = useMemo(
@@ -130,6 +134,7 @@ export function usePositionForm({ handleStateChange }: TProps) {
     handleClearResumeFile,
     handleSubmit,
     isResumeRequired,
+    isLoadingAd,
   };
 }
 

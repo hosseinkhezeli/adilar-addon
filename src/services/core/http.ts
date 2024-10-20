@@ -1,12 +1,18 @@
+'use client';
+// import {
+//   reset as resetUserStore,
+//   loading,
+//   initialize,
+// } from '@/store/user/userSlice';
 import axios, {
   AxiosError,
   AxiosResponse,
   InternalAxiosRequestConfig,
   // InternalAxiosRequestConfig,
 } from 'axios';
+import { enqueueSnackbar } from 'notistack';
 const API_URL =
   process.env.NEXT_PUBLIC_API_URL ?? 'Env var `API_URL` is not defined';
-
 export const baseURL = `${API_URL}`;
 
 export const http = axios.create({
@@ -38,6 +44,7 @@ http.interceptors.response.use(
     if (error.response) {
       const { status } = error.response;
       if (status === 401 || status === 403) {
+        enqueueSnackbar({ variant: 'error', message: 'ورود غیر مجاز' });
         console.log('UNAUTHORIZED');
       }
     }

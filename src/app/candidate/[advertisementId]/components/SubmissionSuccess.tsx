@@ -1,3 +1,4 @@
+'use client';
 //@3rd Party
 import Image from 'next/image';
 //__________________________________________________________
@@ -7,9 +8,11 @@ import { Button, Stack, styled, Typography } from '@mui/material';
 
 //@Assets
 import SvgSuccess from '@/assets/images/success.svg';
+import { useSubmissionSuccess } from '../hooks/useSubmissionSuccess';
 //__________________________________________________________
 
 export function SubmissionSuccess() {
+  const { isNavigating, onClickReturn } = useSubmissionSuccess();
   return (
     <>
       <Container>
@@ -24,7 +27,8 @@ export function SubmissionSuccess() {
 
         <Button
           variant="outlined"
-          type="submit"
+          onClick={onClickReturn}
+          isLoading={isNavigating}
           sx={{
             position: 'fixed',
             width: 'calc(100% - 32px)',

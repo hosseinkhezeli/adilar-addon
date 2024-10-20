@@ -40,7 +40,6 @@ export function usePurchaseLayout() {
   //Hooks
   const { push: navigateTo } = useRouter();
   const { data } = useGetAdByDivarPostToken(post_token);
-  const { mutate: login } = useMockLogin();
 
   //Handlers
   useLayoutEffect(() => {
@@ -53,17 +52,10 @@ export function usePurchaseLayout() {
   }, [currentState, pathname, newSearchParams.toString()]);
 
   useEffect(() => {
-    initialize();
-    if (!token && !loading) {
-      login(undefined, {
-        onSuccess: (data) => {
-          setToken(data.token);
-        },
-      });
-    }
     if (post_token && advertisement_id) {
       setAdInfo(post_token, advertisement_id);
     }
+    return reset();
   }, [tokenParam, post_token, advertisement_id, loading]);
   return { currentState };
 }

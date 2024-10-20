@@ -4,15 +4,15 @@ import { devtools, persist } from 'zustand/middleware';
 // Define the UserState interface
 //TODO add user type
 export interface UserState {
-  token?: string; // Optional token
-  user: any | null; // User can be IUser type or null
-  isLoggedIn: boolean; // Boolean indicating login status
+  token?: string;
+  user: any | null;
+  isLoggedIn: boolean;
   loading: boolean; // Loading state for initialization
-  setToken: (token?: string) => void; // Function to set the token
-  setUserInfo: (user: any | null) => void; // Function to set user info
-  setLogout: () => void; // Function to log out
+  setToken: (token?: string) => void;
+  setUserInfo: (user: any | null) => void;
+  setLogout: () => void;
   initialize: () => void; // Function to set loading to false
-  reset: () => void; // Function to reset the store
+  reset: () => void;
 }
 
 // Create the Zustand store

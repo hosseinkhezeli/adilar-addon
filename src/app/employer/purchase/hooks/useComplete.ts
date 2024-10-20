@@ -1,19 +1,58 @@
 'use client';
 //@3rd Party
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 //_______________________________________________________________
 
 //@Types
 import { Route } from 'next';
+import { useTransition } from 'react';
+type TTransactionStatus = 'success' | 'error' | null;
 //_______________________________________________________________
 
 export function useComplete() {
-  //TODO: make these two dynamic from payment result
-  const trackingCode = '458965221214';
-  const isSuccess = false;
+  const [isNavigating, startTransition] = useTransition();
+  const searchParams = useSearchParams();
   const { push: navigateTo } = useRouter();
-  const onClick = () => {
-    navigateTo('asdasda/form-creator' as Route);
+
+  const trackingCode = searchParams?.get('tracking_code');
+  const isSuccess = searchParams?.get(
+    'transaction_status'
+  ) as TTransactionStatus;
+  const postToken = searchParams.get('post_token');
+  const advertisementId = searchParams.get('advertisement_id');
+  const newSearchParams = new URLSearchParams({
+    advertisement_id: advertisementId || '404_advertisement_id',
+    post_token: postToken || '404_post_token',
+  });
+
+  const onClickSuccess = () => {
+    startTransition(() => {
+      navigateTo(
+        `/employer/form-creator?${newSearchParams.toString()}` as Route
+      );
+    });
   };
-  return { onClick, trackingCode, isSuccess };
+
+  const onClickReturn = () => {
+    startTransition(() => {
+      navigateTo(
+        `/employer/purchase?state=pre_invoice&${newSearchParams.toString()}` as Route
+      );
+    });
+  };
+
+  const onClickExit = () => {
+    startTransition(() => {
+      navigateTo(`https://divar.ir/v/${postToken}` as Route);
+    });
+  };
+
+  return {
+    onClickReturn,
+    onClickExit,
+    onClickSuccess,
+    trackingCode,
+    isSuccess,
+    isNavigating,
+  };
 }

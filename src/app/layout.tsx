@@ -34,6 +34,32 @@ const iranSans = localFont({
 export const metadata: Metadata = {
   title: 'Adilar addon',
   description: "Adilar's addon for employer and candidate",
+  icons: {
+    icon: [
+      {
+        type: 'image/png',
+        sizes: '32x32',
+        url: '/images/manifest/favicon-32x32.png',
+      },
+      {
+        type: 'image/png',
+        sizes: '16x16',
+        url: '/images/manifest/favicon-16x16.png',
+      },
+    ],
+    apple: {
+      rel: 'apple-touch-icon',
+      sizes: '180x180',
+      url: '/images/manifest/apple-touch-icon.png',
+    },
+    other: [
+      {
+        rel: 'mask-icon',
+        url: '/images/manifest/safari-pinned-tab.svg',
+        color: '#5bbad5',
+      },
+    ],
+  },
 };
 
 export default function RootLayout({

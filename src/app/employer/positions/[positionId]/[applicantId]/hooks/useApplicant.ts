@@ -124,7 +124,9 @@ export function useApplicant() {
             });
           },
           onError() {
-            enqueueSnackbar('ثبت ناموفق', { variant: 'error' });
+            enqueueSnackbar('ثبت ناموفق، اروری رخ داده است', {
+              variant: 'error',
+            });
           },
         }
       );

@@ -1,7 +1,7 @@
 import { useGetPositionList } from '@/services/api/advertisement/hooks';
 import { Route } from 'next';
-import { useRouter } from 'next/navigation';
-import { UIEvent, useState } from 'react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { UIEvent, useEffect, useState } from 'react';
 
 export interface IPositionCard {
   id: string;
@@ -19,9 +19,13 @@ export interface IPositionCard {
 
 const usePositionList = () => {
   const { push: navigateTo } = useRouter();
-  const [searchValue, setSearchValue] = useState<string>();
+  const pathName = usePathname();
+  const searchParams = useSearchParams();
+  const [searchValue, setSearchValue] = useState<string>(
+    searchParams.get('textSearch') || ''
+  );
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useGetPositionList();
+    useGetPositionList({ textSearch: searchParams.get('textSearch') || '' });
 
   function handleFetchOnScroll(e: UIEvent) {
     const at20PercentEnd =
@@ -40,6 +44,19 @@ const usePositionList = () => {
   const handleSearch = (value: string) => {
     setSearchValue(value);
   };
+
+  function handlePushSearchValue() {
+    navigateTo(
+      `${pathName}${searchValue ? `?textSearch=${searchValue}` : ''}` as Route
+    );
+  }
+
+  useEffect(() => {
+    const id = setTimeout(() => {
+      handlePushSearchValue();
+    }, 500);
+    return () => clearTimeout(id);
+  }, [searchValue]);
 
   return {
     searchValue,

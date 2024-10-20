@@ -6,7 +6,7 @@ import React from 'react';
 import { Plans } from './components/plan-section/Plans';
 import { InformationForm } from './components/information-section/InformationForm';
 import { PreInvoice } from './components/pre-invoice-section/PreInvoice';
-import { Completed } from './components/Completed';
+import { Completed } from './components/completed-section/Completed';
 //____________________________________________________
 
 //@Types

@@ -26,7 +26,7 @@ export const lightPalette: PaletteOptions = {
     6: '#627593',
     5: '#627593',
     4: '#6C7F9D',
-    3: '#788AA5',
+    3: '#DBD7E9',
     2: '#92A0B6',
     1: '#E8E8F4',
   },

@@ -27,6 +27,7 @@ const HandlerButtons = ({
           flexGrow: 1,
           backgroundColor: 'transparent',
         }}
+        isLoading={isApprovalLoading}
       >
         رد کردن
       </Button>

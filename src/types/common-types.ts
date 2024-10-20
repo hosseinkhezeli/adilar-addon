@@ -8,6 +8,8 @@ export interface IFieldOption {
   updatedAt: string;
 }
 
+export type TApplicantState = 'Pending' | 'Accepted' | 'Rejected';
+
 export type TFormFieldType =
   | 'NationalCode'
   | 'Date'

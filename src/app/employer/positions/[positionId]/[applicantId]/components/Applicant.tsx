@@ -59,7 +59,13 @@ const Applicant = () => {
           >
             {!data ? null : (
               <>
-                <InfoSection data={data} />
+                <Stack
+                  sx={{
+                    overflow: 'auto',
+                  }}
+                >
+                  <InfoSection data={data} />
+                </Stack>
                 <Stack
                   sx={{
                     gap: 8,
@@ -78,11 +84,13 @@ const Applicant = () => {
                       )?.value
                     }
                   />
-                  <HandlerButtons
-                    isApprovalLoading={isApprovalLoading}
-                    onApprove={handleApplicant.onApprove}
-                    onReject={handleApplicant.onReject}
-                  />
+                  {data.state === 'Pending' ? (
+                    <HandlerButtons
+                      isApprovalLoading={isApprovalLoading}
+                      onApprove={handleApplicant.onApprove}
+                      onReject={handleApplicant.onReject}
+                    />
+                  ) : null}
                 </Stack>
               </>
             )}

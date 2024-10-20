@@ -71,17 +71,19 @@ export function usePositionForm({ handleStateChange }: TProps) {
       {} as Record<string, string>
     );
 
-    const submissionAnswers = fieldIds?.map((fieldId) => {
-      const fieldType = fieldTypeMap[fieldId];
-      const fieldValue = data[fieldId];
-      return {
-        fieldId,
-        value:
-          fieldType === 'date-picker'
-            ? new Date(fieldValue || Date.now()).toISOString()
-            : fieldValue,
-      };
-    });
+    const submissionAnswers = fieldIds
+      ?.map((fieldId) => {
+        const fieldType = fieldTypeMap[fieldId];
+        const fieldValue = data[fieldId];
+        return {
+          fieldId,
+          value:
+            fieldType === 'date-picker'
+              ? new Date(fieldValue || Date.now()).toISOString()
+              : fieldValue,
+        };
+      })
+      .filter((item) => item.value === 0 || Boolean(item.value));
 
     const formData = new FormData();
     formData.append('File', resumeFile as Blob);

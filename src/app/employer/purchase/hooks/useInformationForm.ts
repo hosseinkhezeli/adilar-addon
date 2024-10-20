@@ -55,6 +55,23 @@ export function useInformationForm() {
       name: 'companySlug',
       label: 'دامنه',
       type: 'text',
+      props: {
+        onChange: (e) => {
+          const regex = /^[a-zA-Z]*$/;
+          if (!regex.test(e.target.value)) {
+            form.setError('companySlug', {
+              message: 'فقط حروف انگلیسی تایپ کنید',
+            });
+            enqueueSnackbar({
+              variant: 'error',
+              message: 'فقط حروف انگلیسی تایپ کنید',
+            });
+          } else {
+            form.clearErrors('companySlug');
+            form?.register('companySlug').onChange(e);
+          }
+        },
+      },
     },
     {
       name: 'email',

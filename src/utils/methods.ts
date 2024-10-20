@@ -119,7 +119,7 @@ export function inputListAdapter(fields: IFormField[] | undefined) {
         }),
         options: field?.options?.map((option) => ({
           label: option?.title,
-          value: option?.value,
+          value: option?.id,
         })),
       };
     });
@@ -137,4 +137,14 @@ export function truncateString(str: string, maxLength: number): string {
   }
 
   return str.slice(0, maxLength - 3) + '...';
+}
+
+export function clearObject<T extends Record<string, any>>(obj: T): T {
+  for (const key in obj) {
+    // Check if the value is falsy and not equal to 0
+    if (!obj[key] && obj[key] !== 0) {
+      delete obj[key];
+    }
+  }
+  return obj;
 }

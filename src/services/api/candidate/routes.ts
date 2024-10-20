@@ -1,6 +1,8 @@
+import { TGetAdFormAsCandidateParams } from './types';
+
 export const routes = {
-  getAdFormAsCandidate: (divarPostToken: string) =>
-    `/api/Advertisement/get-by-divar-post-token-for-candidate/${divarPostToken}`,
+  getAdFormAsCandidate: ({ postToken }: TGetAdFormAsCandidateParams) =>
+    `/api/Advertisement/get-by-divar-post-token-for-candidate/${postToken}`,
   submitAdForm: `/api/submission`,
   submitResumeFile: `/api/submission/resume`,
 };

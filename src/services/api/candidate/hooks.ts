@@ -7,11 +7,11 @@ import {
 } from './services';
 
 //Ad as Candidate
-export const useGetAdFormAsCandidate = () =>
-  useMutation({
-    mutationKey: ['get-ad-form-as-candidate'],
-    mutationFn: (params: TGetAdFormAsCandidateParams) =>
-      getAdFormAsCandidate(params),
+export const useGetAdFormAsCandidate = (params: TGetAdFormAsCandidateParams) =>
+  useQuery({
+    queryKey: ['get-ad-form-as-candidate'],
+    queryFn: () => getAdFormAsCandidate(params),
+    enabled: !!params.postToken,
   });
 
 export const useSubmitAdFormAsCandidate = () =>

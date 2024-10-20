@@ -11,7 +11,7 @@ import {
 export const getAdFormAsCandidate = (
   params: TGetAdFormAsCandidateParams
 ): Promise<ISubmitAdFormAsCandidate> => {
-  return http.get(routes.getAdFormAsCandidate(params?.adId));
+  return http.get(routes.getAdFormAsCandidate(params));
 };
 
 export const submitAdFormAsCandidate = (

@@ -13,6 +13,7 @@ import { inputListAdapter } from '@/utils/methods';
 //@Hooks
 import { useGetAdByDivarPostToken } from '@/services/api/employer/hooks';
 import {
+  useGetAdFormAsCandidate,
   useSubmitAdFormAsCandidate,
   useSubmitResumeFile,
 } from '@/services/api/candidate/hooks';
@@ -36,7 +37,7 @@ export function usePositionForm({ handleStateChange }: TProps) {
     isSuccess,
     isLoading: isLoadingAd,
     error: errorAd,
-  } = useGetAdByDivarPostToken(postToken);
+  } = useGetAdFormAsCandidate({ postToken: postToken });
   const form = useForm();
 
   const adInputList = useMemo(

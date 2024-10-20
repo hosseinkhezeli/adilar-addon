@@ -22,9 +22,6 @@ export function AuthLayout({ children }: { children: React.ReactNode }) {
     } else if (jwt) {
       setToken(jwt);
     }
-    return () => {
-      reset();
-    };
   }, [loading]);
   return <>{children}</>;
 }

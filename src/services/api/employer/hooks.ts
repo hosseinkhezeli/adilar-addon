@@ -7,7 +7,6 @@ import {
   submitAdForm,
   submitIntroduction,
 } from './services';
-import useUserStore from '@/store/user/userSlice';
 
 //Introduction
 export const useSubmitIntroduction = () =>
@@ -19,11 +18,10 @@ export const useSubmitIntroduction = () =>
 
 //Advertisement
 export const useGetAdByDivarPostToken = (postToken: string | null) => {
-  const { token } = useUserStore();
   return useQuery({
     queryKey: ['advertisement', postToken],
     queryFn: () => getAdByDivarPostToken(postToken),
-    enabled: !!postToken && !!token,
+    enabled: !!postToken,
     staleTime: 0,
     refetchOnWindowFocus: false,
   });

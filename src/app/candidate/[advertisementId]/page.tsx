@@ -15,7 +15,11 @@ import { AdilarLogo } from '@/app/components/AdilarLogo';
 //@Types
 type TParams = {
   params: { advertisementId: string };
-  searchParams: { state: 'init' | 'logged-in'; post_token: string | null };
+  searchParams: {
+    state: 'init' | 'logged-in';
+    post_token: string | null;
+    phone_number: string | null;
+  };
 };
 //_______________________________________________________________
 
@@ -25,7 +29,7 @@ const Page = ({ params, searchParams }: TParams) => {
       {searchParams.state !== 'logged-in' ? (
         <>
           <AdilarLogo />
-          <LoginCandidate advertisementId={params.advertisementId} />
+          <LoginCandidate phoneNumber={searchParams?.phone_number} />
         </>
       ) : (
         <>

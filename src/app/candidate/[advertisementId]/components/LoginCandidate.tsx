@@ -8,11 +8,11 @@ import { useLoginCandidate } from '@/app/candidate/[advertisementId]/hooks/useLo
 const TIMEOUT_DURATION = 3000;
 
 type TLoginCandidateProps = {
-  advertisementId: string;
+  phoneNumber: string | null;
 };
 
-export function LoginCandidate({ advertisementId }: TLoginCandidateProps) {
-  const { handleLogin, isNavigating } = useLoginCandidate({ advertisementId });
+export function LoginCandidate({ phoneNumber }: TLoginCandidateProps) {
+  const { handleLogin, isNavigating } = useLoginCandidate();
 
   const [open, setOpen] = useState(false);
   useEffect(() => {
@@ -51,7 +51,7 @@ export function LoginCandidate({ advertisementId }: TLoginCandidateProps) {
           <PhoneNumberBox>
             <SvgTickCircle primarycolor={'inherit'} />
             <Typography variant={'body3.medium'} color={'primary.main'}>
-              09121234567
+              {phoneNumber}
             </Typography>
           </PhoneNumberBox>
           <Typography variant={'caption1'} mb={16}>

@@ -5,14 +5,10 @@ import { useTransition } from 'react';
 //_______________________________________________________________
 
 //@Types
-type TUseLoginCandidateProps = {
-  advertisementId: string;
-};
+
 //_______________________________________________________________
 
-export function useLoginCandidate({
-  advertisementId,
-}: TUseLoginCandidateProps) {
+export function useLoginCandidate() {
   const { push: navigateTo } = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();

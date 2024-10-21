@@ -1,4 +1,7 @@
 'use client';
+//@3rd Party
+import React from 'react';
+//___________________________________________________________
 //@Mui
 import {
   Box,
@@ -43,6 +46,8 @@ export function Discount({ coupon, onChange, onSubmit }: TDiscount) {
 const Container = styled(Stack)(({ theme }) => ({
   width: '100%',
   gap: theme.spacing(2),
+  opacity: 0.5,
+  pointerEvents: 'none',
 }));
 
 const Title = styled(Typography)(({ theme }) => ({

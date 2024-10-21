@@ -1,112 +1,40 @@
+//@3rd Party
+import React from 'react';
+//______________________________________________________________________
+
+//@Mui
+import { Box, IconButton, useTheme } from '@mui/material';
+//______________________________________________________________________
+
+//@Hooks & Components
 import { Card, CardColumn, UnreadBadge } from '@/app/components/Card';
 import { LabelValue } from '@/app/components/LabelValueField';
-import React, { useState, TouchEvent } from 'react';
 import { dateToShamsi, fullNameDisplay } from '@/utils/methods';
-import { Box, IconButton, useTheme } from '@mui/material';
-import { TApplicantCard } from '@/app/employer/positions/[positionId]/hooks/useApplicantList';
+//______________________________________________________________________
+
+//@Assets
 import SvgTickCircle from 'ideep-design-system-2/icons/TickCircle';
 import SvgCloseCircle from 'ideep-design-system-2/icons/CloseCircle';
-import { useSetApproval } from '@/services/api/submission/hooks';
-import { enqueueSnackbar } from 'notistack';
-import { useQueryClient } from '@tanstack/react-query';
+//______________________________________________________________________
 
+//@Types
+import { TApplicantCard } from '@/app/employer/positions/[positionId]/hooks/useApplicantList';
+import { useApplicantCard } from '@/app/employer/positions/[positionId]/hooks/useApplicantCard';
 interface IApplicantCard {
   applicantInfo: TApplicantCard;
 }
+//______________________________________________________________________
 
 export function ApplicantCard({ applicantInfo }: IApplicantCard) {
-  const QC = useQueryClient();
+  const {
+    handleTouchStart,
+    handleTouchMove,
+    handleTouchEnd,
+    onReject,
+    onApprove,
+    translateX,
+  } = useApplicantCard();
   const { typography, palette } = useTheme();
-  const [translateX, setTranslateX] = useState<number>(0);
-  const [isSwiping, setIsSwiping] = useState<boolean>(false);
-  const [touchStart, setTouchStart] = useState<{
-    clientX: number;
-    clientY: number;
-  }>({
-    clientX: 0,
-    clientY: 0,
-  });
-  const maxSwipeDistance = 80; // Maximum swipe distance in pixels
-
-  const { mutate: setApprovalMutate, isPending: isApprovalLoading } =
-    useSetApproval();
-
-  function onApprove() {
-    if (applicantInfo.id) {
-      setApprovalMutate(
-        { id: applicantInfo.id, isApprove: true },
-        {
-          onSuccess() {
-            enqueueSnackbar('رزومه تایید شد', { variant: 'success' });
-            QC.refetchQueries({ queryKey: ['applicantList'] });
-            QC.refetchQueries({
-              queryKey: ['get-submission', applicantInfo.id],
-            });
-            setTranslateX(0);
-          },
-          onError() {
-            enqueueSnackbar('ثبت ناموفق، اروری رخ داده است', {
-              variant: 'error',
-            });
-          },
-        }
-      );
-    }
-  }
-
-  function onReject() {
-    if (applicantInfo.id) {
-      setApprovalMutate(
-        { id: applicantInfo.id, isApprove: false },
-        {
-          onSuccess() {
-            enqueueSnackbar('رزومه رد شد', { variant: 'success' });
-            QC.refetchQueries({ queryKey: ['applicantList'] });
-            QC.refetchQueries({
-              queryKey: ['get-submission', applicantInfo.id],
-            });
-            setTranslateX(0);
-          },
-          onError() {
-            enqueueSnackbar('ثبت ناموفق، اروری رخ داده است', {
-              variant: 'error',
-            });
-          },
-        }
-      );
-    }
-  }
-
-  const handleTouchStart = (event: TouchEvent<HTMLDivElement>) => {
-    setIsSwiping(true);
-    setTouchStart({
-      clientX: event.touches[0]?.clientX,
-      clientY: event.touches[0]?.clientY,
-    });
-  };
-
-  const handleTouchMove = (event: TouchEvent<HTMLDivElement>) => {
-    if (!isSwiping) return;
-    const touch = event.touches[0];
-    const deltaX = touch.clientX - touchStart.clientX;
-    const newTranslateX = Math.min(
-      Math.max(deltaX, -maxSwipeDistance),
-      maxSwipeDistance
-    );
-    setTranslateX(newTranslateX);
-  };
-
-  const handleTouchEnd = () => {
-    if (Math.abs(translateX) < 60) {
-      setTranslateX(0);
-    } else if (translateX > 0) {
-      setTranslateX(80);
-    } else {
-      setTranslateX(-80);
-    }
-    setIsSwiping(false);
-  };
-
   return (
     <div
       onTouchStart={handleTouchStart}
@@ -145,7 +73,7 @@ export function ApplicantCard({ applicantInfo }: IApplicantCard) {
           <IconButton
             onClick={(e) => {
               e.stopPropagation();
-              onApprove();
+              onApprove(applicantInfo?.id);
             }}
             sx={{
               transform: `scaleX(${Math.abs(translateX * 1.25)}%)`,
@@ -167,7 +95,7 @@ export function ApplicantCard({ applicantInfo }: IApplicantCard) {
           <IconButton
             onClick={(e) => {
               e.stopPropagation();
-              onReject();
+              onReject(applicantInfo?.id);
             }}
             sx={{
               transform: `scaleX(${Math.abs(translateX * 1.25)}%)`,
@@ -197,9 +125,6 @@ export function ApplicantCard({ applicantInfo }: IApplicantCard) {
         <CardColumn sx={{ flexBasis: 'unset' }}>
           <LabelValue
             withoutColon
-            // fieldLabel={
-            //   <Image src={SvgPdf} alt={'pdf icon'} width={32} height={32} />
-            // }
             fieldValue={fullNameDisplay(
               applicantInfo?.candidate?.fistName,
               applicantInfo?.candidate?.lastName

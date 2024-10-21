@@ -14,6 +14,7 @@ import { IUseFormInput } from 'ideep-design-system-2/components/input-list/type'
 import { Route } from 'next';
 import { TStepperState } from '../types';
 import { TSubmitBasicInfoBody } from '@/services/api/employer/types';
+import { clearObject } from '@/utils/methods';
 //____________________________________________________
 
 export function useInformationForm() {
@@ -32,7 +33,15 @@ export function useInformationForm() {
     post_token: postToken || '404_post_token',
   });
   //Form deps
-  const form = useForm<TSubmitBasicInfoBody>();
+  const form = useForm<TSubmitBasicInfoBody>({
+    defaultValues: {
+      companyName: undefined,
+      companySlug: undefined,
+      email: undefined,
+      lastName: undefined,
+      firstName: undefined,
+    },
+  });
   const InformationFormInputList: IUseFormInput[] = [
     {
       name: 'firstName',
@@ -54,6 +63,9 @@ export function useInformationForm() {
       name: 'companyName',
       label: 'نام شرکت',
       type: 'text',
+      rules: {
+        required: 'نام شرکت الزامی است',
+      },
     },
     {
       name: 'companySlug',
@@ -86,7 +98,8 @@ export function useInformationForm() {
 
   //Handlers
   const handleSubmitForm = (data: TSubmitBasicInfoBody) => {
-    submitBasicInfo(data, {
+    const body = clearObject(data);
+    submitBasicInfo(body, {
       onSuccess: (data) => {
         console.log(data);
         enqueueSnackbar({

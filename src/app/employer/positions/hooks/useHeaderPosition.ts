@@ -1,3 +1,4 @@
+'use client';
 //@3rd Party
 import { useParams, useRouter } from 'next/navigation';
 //__________________________________________________________________

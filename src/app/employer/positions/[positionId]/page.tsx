@@ -1,17 +1,28 @@
+//@3rd Party
 import React from 'react';
-import { ApplicantList } from './components/ApplicantList';
+//_______________________________________________________________
+
+//@Mui
 import { Stack } from '@mui/material';
+//_______________________________________________________________
 
-type TPositionPageParams = {
-  params: { id: string; positionId: string };
-};
+//@Components
+import { ApplicantList } from './components/ApplicantList';
+//_______________________________________________________________
 
-const Page = ({ params }: TPositionPageParams) => {
+const Page = () => {
   return (
-    <Stack height="100%" overflow="auto">
+    <Stack sx={styles.container}>
       <ApplicantList />
     </Stack>
   );
 };
 
 export default Page;
+
+const styles = {
+  container: {
+    height: '100%',
+    overflow: 'auto',
+  },
+};

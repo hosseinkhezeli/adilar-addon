@@ -1,3 +1,4 @@
+'use client';
 //@3rd Party
 import { UIEvent, useEffect, useState, useTransition } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';

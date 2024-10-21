@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { BottomNavigation, BottomNavigationAction } from '@mui/material';
 import { Route } from 'next';
-import { useParams, usePathname, useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import SvgDocument from 'ideep-design-system-2/icons/Document';
 import SvgBriefcase from 'ideep-design-system-2/icons/Briefcase';
 import { NavigationOption } from '@/app/components/MainLayout';
@@ -10,7 +10,6 @@ import { NavigationOption } from '@/app/components/MainLayout';
 const ButtonsNavigation = () => {
   const pathName = usePathname();
   const [value, setValue] = useState(pathName.includes('/positions') ? 1 : 0);
-  const params = useParams();
   const { push: navigateTo } = useRouter();
   const navigationOptions: NavigationOption[] = [
     {

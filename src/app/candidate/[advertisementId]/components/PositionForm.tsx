@@ -1,5 +1,6 @@
 'use client';
 //@3rd Party
+import React from 'react';
 import {
   Box,
   BoxProps,
@@ -39,7 +40,7 @@ export function PositionForm({ handleStateChange }: TProps) {
     isLoadingAd,
     errorAd,
   } = usePositionForm({ handleStateChange });
-  return isLoadingAd || inputList?.length < 0 ? (
+  return isLoadingAd || (inputList?.length || 0) < 0 ? (
     <>
       <SvgLoading />
     </>
@@ -54,7 +55,7 @@ export function PositionForm({ handleStateChange }: TProps) {
       <Form component="form" onSubmit={form.handleSubmit(handleSubmit)}>
         <InputListWithUseForm
           form={form}
-          inputList={inputList}
+          inputList={inputList!}
           gridContainerProps={{ xs: 12, width: '100% !important' }}
           labelsProps={{ variant: 'body3', margin: '0 !important' }}
           withoutHelperText
@@ -94,17 +95,15 @@ export function PositionForm({ handleStateChange }: TProps) {
   );
 }
 
-const Form = styled(Box)<BoxProps & { component?: React.ElementType }>(
-  ({ theme }) => ({
-    width: '100%',
-    height: '100%',
-    display: 'flex',
-    minWidth: '100%',
-    minHeight: 'calc(100% - 164px)',
-    justifyContent: 'center',
-    alignItems: 'baseline',
-  })
-);
+const Form = styled(Box)<BoxProps & { component?: React.ElementType }>(() => ({
+  width: '100%',
+  height: '100%',
+  display: 'flex',
+  minWidth: '100%',
+  minHeight: 'calc(100% - 164px)',
+  justifyContent: 'center',
+  alignItems: 'baseline',
+}));
 const Container = styled(Stack)<StackProps>(({ theme }) => ({
   width: '100%',
   height: 'auto',

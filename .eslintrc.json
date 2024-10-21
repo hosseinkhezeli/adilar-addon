@@ -5,6 +5,7 @@
     "eslint:recommended",
     "plugin:react/recommended"
   ],
+  "ignorePatterns": ["node_modules/"],
   "parser": "@typescript-eslint/parser",
   "plugins": ["react", "@typescript-eslint"],
   "env": {

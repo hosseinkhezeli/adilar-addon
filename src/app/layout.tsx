@@ -1,8 +1,19 @@
+//@3rd Party
 import React from 'react';
-import type { Metadata } from 'next';
 import localFont from 'next/font/local';
-import '../styles/globals.css';
+//______________________________________________________________
+
+//@Components
 import { ProviderLayout } from '@/app/components/ProviderLayout';
+//______________________________________________________________
+
+//@Styles
+import '../styles/globals.css';
+//______________________________________________________________
+
+//@Types
+import type { Metadata } from 'next';
+//______________________________________________________________
 
 const iranSans = localFont({
   src: [
@@ -56,7 +67,7 @@ export const metadata: Metadata = {
       {
         rel: 'mask-icon',
         url: '/images/manifest/safari-pinned-tab.svg',
-        color: '#5bbad5',
+        color: '#5352ED',
       },
     ],
   },

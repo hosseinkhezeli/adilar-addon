@@ -35,7 +35,7 @@ export const useGetApplicantList = ({
 }) => {
   const { token } = useUserStore();
   return useInfiniteQuery({
-    queryKey: ['applicantList', state, advertisementId],
+    queryKey: ['applicantList', state, advertisementId, textSearch],
     queryFn: ({ pageParam }) => getApplicantList({ ...pageParam }),
     initialPageParam: {
       pageNumber: 1,

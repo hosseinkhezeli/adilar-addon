@@ -11,7 +11,6 @@ import { inputListAdapter } from '@/utils/methods';
 //_______________________________________________________________
 
 //@Hooks
-import { useGetAdByDivarPostToken } from '@/services/api/employer/hooks';
 import {
   useGetAdFormAsCandidate,
   useSubmitAdFormAsCandidate,
@@ -27,6 +26,9 @@ import { IFormField } from '@/types/common-types';
 type TProps = {
   handleStateChange: (state: TSubmissionState) => void;
 };
+interface IForm {
+  [key: string]: string | number;
+}
 //_______________________________________________________________
 
 export function usePositionForm({ handleStateChange }: TProps) {
@@ -48,11 +50,11 @@ export function usePositionForm({ handleStateChange }: TProps) {
           return { ...field?.field, isRequired: field.isRequired };
         }
       }),
-    [isSuccess]
+    [isSuccess, ad?.form?.fields]
   );
   const isResumeRequired = useMemo(
     () => ad?.form?.isResumeUploadingRequired,
-    [isSuccess]
+    [isSuccess, ad?.form?.isResumeUploadingRequired]
   );
   const { inputList } = inputListAdapter(adInputList as IFormField[]);
   const fileInput = mockData.find((field) => field?.type === 'File');
@@ -73,7 +75,7 @@ export function usePositionForm({ handleStateChange }: TProps) {
     setResumeFile(null);
   };
 
-  const handleSubmit = (data: any) => {
+  const handleSubmit = (data: IForm) => {
     const fieldIds = Object.keys(data);
     const fieldTypeMap = inputList?.reduce(
       (acc, field) => {
@@ -85,7 +87,7 @@ export function usePositionForm({ handleStateChange }: TProps) {
 
     const submissionAnswers = fieldIds
       ?.map((fieldId) => {
-        const fieldType = fieldTypeMap[fieldId];
+        const fieldType = fieldTypeMap?.[fieldId];
         const fieldValue = data[fieldId];
         return {
           fieldId,
@@ -116,19 +118,17 @@ export function usePositionForm({ handleStateChange }: TProps) {
                 anchorOrigin: { horizontal: 'center', vertical: 'top' },
               });
             },
-            onError: (error) => {
+            onError: () => {
               enqueueSnackbar('در روند ثبت رزومه خطایی رخ داد', {
                 variant: 'error',
                 anchorOrigin: { horizontal: 'center', vertical: 'top' },
               });
-              console.error('Error submitting file:', error);
             },
           }
         );
       },
-      onError: (error) => {
+      onError: () => {
         enqueueSnackbar('در روند ثبت رزومه خطایی رخ داد', { variant: 'error' });
-        console.error('Error submitting file:', error);
       },
     });
   };

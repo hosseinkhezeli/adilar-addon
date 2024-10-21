@@ -1,12 +1,23 @@
+//@3rd Party
 import React from 'react';
+//_________________________________________________________
+
+//@Mui
 import { Button, Stack, Typography } from '@mui/material';
+//_________________________________________________________
+
+//@Components
 import { DownloadIcon } from '@/app/icons/DownloadIcon';
 import { PDFIcon } from '@/app/icons/PDFIcon';
+//_________________________________________________________
 
+//@Types
 interface IDownloadResume {
   resumeId: string;
   fullName: string;
 }
+//_________________________________________________________
+
 const DownloadResume = ({ resumeId, fullName }: IDownloadResume) => {
   return (
     <Stack

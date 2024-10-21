@@ -1,33 +1,34 @@
+//@3rd Party
 import React from 'react';
-import { Section } from '@/app/components/Section';
-import { Chip, Stack, Typography, useTheme } from '@mui/material';
-import { IGetSubmissionResponse } from '@/services/api/submission/types';
-import { TFormFieldType } from '@/types/common-types';
 import SvgClose from 'ideep-design-system-2/icons/Close';
 import SvgTick from 'ideep-design-system-2/icons/Tick';
+//_________________________________________________________
 
+//@Mui
+import { Chip, Stack, Typography } from '@mui/material';
+//_________________________________________________________
+
+//@Components
+import { Section } from '@/app/components/Section';
+//_________________________________________________________
+
+//@Types
+import { IGetSubmissionResponse } from '@/services/api/submission/types';
+import { useInfoSection } from '@/app/employer/positions/[positionId]/[applicantId]/hooks/useInfoSection';
 interface IInfoSection {
   data?: IGetSubmissionResponse;
 }
+//_________________________________________________________
 
-const fullNameArrayFiled = ['FirstName', 'LastName'];
+//@Variable
+const fullNameArrayField = ['FirstName', 'LastName'];
+//_________________________________________________________
 
 const InfoSection = ({ data }: IInfoSection) => {
-  const submissionData:
-    | {
-        label: string;
-        value: string | null;
-        type: TFormFieldType;
-      }[]
-    | undefined = data?.fields
-    ?.filter((field) => !fullNameArrayFiled.includes(field.semanticType))
-    .map((field) => ({
-      label: field?.name || '-',
-      value: field?.value || '-',
-      type: field.type as TFormFieldType,
-    }));
-
-  const theme = useTheme();
+  const { theme, submissionData } = useInfoSection({
+    data,
+    fullNameArrayField,
+  });
 
   return (
     <Stack
@@ -81,7 +82,7 @@ const InfoSection = ({ data }: IInfoSection) => {
             mb: 4,
           }}
         >
-          {`${data?.fields?.find((field) => field.semanticType == fullNameArrayFiled[0])?.value || '-'} ${data?.fields?.find((field) => field.semanticType == fullNameArrayFiled[1])?.value || '-'}`}
+          {`${data?.fields?.find((field) => field.semanticType == fullNameArrayField[0])?.value || '-'} ${data?.fields?.find((field) => field.semanticType == fullNameArrayField[1])?.value || '-'}`}
         </Typography>
         <Stack gap={4}>
           {submissionData?.map((item) => (

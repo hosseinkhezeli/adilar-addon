@@ -91,8 +91,8 @@ export function typeAdapter(type: string): IUseFormInput['type'] {
 }
 
 export function inputListAdapter(fields: IFormField[] | undefined) {
-  // @ts-ignore
-  const inputList: IUseFormInput[] = fields
+  // @ts-expect-error input type
+  const inputList: IUseFormInput[] | undefined = fields
     ?.filter((field) => field.type !== 'File')
     ?.map((field) => {
       return {
@@ -177,4 +177,10 @@ export function generateDayName(date: Date | string | null | undefined) {
   }
 
   return dateValue;
+}
+
+export function getCookie(name: string) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts?.pop()?.split(';').shift();
 }

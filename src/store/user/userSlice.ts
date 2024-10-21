@@ -60,5 +60,6 @@ const useUserStore = create<UserState>()(
     )
   )
 );
+export const { setToken } = useUserStore.getState();
 
 export default useUserStore;

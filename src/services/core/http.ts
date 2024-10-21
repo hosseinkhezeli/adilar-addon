@@ -1,9 +1,5 @@
 'use client';
-// import {
-//   reset as resetUserStore,
-//   loading,
-//   initialize,
-// } from '@/store/user/userSlice';
+import { setToken } from '@/store/user/userSlice';
 import axios, {
   AxiosError,
   AxiosResponse,
@@ -11,6 +7,7 @@ import axios, {
   // InternalAxiosRequestConfig,
 } from 'axios';
 import { enqueueSnackbar } from 'notistack';
+import { getCookie } from '@/utils/methods';
 const API_URL =
   process.env.NEXT_PUBLIC_API_URL ?? 'Env var `API_URL` is not defined';
 export const baseURL = `${API_URL}`;
@@ -21,10 +18,11 @@ export const http = axios.create({
 
 http.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    const token = JSON.parse(localStorage.getItem('user-storage') as string)
-      .state.token;
-
+    const token = getCookie('auth_token') as string;
     if (token) {
+      if (typeof window !== 'undefined') {
+        setToken(token);
+      }
       config.headers.Authorization = `Bearer ${token}`;
       document.cookie = `token=${token}; path=/; max-age=3600`;
     }

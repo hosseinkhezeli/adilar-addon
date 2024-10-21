@@ -55,7 +55,7 @@ export function useApplicantCard() {
         { id: applicantId, isApprove: false },
         {
           onSuccess() {
-            enqueueSnackbar('رزومه رد شد', { variant: 'success' });
+            enqueueSnackbar('رزومه رد شد', { variant: 'info' });
             QC.refetchQueries({ queryKey: ['applicantList'] });
             QC.refetchQueries({
               queryKey: ['get-submission', applicantId],

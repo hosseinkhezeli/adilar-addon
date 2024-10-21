@@ -4,7 +4,6 @@ import React from 'react';
 
 //@Components
 import { MainLayout } from '@/app/components/MainLayout';
-import { AuthLayout } from '../components/AuthLayout';
 //_______________________________________________________________
 
 //@Types
@@ -21,9 +20,5 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <MainLayout withoutNavigation>
-      <AuthLayout>{children}</AuthLayout>
-    </MainLayout>
-  );
+  return <MainLayout withoutNavigation>{children}</MainLayout>;
 }

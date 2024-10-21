@@ -1,3 +1,11 @@
+//@3rd Party
+import { useEffect, useState } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
+import { useParams, usePathname, useRouter } from 'next/navigation';
+import { enqueueSnackbar } from 'notistack';
+//_________________________________________________________
+
+//@Hooks
 import { useSetViewedTutorial } from '@/services/api/auth/hooks';
 import {
   useGetSubmission,
@@ -6,14 +14,16 @@ import {
 } from '@/services/api/submission/hooks';
 import useAdvertisementStore from '@/store/advertisement/advertisementSlice';
 import useUserStore from '@/store/user/userSlice';
-import { useQueryClient } from '@tanstack/react-query';
+//_________________________________________________________
+
+//@Types
 import { Route } from 'next';
-import { useParams, usePathname, useRouter } from 'next/navigation';
-import { enqueueSnackbar } from 'notistack';
-import { TouchEvent, useEffect, useRef, useState } from 'react';
+import { useSwipeApplicant } from '@/app/employer/positions/[positionId]/[applicantId]/hooks/useSwipeApplicant';
+//_________________________________________________________
 
 export function useApplicant() {
   const QC = useQueryClient();
+
   const { advertisement } = useAdvertisementStore();
   const { user } = useUserStore();
 
@@ -23,18 +33,16 @@ export function useApplicant() {
 
   const [statusModal, setStatusModal] = useState<boolean>(false);
 
-  const elementRef = useRef<HTMLDivElement>();
-  const [startTouchPosition, setStartTouchPosition] = useState<{
-    clientX: number;
-    clientY: number;
-  } | null>();
+  const { data, isLoading } = useGetSubmission({ id: params.applicantId });
 
-  const startTouchAfterDistance = useRef<number>(10);
-  const screenWidth = useRef<number>(0);
+  const { elementRef, onTouchEnd, onTouchMove, onTouchStart } =
+    useSwipeApplicant({
+      previousSubmissionId: data?.previousSubmissionId,
+      nextSubmissionId: data?.nextSubmissionId,
+      customPush,
+    });
 
   const { mutate: handleSetViewedTutorialMutate } = useSetViewedTutorial();
-
-  const { data, isLoading } = useGetSubmission({ id: params.applicantId });
 
   const { mutate: setIsReviewedMutate } = useSetIsReviewed();
   const { mutate: setApprovalMutate, isPending: isApprovalLoading } =
@@ -59,68 +67,6 @@ export function useApplicant() {
     const helper = pathName.split('/').slice(1, -1);
 
     router.push(`/${helper.join('/')}/${id}` as Route);
-  }
-
-  function onTouchStart(e: TouchEvent<HTMLDivElement>) {
-    if (e.touches.length > 1) return;
-    const touch = e.touches[0];
-    setStartTouchPosition({
-      clientX: touch.clientX,
-      clientY: touch.clientY,
-    });
-  }
-
-  function onTouchMove(e: TouchEvent<HTMLDivElement>) {
-    if (e.touches.length > 1) return;
-    const touch = e.changedTouches[0];
-    const deltaX = touch.clientX - Number(startTouchPosition?.clientX);
-    const deltaY = touch.clientY - Number(startTouchPosition?.clientY);
-    if (
-      Math.abs(deltaX) > startTouchAfterDistance.current &&
-      Math.abs(deltaX) > Math.abs(deltaY)
-    ) {
-      const amount =
-        deltaX > 0
-          ? deltaX - startTouchAfterDistance.current
-          : deltaX + startTouchAfterDistance.current;
-      elementRef.current!.style.transform = `translateX(${amount}px)`;
-      elementRef.current!.style.opacity = `${1 - (Math.abs(deltaX) / screenWidth.current) * 1.5}`;
-    }
-  }
-
-  function onTouchEnd(e: TouchEvent<HTMLDivElement>) {
-    const touch = e.changedTouches[0];
-
-    const deltaX = touch.clientX - Number(startTouchPosition?.clientX);
-    const deltaY = touch.clientY - Number(startTouchPosition?.clientY);
-
-    if (Math.abs(deltaX) > Math.abs(deltaY)) {
-      if (deltaX > 0 && Math.abs(deltaX) - 10 > screenWidth.current / 2) {
-        if (data?.previousSubmissionId) {
-          customPush(data.previousSubmissionId);
-        } else {
-          elementRef.current!.style.opacity = `1`;
-          elementRef.current!.style.transform = `translateX(0px)`;
-        }
-      } else if (
-        deltaX < 0 &&
-        Math.abs(deltaX) - 10 > screenWidth.current / 2
-      ) {
-        if (data?.nextSubmissionId) {
-          customPush(data.nextSubmissionId);
-        } else {
-          elementRef.current!.style.transform = `translateX(0px)`;
-          elementRef.current!.style.opacity = `1`;
-        }
-      } else {
-        elementRef.current!.style.transform = `translateX(0px)`;
-        elementRef.current!.style.opacity = `1`;
-      }
-    } else {
-      elementRef.current!.style.transform = `translateX(0px)`;
-      elementRef.current!.style.opacity = `1`;
-    }
-    setStartTouchPosition(null);
   }
 
   function onApprove() {
@@ -151,7 +97,7 @@ export function useApplicant() {
         { id: data.id, isApprove: false },
         {
           onSuccess() {
-            enqueueSnackbar('رزومه رد شد', { variant: 'success' });
+            enqueueSnackbar('رزومه رد شد', { variant: 'info' });
             QC.refetchQueries({ queryKey: ['applicantList'] });
             QC.refetchQueries({
               queryKey: ['get-submission', params.applicantId],
@@ -172,12 +118,6 @@ export function useApplicant() {
     onApprove,
     onReject,
   };
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      screenWidth.current = window.innerWidth;
-    }
-  }, []);
 
   useEffect(() => {
     if (data && !data.isReviewed) {

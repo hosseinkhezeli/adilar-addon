@@ -1,21 +1,34 @@
+//@3rd Party
 import React from 'react';
-import { Badge, Typography } from '@mui/material';
-import { IPositionCard } from '@/app/employer/positions/hooks/usePositionList';
-import { LabelValue } from '@/app/components/LabelValueField';
-import { dateToShamsi, truncateString } from '@/utils/methods';
-import { Card, CardColumn, SubtitleText } from '@/app/components/Card';
+//_____________________________________________________________________
 
+//@Mui
+import { Badge, Typography } from '@mui/material';
+//_____________________________________________________________________
+
+//@Components
+import { LabelValue } from '@/app/components/LabelValueField';
+import { Card, CardColumn, SubtitleText } from '@/app/components/Card';
+//_____________________________________________________________________
+
+//@Utils
+import { dateToShamsi, generateDayName, truncateString } from '@/utils/methods';
+//_____________________________________________________________________
+
+//@Types
+import { IPositionCard } from '@/app/employer/positions/hooks/usePositionList';
 type TPositionCardProps = {
   positionInfo: IPositionCard | undefined;
   onClick?: (id: string | undefined) => void;
 };
+//_____________________________________________________________________
 
 export function PositionCard(props: TPositionCardProps) {
   return (
     <Card onClick={() => props?.onClick?.(props?.positionInfo?.id)}>
       <CardColumn>
         <Typography variant={'body3.medium'}>
-          {truncateString(props?.positionInfo?.title || '', 15)}
+          {truncateString(props?.positionInfo?.title, 15)}
         </Typography>
         <LabelValue
           fieldLabel={'تاریخ ساخت'}
@@ -57,23 +70,4 @@ export function PositionCard(props: TPositionCardProps) {
       </CardColumn>
     </Card>
   );
-}
-
-function generateDayName(date: Date | string | null | undefined) {
-  if (!date) return '-';
-  let dateValue = '';
-  const lastDay = new Date(date).getDate();
-  const today = new Date().getDate();
-  switch (lastDay) {
-    case today:
-      dateValue = 'امروز';
-      break;
-    case today - 1:
-      dateValue = 'دیروز';
-      break;
-    default:
-      return dateToShamsi(date);
-  }
-
-  return dateValue;
 }

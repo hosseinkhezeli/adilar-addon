@@ -1,96 +1,112 @@
 'use client';
+//@3rd Party
 import React, { ReactNode } from 'react';
+//__________________________________________________________
+
+//@Mui
+import { IconButton, Stack, styled, Typography } from '@mui/material';
+//__________________________________________________________
+
+//@Components
 import { SearchInput } from '@/app/components/SearchInput';
-import { IconButton, Stack, Typography } from '@mui/material';
-import { useParams, useRouter } from 'next/navigation';
+//__________________________________________________________
+
+//@Assets
 import SvgArrowRight1 from 'ideep-design-system-2/icons/ArrowRight1';
 import SvgAdd from 'ideep-design-system-2/icons/Add';
+import { useHeaderPosition } from '@/app/employer/positions/hooks/useHeaderPosition';
+//__________________________________________________________
 
+//@Types
 interface IHeaderPositions {
   title: string;
   value?: string;
   handleSearch?(value: string): void;
   children?: ReactNode;
 }
+//__________________________________________________________
+
 const HeaderPositions = ({
   title,
   value,
   handleSearch,
   children,
 }: IHeaderPositions) => {
-  const { push } = useRouter();
-  const params = useParams();
+  const { handleNavigation, applicantId, positionId } = useHeaderPosition();
+
   return (
-    <Stack
-      py={3}
-      bgcolor={params?.applicantId ? 'common.white' : 'background.3'}
+    <Container
+      sx={{ backgroundColor: applicantId ? 'common.white' : 'background.3' }}
     >
-      <Stack direction="row" position="relative" mb={handleSearch ? 0 : 2}>
-        {params?.positionId || params?.applicantId ? (
-          <IconButton
-            onClick={() => {
-              if (params?.applicantId) {
-                push(`/employer/positions/${params?.positionId}`);
-              } else {
-                push(`/employer/positions`);
-              }
-            }}
-            sx={{
-              position: 'absolute',
-              left: 16,
-              stroke: (theme) => theme.palette.primary.main,
-            }}
-          >
+      <HeaderSection sx={{ marginBottom: handleSearch ? 0 : 2 }}>
+        {positionId || applicantId ? (
+          //Back to prev page
+          <BackButton onClick={handleNavigation}>
             <SvgArrowRight1 primarycolor="inherit" strokeWidth={2} />
-          </IconButton>
+          </BackButton>
         ) : (
-          <IconButton
-            onClick={() => {}}
-            sx={{
-              position: 'absolute',
-              left: 16,
-              stroke: (theme) => theme.palette.primary.main,
-            }}
-          >
+          //Back to divar
+          <BackButton onClick={() => {}}>
             <SvgAdd
               primarycolor="inherit"
               style={{
-                transform: 'rotate(45deg)',
+                transform: 'rotate(45deg) scale(1.5)',
+                width: 24,
+                height: 24,
               }}
             />
-          </IconButton>
+          </BackButton>
         )}
-        <Typography
-          variant="body3.medium"
-          color="text.16"
-          sx={{
-            textAlign: 'center',
-            flexGrow: 1,
-          }}
-        >
-          {title}
-        </Typography>
-      </Stack>
+        <HeaderTitle>{title}</HeaderTitle>
+      </HeaderSection>
       {handleSearch ? (
         <SearchInput
           placeholder="جستجو..."
           value={value || ''}
           onChange={(e) => handleSearch(e.target.value)}
-          sx={{
-            '& .MuiInputBase-root': {
-              boxShadow: '0px 5px 16px 0px rgba(106, 118, 137, 0.10)',
-              backgroundColor: 'common.white',
-              borderRadius: 50,
-            },
-            'input::placeholder': {
-              color: 'grey.15',
-            },
-          }}
+          sx={SearchInputStyle}
         />
       ) : null}
       {children}
-    </Stack>
+    </Container>
   );
 };
 
 export { HeaderPositions };
+
+const Container = styled(Stack)(({ theme }) => ({
+  paddingTop: theme.spacing(3),
+  paddingBottom: theme.spacing(3),
+}));
+
+const HeaderSection = styled(Stack)(() => ({
+  flexDirection: 'row',
+  position: 'relative',
+}));
+
+const BackButton = styled(IconButton)(({ theme }) => ({
+  position: 'absolute',
+  left: 16,
+  stroke: theme.palette.primary.main,
+  path: {
+    strokeWidth: 1.8,
+  },
+}));
+
+const HeaderTitle = styled(Typography)(({ theme }) => ({
+  textAlign: 'center',
+  flexGrow: 1,
+  color: theme.palette.text[16],
+  ...theme.typography['body3.medium'],
+}));
+
+const SearchInputStyle = {
+  '& .MuiInputBase-root': {
+    boxShadow: '0px 5px 16px 0px rgba(106, 118, 137, 0.10)',
+    backgroundColor: 'common.white',
+    borderRadius: 50,
+  },
+  'input::placeholder': {
+    color: 'grey.15',
+  },
+};

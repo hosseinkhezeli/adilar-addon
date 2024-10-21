@@ -1,11 +1,22 @@
 'use client';
+//@3rd Party
 import React, { Fragment } from 'react';
-import usePositionList from '@/app/employer/positions/hooks/usePositionList';
+//_____________________________________________________________________
+
+//@Mui
 import { Divider } from '@mui/material';
+//_____________________________________________________________________
+
+//@Components
 import { PositionCard } from '@/app/employer/positions/components/PositionCard';
 import { CardList } from '@/app/components/Card';
 import { HeaderPositions } from '@/app/employer/positions/components/HeaderPositions';
 import { SvgLoading } from '@/app/components/Loading';
+//_____________________________________________________________________
+
+//@Hooks
+import usePositionList from '@/app/employer/positions/hooks/usePositionList';
+//_____________________________________________________________________
 
 export function PositionList() {
   const {
@@ -16,6 +27,7 @@ export function PositionList() {
     handleFetchOnScroll,
     isNavigating,
   } = usePositionList();
+
   return (
     <>
       <HeaderPositions
@@ -60,16 +72,6 @@ export function PositionList() {
             </Fragment>
           ))
         )}
-
-        {/* {positionsMock.map((position, idx, arr) => (
-          <Fragment key={position.title + idx}>
-            <PositionCard
-              positionInfo={{ ...position }}
-              onClick={handleNavigation}
-            />
-            {idx < arr.length - 1 && <Divider />}
-          </Fragment>
-        ))} */}
       </CardList>
     </>
   );

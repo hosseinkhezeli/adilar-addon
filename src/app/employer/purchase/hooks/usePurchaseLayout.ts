@@ -8,8 +8,6 @@ import { useEffect, useLayoutEffect } from 'react';
 //@Hooks
 import usePurchaseStore from '@/store/purchase/purchaseSlice';
 import useUserStore from '@/store/user/userSlice';
-import { useGetAdByDivarPostToken } from '@/services/api/employer/hooks';
-import { useMockLogin } from '@/services/api/auth/hooks';
 //____________________________________________________
 
 //@Types
@@ -18,10 +16,10 @@ import { TStepperState } from '../types';
 //____________________________________________________
 
 export function usePurchaseLayout() {
-  //Store
-  const { setToken, initialize, token, loading } = useUserStore();
+  //Store deps
+  const { loading } = useUserStore();
   const { reset, setAdInfo } = usePurchaseStore();
-  //URL
+  //URL deps
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const currentState = searchParams.get('state') as TStepperState;
@@ -39,7 +37,6 @@ export function usePurchaseLayout() {
   const newSearchParams = new URLSearchParams({ state: newState });
   //Hooks
   const { push: navigateTo } = useRouter();
-  const { data } = useGetAdByDivarPostToken(post_token);
 
   //Handlers
   useLayoutEffect(() => {

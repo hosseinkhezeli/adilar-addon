@@ -1,10 +1,16 @@
-import { useGetPositionList } from '@/services/api/advertisement/hooks';
-import { IAdvertisement } from '@/services/api/advertisement/types';
-import useAdvertisementStore from '@/store/advertisement/advertisementSlice';
-import { Route } from 'next';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+//@3rd Party
 import { UIEvent, useEffect, useState, useTransition } from 'react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+//_____________________________________________________________________
 
+//@Hooks
+import { useGetPositionList } from '@/services/api/advertisement/hooks';
+import useAdvertisementStore from '@/store/advertisement/advertisementSlice';
+//_____________________________________________________________________
+
+//@Types
+import { Route } from 'next';
+import { IAdvertisement } from '@/services/api/advertisement/types';
 export interface IPositionCard {
   id: string;
   title: string;
@@ -18,19 +24,23 @@ export interface IPositionCard {
   lastCandidateSubmission: Date | string | null;
   unreadCount: number;
 }
+//_____________________________________________________________________
 
 const usePositionList = () => {
-  const { setAdvertisement } = useAdvertisementStore();
+  //Dependencies
   const { push: navigateTo } = useRouter();
   const [isNavigating, startTransition] = useTransition();
-  const pathName = usePathname();
+  const pathname = usePathname();
+  const { setAdvertisement } = useAdvertisementStore();
   const searchParams = useSearchParams();
   const [searchValue, setSearchValue] = useState<string>(
     searchParams.get('textSearch') || ''
   );
+
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useGetPositionList({ textSearch: searchParams.get('textSearch') || '' });
 
+  //Handlers
   function handleFetchOnScroll(e: UIEvent) {
     const at20PercentEnd =
       1 -
@@ -61,7 +71,7 @@ const usePositionList = () => {
 
   function handlePushSearchValue() {
     navigateTo(
-      `${pathName}${searchValue ? `?textSearch=${searchValue}` : ''}` as Route
+      `${pathname}${searchValue ? `?textSearch=${searchValue}` : ''}` as Route
     );
   }
 

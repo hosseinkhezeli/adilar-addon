@@ -1,5 +1,6 @@
 'use client';
 //@3rd Party
+import React from 'react';
 import Image from 'next/image';
 //_______________________________________________________________
 
@@ -7,14 +8,14 @@ import Image from 'next/image';
 import { Box, Button, Stack, Typography, styled } from '@mui/material';
 //_______________________________________________________________
 
-//@Hooks
+//@Hooks & Components
 import { useComplete } from '../../hooks/useComplete';
+import CountdownTimer from '@/app/components/CountdownTimer';
 //_______________________________________________________________
 
 //@Assets
 import SvgSuccess from '@/assets/images/payment-successful.svg';
 import SvgUnSuccess from '@/assets/images/payment-unsuccessful.svg';
-import CountdownTimer from '@/app/components/CountdownTimer';
 //_______________________________________________________________
 
 //@Types

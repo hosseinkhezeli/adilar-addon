@@ -4,6 +4,7 @@ export type TPlanCard = {
     title: string;
     description: string;
     price: number;
+    status: 'active' | 'inactive';
   };
   isActive?: boolean | undefined;
   handleClick?: (id: string) => void;

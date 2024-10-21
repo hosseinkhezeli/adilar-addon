@@ -2,24 +2,29 @@
 //@3rd Party
 import { useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { enqueueSnackbar } from 'notistack';
 //___________________________________________________________
 
 //@Hooks
 import usePurchaseStore from '@/store/purchase/purchaseSlice';
 import { useSendToPayment } from '@/services/api/finance/hooks';
+//___________________________________________________________
+
+//@Types
 import { Route } from 'next';
-import { enqueueSnackbar } from 'notistack';
 //___________________________________________________________
 
 export function usePreInvoices() {
-  const { plan } = usePurchaseStore();
-  const searchParams = useSearchParams();
-  const advertisementId = searchParams?.get('advertisement_id');
+  //Dependencies
   const { push: navigateTo } = useRouter();
   const { mutate: sendToPayment, isPending: isSubmitting } = useSendToPayment();
-  const taxPrice = (plan?.price || 0) * 0.09;
   const [discount, setDiscount] = useState<number>(0);
   const [coupon, setCoupon] = useState<string>('');
+  const { plan } = usePurchaseStore();
+
+  const searchParams = useSearchParams();
+  const advertisementId = searchParams?.get('advertisement_id');
+  const taxPrice = (plan?.price || 0) * 0.09;
   const totalPrice = (plan?.price || 0) + taxPrice - discount;
 
   const preInvoiceInfo = [
@@ -37,10 +42,12 @@ export function usePreInvoices() {
     },
   ];
 
+  //Handlers
   const onChangeDiscount = (coupon: string) => {
     setCoupon(coupon);
   };
   const onSubmitDiscount = (coupon: string) => {
+    //TODO add submit discount coupon logic
     console.log(coupon);
   };
 
@@ -64,6 +71,7 @@ export function usePreInvoices() {
       }
     );
   };
+
   return {
     plan,
     taxPrice,

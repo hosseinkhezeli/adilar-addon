@@ -17,12 +17,9 @@ import { TSubmitBasicInfoBody } from '@/services/api/employer/types';
 //____________________________________________________
 
 export function useInformationForm() {
-  const {
-    mutate: submitBasicInfo,
-    isPending: isSubmittingBasicInfo,
-    isSuccess,
-  } = useSubmitBasicInfo();
-  //URL
+  const { mutate: submitBasicInfo, isPending: isSubmittingBasicInfo } =
+    useSubmitBasicInfo();
+  //URL Deps
   const pathname = usePathname();
   const { push: navigateTo } = useRouter();
   const nextState: TStepperState = 'pre_invoice';
@@ -34,7 +31,7 @@ export function useInformationForm() {
     advertisement_id: advertisementId || '404_advertisement_id',
     post_token: postToken || '404_post_token',
   });
-  //Form
+  //Form deps
   const form = useForm<TSubmitBasicInfoBody>();
   const InformationFormInputList: IUseFormInput[] = [
     {
@@ -87,6 +84,7 @@ export function useInformationForm() {
     },
   ];
 
+  //Handlers
   const handleSubmitForm = (data: TSubmitBasicInfoBody) => {
     submitBasicInfo(data, {
       onSuccess: (data) => {

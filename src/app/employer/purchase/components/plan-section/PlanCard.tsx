@@ -27,11 +27,18 @@ export function PlanCard({ plan, isActive, handleClick }: TPlanCard) {
           borderColor: isActive
             ? theme.palette.primary.main
             : theme.palette.text[8],
+          opacity: plan.status === 'active' ? 1 : 0.5,
+          filter: plan.status === 'active' ? 'none' : 'grayscale(1)',
+          pointerEvents: plan.status === 'active' ? 'auto' : 'none',
         }}
-        onClick={() => handleClick?.(plan.id)}
+        onClick={() => {
+          if (plan.status === 'active') handleClick?.(plan.id);
+        }}
         onTouchStart={(e) => {
-          e.preventDefault();
-          handleClick?.(plan.id);
+          if (plan.status === 'active') {
+            e.preventDefault();
+            handleClick?.(plan.id);
+          }
         }}
       >
         <CardContent>
@@ -55,7 +62,9 @@ export function PlanCard({ plan, isActive, handleClick }: TPlanCard) {
             }}
           />
 
-          <CardPrice>{plan.price.toLocaleString()} تومان</CardPrice>
+          <CardPrice>
+            {plan.price === 0 ? '-' : plan.price?.toLocaleString()} تومان
+          </CardPrice>
         </CardContent>
         <Typography variant="body3">{plan.description}</Typography>
       </CardContainer>

@@ -135,8 +135,11 @@ export function inputListAdapter(fields: IFormField[] | undefined) {
   return { inputList };
 }
 
-export function truncateString(str: string, maxLength: number): string {
-  if (maxLength <= 0) {
+export function truncateString(
+  str: string | undefined,
+  maxLength: number
+): string {
+  if (maxLength <= 0 || !str) {
     return '';
   }
 
@@ -155,4 +158,23 @@ export function clearObject<T extends Record<string, any>>(obj: T): T {
     }
   }
   return obj;
+}
+
+export function generateDayName(date: Date | string | null | undefined) {
+  if (!date) return '-';
+  let dateValue = '';
+  const lastDay = new Date(date).getDate();
+  const today = new Date().getDate();
+  switch (lastDay) {
+    case today:
+      dateValue = 'امروز';
+      break;
+    case today - 1:
+      dateValue = 'دیروز';
+      break;
+    default:
+      return dateToShamsi(date);
+  }
+
+  return dateValue;
 }

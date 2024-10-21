@@ -1,6 +1,14 @@
+//@3rd Party
 import React from 'react';
+//_________________________________________________________
+
+//@Mui
 import { Button, Stack } from '@mui/material';
+//_________________________________________________________
+
+//@Types
 import { TApplicantState } from '@/types/common-types';
+//_________________________________________________________
 
 interface IHandlerButtons {
   onReject(): void;

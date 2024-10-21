@@ -1,14 +1,28 @@
 'use client';
+//@3rd Party
 import React from 'react';
-import { HeaderPositions } from '@/app/employer/positions/components/HeaderPositions';
+//_________________________________________________________
+
+//@Mui
 import { Stack } from '@mui/material';
+//_________________________________________________________
+
+//@Components
+import { HeaderPositions } from '@/app/employer/positions/components/HeaderPositions';
 import { InfoSection } from '@/app/employer/positions/[positionId]/[applicantId]/components/InfoSection';
 import { DownloadResume } from '@/app/employer/positions/[positionId]/[applicantId]/components/DownloadResume';
 import { HandlerButtons } from '@/app/employer/positions/[positionId]/[applicantId]/components/HandlerButtons';
-import { fadeIn } from '@/styles/animationKeyframes';
 import { SwipeTutorial } from '@/app/components/SwipeTutorial';
-import { useApplicant } from '@/app/employer/positions/[positionId]/[applicantId]/hooks/useApplicant';
 import { SvgLoading } from '@/app/components/Loading';
+//_________________________________________________________
+
+//@Hooks
+import { useApplicant } from '@/app/employer/positions/[positionId]/[applicantId]/hooks/useApplicant';
+//_________________________________________________________
+
+//@Styles
+import { fadeIn } from '@/styles/animationKeyframes';
+//_________________________________________________________
 
 const Applicant = () => {
   const {

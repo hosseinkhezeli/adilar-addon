@@ -19,6 +19,7 @@ export function InformationForm() {
     handleSubmitForm,
     isSubmittingBasicInfo,
   } = useInformationForm();
+
   return (
     <Form component="form" onSubmit={form.handleSubmit(handleSubmitForm)}>
       <InputListWithUseForm

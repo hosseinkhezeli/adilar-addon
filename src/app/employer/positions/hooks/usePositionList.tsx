@@ -79,7 +79,7 @@ const usePositionList = () => {
   useEffect(() => {
     const id = setTimeout(() => {
       handlePushSearchValue();
-    }, 500);
+    }, 750);
     return () => clearTimeout(id);
   }, [searchValue]);
 

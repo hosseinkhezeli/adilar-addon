@@ -1,13 +1,28 @@
+//@3rd Party
 import React from 'react';
+//_________________________________________________________
+
+//@Mui
 import { Stack } from '@mui/material';
+//_________________________________________________________
+
+//@Component
 import { Applicant } from '@/app/employer/positions/[positionId]/[applicantId]/components/Applicant';
+//_________________________________________________________
 
 const Page = () => {
   return (
-    <Stack height="100%" overflow="auto">
+    <Stack sx={styles.container}>
       <Applicant />
     </Stack>
   );
 };
 
 export default Page;
+
+const styles = {
+  container: {
+    height: '100%',
+    overflow: 'auto',
+  },
+};

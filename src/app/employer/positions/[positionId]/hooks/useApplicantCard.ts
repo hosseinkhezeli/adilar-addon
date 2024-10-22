@@ -1,7 +1,7 @@
 'use client';
 //@3rd Party
 import { useQueryClient } from '@tanstack/react-query';
-import { TouchEvent, useState } from 'react';
+import { TouchEvent, useRef, useState } from 'react';
 import { enqueueSnackbar } from 'notistack';
 //______________________________________________________________________
 
@@ -21,6 +21,9 @@ export function useApplicantCard() {
     clientX: 0,
     clientY: 0,
   });
+  const cardPosition = useRef<'reject' | 'approve' | 'center'>('center');
+
+  const startTouchAfterDistance = useRef<number>(10);
   const maxSwipeDistance = 80; // Maximum swipe distance in pixels
 
   const { mutate: setApprovalMutate } = useSetApproval();
@@ -83,20 +86,36 @@ export function useApplicantCard() {
     if (!isSwiping) return;
     const touch = event.touches[0];
     const deltaX = touch.clientX - touchStart.clientX;
-    const newTranslateX = Math.min(
-      Math.max(deltaX, -maxSwipeDistance),
-      maxSwipeDistance
-    );
-    setTranslateX(newTranslateX);
+    const deltaY = touch.clientY - touchStart.clientY;
+
+    if (
+      Math.abs(deltaX) > startTouchAfterDistance.current &&
+      Math.abs(deltaX) > Math.abs(deltaY)
+    ) {
+      if (cardPosition.current === 'center') {
+        const newTranslateX = Math.min(
+          Math.max(deltaX, -maxSwipeDistance),
+          maxSwipeDistance
+        );
+        setTranslateX(newTranslateX);
+      } else if (cardPosition.current === 'reject') {
+        setTranslateX(0);
+      } else if (cardPosition.current === 'approve') {
+        setTranslateX(0);
+      }
+    }
   };
 
   const handleTouchEnd = () => {
-    if (Math.abs(translateX) < 60) {
+    if (Math.abs(translateX) < 60 || cardPosition.current !== 'center') {
       setTranslateX(0);
+      cardPosition.current = 'center';
     } else if (translateX > 0) {
       setTranslateX(80);
+      cardPosition.current = 'reject';
     } else {
       setTranslateX(-80);
+      cardPosition.current = 'approve';
     }
     setIsSwiping(false);
   };

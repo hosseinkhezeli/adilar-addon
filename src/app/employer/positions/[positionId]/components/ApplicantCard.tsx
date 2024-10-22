@@ -59,7 +59,12 @@ export function ApplicantCard({ applicantInfo }: IApplicantCard) {
             <SvgTickCircle primarycolor={palette.text.secondary} />
           </IconButton>
         </ActionSection>
-        <ActionSection bgcolor={'error.main'}>
+        <ActionSection
+          bgcolor={'error.main'}
+          sx={{
+            justifyContent: 'end',
+          }}
+        >
           <IconButton
             onClick={(e) => {
               e.stopPropagation();
@@ -146,6 +151,5 @@ const ActionSection = styled(Box)(() => ({
   height: '100%',
   display: 'flex',
   alignItems: 'center',
-  justifyContent: 'start',
   padding: '0 8%',
 }));

@@ -9,7 +9,7 @@ export const MuiRadio: Components<Theme>['MuiRadio'] = {
     root: ({ theme }) => ({
       color: theme.palette.grey[4],
     }),
-    colorPrimary: ({ theme, ownerState }) => ({
+    colorPrimary: ({ theme }) => ({
       color: theme.palette.grey[4],
       '.MuiSvgIcon-root': {
         color: 'inherit',

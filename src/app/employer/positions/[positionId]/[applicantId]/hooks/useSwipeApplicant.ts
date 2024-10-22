@@ -57,7 +57,7 @@ export function useSwipeApplicant({
     const deltaY = touch.clientY - Number(startTouchPosition?.clientY);
 
     if (Math.abs(deltaX) > Math.abs(deltaY)) {
-      if (deltaX > 0 && Math.abs(deltaX) - 10 > screenWidth.current / 2) {
+      if (deltaX > 0 && Math.abs(deltaX) - 10 > screenWidth.current / 4) {
         if (previousSubmissionId) {
           customPush(previousSubmissionId);
         } else {
@@ -66,7 +66,7 @@ export function useSwipeApplicant({
         }
       } else if (
         deltaX < 0 &&
-        Math.abs(deltaX) - 10 > screenWidth.current / 2
+        Math.abs(deltaX) - 10 > screenWidth.current / 4
       ) {
         if (nextSubmissionId) {
           customPush(nextSubmissionId);

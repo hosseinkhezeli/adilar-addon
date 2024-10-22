@@ -11,13 +11,3 @@ export interface ILoginRes {
   expiration: string;
   user: IUserRes;
 }
-
-export interface IViewedTutorialProps {
-  viewedAdSubmissionTutorial?: boolean;
-  viewedSubmissionTutorial?: boolean;
-}
-
-export interface IViewedTutorialResponse {
-  errors: any[];
-  succeeded: boolean;
-}

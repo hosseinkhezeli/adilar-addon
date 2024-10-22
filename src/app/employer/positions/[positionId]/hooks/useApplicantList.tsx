@@ -17,13 +17,14 @@ import { Typography } from '@mui/material';
 import useAdvertisementStore from '@/store/advertisement/advertisementSlice';
 import useUserStore from '@/store/user/userSlice';
 import { useGetApplicantList } from '@/services/api/advertisement/hooks';
-import { useSetViewedTutorial } from '@/services/api/auth/hooks';
+import { useSetViewedTutorial } from '@/services/api/user/hooks';
 //_________________________________________________________________
 
 //@Types
 import { Route } from 'next';
 import { ReactNode, UIEvent, SyntheticEvent } from 'react';
 import { ISubmissionsByStateResult } from '@/services/api/advertisement/types';
+import { useQueryClient } from '@tanstack/react-query';
 export type TApplicantCard = {
   id: string;
   file?: File | null;
@@ -39,6 +40,7 @@ export type TApplicantCard = {
 
 export function useApplicantList() {
   //Dependencies
+  const QC = useQueryClient();
   const { push: navigateTo } = useRouter();
   const [isNavigating, startTransition] = useTransition();
   const pathName = usePathname();
@@ -105,6 +107,7 @@ export function useApplicantList() {
       {
         onSuccess() {
           setStatusModal(false);
+          QC.refetchQueries({ queryKey: ['get-user'] });
         },
         onError() {
           setStatusModal(false);
@@ -139,10 +142,10 @@ export function useApplicantList() {
 
   //Checks for tutorial
   useEffect(() => {
-    if (!user?.viewedAdSubmissionTutorial) {
+    if (!user?.completedSubmissionPageTutorial) {
       setStatusModal(true);
     }
-  }, [user?.viewedAdSubmissionTutorial]);
+  }, [user?.completedAdvertisementPageTutorial]);
 
   return {
     searchValue,

@@ -1,15 +1,16 @@
 import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
+import { TGetUserRes } from '@/services/api/user/types';
 
 // Define the UserState interface
 //TODO add user type
 export interface UserState {
   token?: string;
-  user: any | null;
+  user: TGetUserRes | null;
   isLoggedIn: boolean;
   loading: boolean; // Loading state for initialization
   setToken: (token?: string) => void;
-  setUserInfo: (user: any | null) => void;
+  setUserInfo: (user: TGetUserRes | null) => void;
   setLogout: () => void;
   initialize: () => void; // Function to set loading to false
   reset: () => void;
@@ -25,7 +26,7 @@ const useUserStore = create<UserState>()(
         isLoggedIn: false,
         loading: true,
         setToken: (token) => {
-          set((state) => ({
+          set(() => ({
             token: token,
             isLoggedIn: Boolean(token),
             loading: false,
@@ -60,6 +61,6 @@ const useUserStore = create<UserState>()(
     )
   )
 );
-export const { setToken } = useUserStore.getState();
+// export const { setToken } = useUserStore.getState();
 
 export default useUserStore;

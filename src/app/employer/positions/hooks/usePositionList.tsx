@@ -12,6 +12,8 @@ import useAdvertisementStore from '@/store/advertisement/advertisementSlice';
 //@Types
 import { Route } from 'next';
 import { IAdvertisement } from '@/services/api/advertisement/types';
+import { useGetUser } from '@/services/api/user/hooks';
+import useUserStore from '@/store/user/userSlice';
 export interface IPositionCard {
   id: string;
   title: string;
@@ -29,6 +31,8 @@ export interface IPositionCard {
 
 const usePositionList = () => {
   //Dependencies
+  const { setUserInfo } = useUserStore();
+  const { data: userInfo, isLoading: isLoadingUser } = useGetUser();
   const { push: navigateTo } = useRouter();
   const [isNavigating, startTransition] = useTransition();
   const pathname = usePathname();
@@ -83,6 +87,11 @@ const usePositionList = () => {
     return () => clearTimeout(id);
   }, [searchValue]);
 
+  useEffect(() => {
+    if (userInfo?.id) {
+      setUserInfo(userInfo);
+    }
+  }, [isLoadingUser, userInfo]);
   return {
     searchValue,
     data,

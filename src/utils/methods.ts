@@ -21,7 +21,7 @@ export const getColorByOwnerProps = (
   theme: Theme,
   alpha?: string | number
 ): string | undefined => {
-  const isColorKey = (color: any): color is keyof Theme['palette'] => {
+  const isColorKey = (color: string): color is keyof Theme['palette'] => {
     return color in theme.palette; // Assuming `theme` is accessible here
   };
   if (color && isColorKey(color)) {
@@ -150,7 +150,9 @@ export function truncateString(
   return str.slice(0, maxLength - 3) + '...';
 }
 
-export function clearObject<T extends Record<string, any>>(obj: T): T {
+export function clearObject<T extends Record<string, string | number>>(
+  obj: T
+): T {
   for (const key in obj) {
     // Check if the value is falsy and not equal to 0
     if (!obj[key] && obj[key] !== 0) {

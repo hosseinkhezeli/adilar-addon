@@ -28,8 +28,7 @@ export const submitBasicInfo = (
   body: TSubmitBasicInfoBody
 ): Promise<unknown> => {
   return http.post(routes.submitBasicInfo, body).then((response) => {
-    console.log('Axios response:', response);
-    return response.data; // Ensure you return the data
+    return response.data;
   });
 };
 

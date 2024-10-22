@@ -6,7 +6,7 @@ import { enqueueSnackbar } from 'notistack';
 //_________________________________________________________
 
 //@Hooks
-import { useSetViewedTutorial } from '@/services/api/auth/hooks';
+
 import {
   useGetSubmission,
   useSetApproval,
@@ -14,11 +14,12 @@ import {
 } from '@/services/api/submission/hooks';
 import useAdvertisementStore from '@/store/advertisement/advertisementSlice';
 import useUserStore from '@/store/user/userSlice';
+import { useSwipeApplicant } from '@/app/employer/positions/[positionId]/[applicantId]/hooks/useSwipeApplicant';
+import { useSetViewedTutorial } from '@/services/api/user/hooks';
 //_________________________________________________________
 
 //@Types
 import { Route } from 'next';
-import { useSwipeApplicant } from '@/app/employer/positions/[positionId]/[applicantId]/hooks/useSwipeApplicant';
 //_________________________________________________________
 
 export function useApplicant() {
@@ -137,10 +138,10 @@ export function useApplicant() {
   }, [isLoading]);
 
   useEffect(() => {
-    if (!user?.viewedSubmissionTutorial) {
+    if (!user?.completedSubmissionPageTutorial) {
       setStatusModal(true);
     }
-  }, [user?.viewedSubmissionTutorial]);
+  }, [user?.completedSubmissionPageTutorial]);
 
   return {
     elementRef,

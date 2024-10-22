@@ -17,7 +17,7 @@ import { Typography } from '@mui/material';
 import useAdvertisementStore from '@/store/advertisement/advertisementSlice';
 import useUserStore from '@/store/user/userSlice';
 import { useGetApplicantList } from '@/services/api/advertisement/hooks';
-import { useSetViewedTutorial } from '@/services/api/auth/hooks';
+import { useSetViewedTutorial } from '@/services/api/user/hooks';
 //_________________________________________________________________
 
 //@Types
@@ -139,10 +139,10 @@ export function useApplicantList() {
 
   //Checks for tutorial
   useEffect(() => {
-    if (!user?.viewedAdSubmissionTutorial) {
+    if (!user?.completedSubmissionPageTutorial) {
       setStatusModal(true);
     }
-  }, [user?.viewedAdSubmissionTutorial]);
+  }, [user?.completedAdvertisementPageTutorial]);
 
   return {
     searchValue,

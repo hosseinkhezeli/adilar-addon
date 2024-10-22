@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Modal, Stack, Typography } from '@mui/material';
 import swipePic from '@/assets/images/tutorial-swipe.svg';
+import Image from 'next/image';
 
 interface ISwipeTutorial {
   open: boolean;
@@ -65,7 +66,7 @@ const SwipeTutorial = ({
         )}
 
         {/* swipe pic */}
-        <img src={swipePic.src} width={60} height={60} />
+        <Image src={swipePic} width={60} height={60} alt={'swiping hand'} />
 
         {/* hint */}
         <Stack

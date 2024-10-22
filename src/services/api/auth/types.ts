@@ -1,3 +1,5 @@
+import { AxiosError } from 'axios';
+
 export interface IUserRes {
   firstName: string;
   lastName: string;
@@ -18,6 +20,6 @@ export interface IViewedTutorialProps {
 }
 
 export interface IViewedTutorialResponse {
-  errors: any[];
+  errors: AxiosError[];
   succeeded: boolean;
 }

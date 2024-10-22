@@ -23,8 +23,7 @@ export function useApplicantCard() {
   });
   const maxSwipeDistance = 80; // Maximum swipe distance in pixels
 
-  const { mutate: setApprovalMutate, isPending: isApprovalLoading } =
-    useSetApproval();
+  const { mutate: setApprovalMutate } = useSetApproval();
 
   function onApprove(applicantId: string | undefined) {
     if (applicantId) {

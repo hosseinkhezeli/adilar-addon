@@ -1,9 +1,10 @@
+'use client';
 //@3rd Party
-import React from 'react';
+import React, { CSSProperties } from 'react';
 //______________________________________________________________________
 
 //@Mui
-import { Box, IconButton, useTheme } from '@mui/material';
+import { Box, IconButton, styled, useTheme } from '@mui/material';
 //______________________________________________________________________
 
 //@Hooks & Components
@@ -41,35 +42,10 @@ export function ApplicantCard({ applicantInfo }: IApplicantCard) {
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
       onClick={applicantInfo?.onClick}
-      style={{
-        display: 'inline-block',
-        position: 'relative',
-        transition: 'transform 0.3s ease',
-        width: '100%',
-      }}
+      style={styles.container}
     >
-      <Box
-        width="100vw"
-        height={'100%'}
-        position={'absolute'}
-        top={0}
-        left={0}
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          flexDirection: 'row',
-          py: '1px',
-        }}
-      >
-        <Box
-          bgcolor={'success.3'}
-          flexBasis={'50%'}
-          height={'100%'}
-          display={'flex'}
-          alignItems={'center'}
-          justifyContent={'start'}
-          px={'8%'}
-        >
+      <UnderlayContainer>
+        <ActionSection bgcolor={'success.main'}>
           <IconButton
             onClick={(e) => {
               e.stopPropagation();
@@ -82,16 +58,8 @@ export function ApplicantCard({ applicantInfo }: IApplicantCard) {
           >
             <SvgTickCircle primarycolor={palette.text.secondary} />
           </IconButton>
-        </Box>
-        <Box
-          bgcolor={'error.3'}
-          flexBasis={'50%'}
-          height={'100%'}
-          display={'flex'}
-          alignItems={'center'}
-          justifyContent={'end'}
-          px={'8%'}
-        >
+        </ActionSection>
+        <ActionSection bgcolor={'error.main'}>
           <IconButton
             onClick={(e) => {
               e.stopPropagation();
@@ -104,23 +72,12 @@ export function ApplicantCard({ applicantInfo }: IApplicantCard) {
           >
             <SvgCloseCircle primarycolor={palette.text.secondary} />
           </IconButton>
-        </Box>
-      </Box>
+        </ActionSection>
+      </UnderlayContainer>
       <Card
         disableTouchRipple={true}
         disableRipple={true}
-        sx={{
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          borderRadius: translateX !== 0 ? 2 : 0,
-          transition: '0.3s ease all',
-          transform: `translateX(${-translateX}px)`,
-          height: '56px',
-          minHeight: 'unset',
-          backgroundColor: applicantInfo?.isReviewed
-            ? 'grey.3'
-            : 'common.white',
-        }}
+        sx={styles?.card(translateX, Boolean(applicantInfo?.isReviewed))}
       >
         <CardColumn sx={{ flexBasis: 'unset' }}>
           <LabelValue
@@ -137,6 +94,7 @@ export function ApplicantCard({ applicantInfo }: IApplicantCard) {
           {applicantInfo.isReviewed ? null : (
             <UnreadBadge sx={{ backgroundColor: 'info.3' }} />
           )}
+
           <LabelValue
             labelProps={{
               sx: {
@@ -151,3 +109,43 @@ export function ApplicantCard({ applicantInfo }: IApplicantCard) {
     </div>
   );
 }
+
+const styles = {
+  container: {
+    display: 'inline-block',
+    position: 'relative',
+    transition: 'transform 0.3s ease',
+    width: '100%',
+  } as CSSProperties,
+  card: (translateX: number, isReviewed: boolean) => ({
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    borderRadius: translateX !== 0 ? 2 : 0,
+    transition: '0.3s ease all',
+    transform: `translateX(${-translateX}px)`,
+    height: '56px',
+    minHeight: 'unset',
+    backgroundColor: isReviewed ? 'grey.3' : 'common.white',
+  }),
+};
+
+const UnderlayContainer = styled(Box)(() => ({
+  width: '100vw',
+  height: '100%',
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  display: 'flex',
+  alignItems: 'center',
+  flexDirection: 'row',
+  padding: '1px 0',
+}));
+
+const ActionSection = styled(Box)(() => ({
+  flexBasis: '50%',
+  height: '100%',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'start',
+  padding: '0 8%',
+}));

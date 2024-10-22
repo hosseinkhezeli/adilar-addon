@@ -18,14 +18,15 @@ export function usePreInvoices() {
   //Dependencies
   const { push: navigateTo } = useRouter();
   const { mutate: sendToPayment, isPending: isSubmitting } = useSendToPayment();
-  const [discount, setDiscount] = useState<number>(0);
+  // const [discount, setDiscount] = useState<number>(0);
   const [coupon, setCoupon] = useState<string>('');
   const { plan } = usePurchaseStore();
 
   const searchParams = useSearchParams();
   const advertisementId = searchParams?.get('advertisement_id');
   const taxPrice = (plan?.price || 0) * 0.09;
-  const totalPrice = (plan?.price || 0) + taxPrice - discount;
+  const totalPrice = (plan?.price || 0) + taxPrice;
+  // const totalPrice = (plan?.price || 0) + taxPrice - discount;
 
   const preInvoiceInfo = [
     {
@@ -38,7 +39,7 @@ export function usePreInvoices() {
     },
     {
       title: 'تخفیف',
-      value: discount,
+      value: '-',
     },
   ];
 
@@ -46,9 +47,9 @@ export function usePreInvoices() {
   const onChangeDiscount = (coupon: string) => {
     setCoupon(coupon);
   };
-  const onSubmitDiscount = (coupon: string) => {
+  const onSubmitDiscount = () => {
     //TODO add submit discount coupon logic
-    console.log(coupon);
+    // console.log(coupon);
   };
 
   const onSubmitPayment = () => {
@@ -75,7 +76,7 @@ export function usePreInvoices() {
   return {
     plan,
     taxPrice,
-    discount,
+    // discount,
     totalPrice,
     onChangeDiscount,
     onSubmitDiscount,

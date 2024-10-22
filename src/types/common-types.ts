@@ -1,3 +1,5 @@
+import { IAdvertisement } from '@/services/api/advertisement/types';
+
 export interface IFieldOption {
   id: string;
   title: string;
@@ -48,7 +50,7 @@ export interface IFormField {
   semanticType: TSemanticFieldType;
   user: IUserRes | null;
   userId: string | null;
-  formFields: any | null;
+  formFields: IFormField[] | null;
   options: IFieldOption[];
   isDeleted: boolean;
   createdAt: string;
@@ -69,7 +71,7 @@ export interface IUserRes {
   forms: IForm[];
   resumes: File[];
   companies: ICompany[];
-  payments: any;
+  payments: { id: string }[];
   id: string;
   userName: string;
   normalizedUserName: string;
@@ -91,7 +93,7 @@ export interface ICompany {
   slug: string;
   user: IUserRes;
   userId: string;
-  advertisements: any[];
+  advertisements: IAdvertisement[];
   forms: IForm[];
   isDeleted: boolean;
   createdAt: string;
@@ -128,7 +130,7 @@ export interface IForm {
   userId: string;
   companyId: string;
   fields: IField[];
-  advertisements: any[];
+  advertisements: IAdvertisement[];
   isDeleted: boolean;
   createdAt: string;
   updatedAt: string;

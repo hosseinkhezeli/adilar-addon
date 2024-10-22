@@ -1,4 +1,4 @@
-import { ICompany, IForm, TFormFieldType } from '@/types/common-types';
+import { ICompany, IForm } from '@/types/common-types';
 
 export type TGetAdFormAsCandidateParams = {
   postToken: string | null;
@@ -40,8 +40,8 @@ export interface ISubmitAdFormAsCandidate {
   companyId: string;
   form: IForm;
   formId: string;
-  payments: any;
-  submissions: any;
+  payments: { id: string }[];
+  submissions: TSubmissionAnswer[];
   isDeleted: boolean;
   createdAt: string;
   updatedAt: string;

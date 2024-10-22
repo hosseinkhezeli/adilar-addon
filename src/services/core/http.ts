@@ -43,7 +43,6 @@ http.interceptors.response.use(
       const { status } = error.response;
       if (status === 401 || status === 403) {
         enqueueSnackbar({ variant: 'error', message: 'ورود غیر مجاز' });
-        console.log('UNAUTHORIZED');
       }
     }
     return Promise.reject(new Error('Request failed: ' + error.message));

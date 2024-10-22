@@ -2,7 +2,7 @@ import { FormSection } from '@/app/employer/form-creator/components/FormSection'
 import { Stack } from '@mui/material';
 import React from 'react';
 
-const Page = ({ params }: { params: { id: string } }) => {
+const Page = () => {
   return (
     <>
       <Stack

@@ -1,4 +1,4 @@
-import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { TGetAdFormAsCandidateParams, TSubmitAdFormBody } from './types';
 import {
   getAdFormAsCandidate,

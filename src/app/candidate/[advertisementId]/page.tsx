@@ -14,7 +14,6 @@ import { AdilarLogo } from '@/app/components/AdilarLogo';
 
 //@Types
 type TParams = {
-  params: { advertisementId: string };
   searchParams: {
     state: 'init' | 'logged-in';
     post_token: string | null;
@@ -23,7 +22,7 @@ type TParams = {
 };
 //_______________________________________________________________
 
-const Page = ({ params, searchParams }: TParams) => {
+const Page = ({ searchParams }: TParams) => {
   return (
     <>
       {searchParams.state !== 'logged-in' ? (

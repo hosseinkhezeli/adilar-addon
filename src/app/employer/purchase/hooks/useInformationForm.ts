@@ -100,16 +100,14 @@ export function useInformationForm() {
   const handleSubmitForm = (data: TSubmitBasicInfoBody) => {
     const body = clearObject(data);
     submitBasicInfo(body, {
-      onSuccess: (data) => {
-        console.log(data);
+      onSuccess: () => {
         enqueueSnackbar({
           variant: 'success',
           message: 'ثبت با موفقیت انجام شد',
         });
         navigateTo(`${pathname}?${newSearchParams.toString()}` as Route);
       },
-      onError: (error) => {
-        console.log(error);
+      onError: () => {
         enqueueSnackbar({
           message: 'در روند ثبت اطلاعات خطایی رخ داد',
           variant: 'error',

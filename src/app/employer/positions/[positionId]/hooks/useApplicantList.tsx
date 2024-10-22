@@ -24,6 +24,7 @@ import { useSetViewedTutorial } from '@/services/api/user/hooks';
 import { Route } from 'next';
 import { ReactNode, UIEvent, SyntheticEvent } from 'react';
 import { ISubmissionsByStateResult } from '@/services/api/advertisement/types';
+import { useQueryClient } from '@tanstack/react-query';
 export type TApplicantCard = {
   id: string;
   file?: File | null;
@@ -39,6 +40,7 @@ export type TApplicantCard = {
 
 export function useApplicantList() {
   //Dependencies
+  const QC = useQueryClient();
   const { push: navigateTo } = useRouter();
   const [isNavigating, startTransition] = useTransition();
   const pathName = usePathname();
@@ -105,6 +107,7 @@ export function useApplicantList() {
       {
         onSuccess() {
           setStatusModal(false);
+          QC.refetchQueries({ queryKey: ['get-user'] });
         },
         onError() {
           setStatusModal(false);

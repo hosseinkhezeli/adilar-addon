@@ -55,6 +55,7 @@ export function useApplicant() {
       {
         onSuccess() {
           setStatusModal(false);
+          QC.refetchQueries({ queryKey: ['get-user'] });
         },
         onError() {
           setStatusModal(false);

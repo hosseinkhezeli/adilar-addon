@@ -1,5 +1,4 @@
 'use client';
-import { setToken } from '@/store/user/userSlice';
 import axios, {
   AxiosError,
   AxiosResponse,
@@ -8,8 +7,10 @@ import axios, {
 } from 'axios';
 import { enqueueSnackbar } from 'notistack';
 import { getCookie } from '@/utils/methods';
+
 const API_URL =
   process.env.NEXT_PUBLIC_API_URL ?? 'Env var `API_URL` is not defined';
+
 export const baseURL = `${API_URL}`;
 
 export const http = axios.create({
@@ -18,11 +19,8 @@ export const http = axios.create({
 
 http.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    const token = getCookie('auth_token') as string;
+    const token = getCookie('auth_token');
     if (token) {
-      if (typeof window !== 'undefined') {
-        setToken(token);
-      }
       config.headers.Authorization = `Bearer ${token}`;
       document.cookie = `token=${token}; path=/; max-age=3600`;
     }

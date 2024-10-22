@@ -26,7 +26,7 @@ const useUserStore = create<UserState>()(
         isLoggedIn: false,
         loading: true,
         setToken: (token) => {
-          set((state) => ({
+          set(() => ({
             token: token,
             isLoggedIn: Boolean(token),
             loading: false,
@@ -61,6 +61,6 @@ const useUserStore = create<UserState>()(
     )
   )
 );
-export const { setToken } = useUserStore.getState();
+// export const { setToken } = useUserStore.getState();
 
 export default useUserStore;

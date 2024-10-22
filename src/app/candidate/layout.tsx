@@ -8,6 +8,7 @@ import { MainLayout } from '@/app/components/MainLayout';
 
 //@Types
 import type { Metadata } from 'next';
+import { Authentication } from '@/app/components/Authentication';
 //_______________________________________________________________
 
 export const metadata: Metadata = {
@@ -20,5 +21,10 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <MainLayout withoutNavigation>{children}</MainLayout>;
+  return (
+    <MainLayout withoutNavigation>
+      <Authentication />
+      {children}
+    </MainLayout>
+  );
 }

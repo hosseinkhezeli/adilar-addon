@@ -32,7 +32,13 @@ const HeaderPositions = ({
   handleSearch,
   children,
 }: IHeaderPositions) => {
-  const { handleNavigation, applicantId, positionId } = useHeaderPosition();
+  const {
+    handleNavigation,
+    applicantId,
+    positionId,
+    handleNavigateToDivar,
+    isNavigating,
+  } = useHeaderPosition();
 
   return (
     <Container
@@ -41,12 +47,12 @@ const HeaderPositions = ({
       <HeaderSection sx={{ marginBottom: handleSearch ? 0 : 2 }}>
         {positionId || applicantId ? (
           //Back to prev page
-          <BackButton onClick={handleNavigation}>
+          <BackButton onClick={handleNavigation} disabled={isNavigating}>
             <SvgArrowRight1 primarycolor="inherit" strokeWidth={2} />
           </BackButton>
         ) : (
           //Back to divar
-          <BackButton onClick={() => {}}>
+          <BackButton disabled={isNavigating} onClick={handleNavigateToDivar}>
             <SvgAdd
               primarycolor="inherit"
               style={{

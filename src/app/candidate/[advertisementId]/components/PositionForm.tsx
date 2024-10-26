@@ -47,7 +47,7 @@ export function PositionForm({ handleStateChange }: TProps) {
   ) : errorAd?.message ? (
     <Container>
       <Typography sx={{ textAlign: 'center' }}>
-        خطایی رخ داد {errorAd.message.toString()}
+        خطایی رخ داد {errorAd?.message?.toString()}
       </Typography>
     </Container>
   ) : (

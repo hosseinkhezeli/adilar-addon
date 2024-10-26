@@ -1,6 +1,9 @@
-import { IFormField } from '@/types/common-types';
+import { IFormField, TInputFieldRules } from '@/types/common-types';
 import { Theme } from '@mui/material/styles';
-import { IUseFormInput } from 'ideep-design-system-2/components/input-list/type';
+import {
+  IUseFormInput,
+  typeTFormType,
+} from 'ideep-design-system-2/components/input-list/type';
 
 const EMPTY_TEXT = '-';
 const CURRENCY_UNIT = 'تومان';
@@ -90,47 +93,183 @@ export function typeAdapter(type: string): IUseFormInput['type'] {
   }
 }
 
+// export function inputListAdapter(fields: IFormField[] | undefined) {
+//   // @ts-expect-error input type
+//   const inputList: IUseFormInput[] | undefined = fields
+//     ?.filter((field) => field.type !== 'File')
+//     ?.map((field) => {
+//       return {
+//         label: field?.name || '-',
+//         name: field?.id || '-',
+//         type: typeAdapter(field?.type) || 'text',
+//         props: {
+//           ...(field?.type === 'Date' && {
+//             className: 'rmdp-mobile',
+//             mobileLabels: {
+//               CANCEL: 'بستن',
+//               OK: 'تایید',
+//             },
+//           }),
+//         },
+//         ...((field?.isRequiredByDefault || field?.isRequired) && {
+//           rules: {
+//             required: true,
+//             ...(field?.validationRegex&& {
+//               pattern: {
+//                 value: field.validationRegex,
+//                 message: field.validationMessage,
+//               },
+//             }),
+//           },
+//         }),
+//         ...(field?.type === 'PhoneNumber' && {
+//           rules: {
+//             minLength: 11,
+//             ...(field?.validationRegex && {
+//               pattern: {
+//                 pattern: {
+//                   value: field.validationRegex,
+//                   message: field.validationMessage,
+//                 },
+//               },
+//             }),
+//           },
+//         }),
+//         ...(field?.type === 'NationalCode' && {
+//           rules: {
+//             minLength: 10,
+//             ...(field?.validationRegex && {
+//               pattern: {
+//                 pattern: {
+//                   value: field.validationRegex,
+//                   message: field.validationMessage,
+//                 },
+//               },
+//             }),
+//           },
+//         }),
+//         ...((field?.isRequiredByDefault || field?.isRequired) &&
+//           field?.type === 'PhoneNumber' && {
+//             rules: {
+//               required: true,
+//               minLength: 11,
+//               ...(field?.validationRegex && {
+//                 pattern: {
+//                   pattern: {
+//                     value: field.validationRegex,
+//                     message: field.validationMessage,
+//                   },
+//                 },
+//               }),
+//             },
+//           }),
+//         ...((field?.isRequiredByDefault || field?.isRequired) &&
+//           field?.type === 'NationalCode' && {
+//             rules: {
+//               required: true,
+//               minLength: 10,
+//               ...(field?.validationRegex && {
+//                 pattern: {
+//                   pattern: {
+//                     value: field.validationRegex,
+//                     message: field.validationMessage,
+//                   },
+//                 },
+//               }),
+//             },
+//           }),
+//         options: field?.options?.map((option) => ({
+//           label: option?.title,
+//           value: option?.id,
+//         })),
+//       };
+//     });
+
+//   return { inputList };
+// }
 export function inputListAdapter(fields: IFormField[] | undefined) {
-  // @ts-expect-error input type
-  const inputList: IUseFormInput[] | undefined = fields
-    ?.filter((field) => field.type !== 'File')
-    ?.map((field) => {
-      return {
-        label: field?.name || '-',
-        name: field?.id || '-',
-        type: typeAdapter(field?.type) || 'text',
-        props: {
-          ...(field?.type === 'Date' && {
-            className: 'rmdp-mobile',
-            mobileLabels: {
-              CANCEL: 'بستن',
-              OK: 'تایید',
-            },
-          }),
-        },
-        ...((field?.isRequiredByDefault || field?.isRequired) && {
-          rules: { required: true },
-        }),
-        ...(field?.type === 'PhoneNumber' && {
-          rules: { minLength: 11 },
-        }),
-        ...(field?.type === 'NationalCode' && {
-          rules: { minLength: 10 },
-        }),
-        ...((field?.isRequiredByDefault || field?.isRequired) &&
-          field?.type === 'PhoneNumber' && {
-            rules: { required: true, minLength: 11 },
-          }),
-        ...((field?.isRequiredByDefault || field?.isRequired) &&
-          field?.type === 'NationalCode' && {
-            rules: { required: true, minLength: 10 },
-          }),
-        options: field?.options?.map((option) => ({
-          label: option?.title,
-          value: option?.id,
-        })),
+  const createRules = (field: IFormField | undefined) => {
+    // returns if field is undefined
+    if (!field) return undefined;
+
+    // initialization of basic rules
+    const rules: TInputFieldRules = {
+      maxLength: undefined,
+      minLength: undefined,
+      pattern: undefined,
+      required: undefined,
+    };
+
+    // add required rule
+    if (field.isRequiredByDefault || field.isRequired) {
+      rules.required = true;
+    }
+
+    // add regex rule
+    if (field.validationRegex) {
+      rules.pattern = {
+        value: new RegExp(field.validationRegex),
+        message: field.validationMessage || ' ',
       };
-    });
+    }
+
+    // add min length rule
+    if (field.type === 'NationalCode') {
+      rules.minLength = 10;
+    }
+
+    return Object.keys(rules).length ? rules : undefined;
+  };
+
+  //create options if there is any
+  const mapOptions = (options: IFormField['options']) => {
+    return (
+      options?.map((option) => ({
+        label: option?.title || '-',
+        value: option?.id || '-',
+      })) || undefined
+    );
+  };
+  //create inputList itself
+  // @ts-expect-error input type
+  const inputList: IUseFormInput[] | undefined =
+    fields
+      //remove if type is FILE
+      ?.filter((field) => field?.type !== 'File')
+      ?.map((field) => {
+        // returns if the field is empty
+        if (!field) return null;
+
+        //create rules for field
+        const rules = createRules(field);
+
+        //add necessary props for date-picker input
+        const props =
+          field.type === 'Date'
+            ? {
+                className: 'rmdp-mobile',
+                mobileLabels: {
+                  CANCEL: 'بستن',
+                  OK: 'تایید',
+                },
+              }
+            : undefined;
+
+        return {
+          label: field?.name || '-',
+          name: field?.id || '-',
+          type: typeAdapter(field?.type) || ('text' as typeTFormType),
+          ...(field?.type === 'Date' &&
+            typeof props !== undefined && {
+              props: props,
+            }),
+          rules,
+          ...((field.options?.length || 0) > 0 && {
+            options: mapOptions(field?.options)!,
+          }),
+        };
+      })
+      ?.filter(Boolean) || [];
 
   return { inputList };
 }

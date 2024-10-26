@@ -6,7 +6,7 @@ export type TGetAdFormAsCandidateParams = {
 export type TSubmitAdFormBody = {
   submissionAnswers: TSubmissionAnswer[];
   advertisementId: string;
-  resumeFileId: string;
+  resumeFileId?: string | undefined;
 };
 
 export type TSubmissionAnswer = {

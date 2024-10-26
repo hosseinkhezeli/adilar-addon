@@ -43,6 +43,8 @@ export interface IFormField {
   name: string;
   text: string | null;
   type: TFormFieldType;
+  validationRegex: string | null | undefined;
+  validationMessage: string | null | undefined;
   defaultPriority: number;
   isRequired: boolean;
   isRequiredByDefault: boolean;
@@ -135,3 +137,10 @@ export interface IForm {
   createdAt: string;
   updatedAt: string;
 }
+
+export type TInputFieldRules = {
+  required: boolean | undefined;
+  pattern: { value: RegExp; message: string } | undefined;
+  minLength: number | undefined;
+  maxLength: number | undefined;
+};

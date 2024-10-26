@@ -1,0 +1,16 @@
+services:
+
+  adilar-kenar-divar:
+    image: adilar-kenar-divar:latest
+    container_name: adilar-kenar-divar
+    restart: always
+    networks:
+      - adilar-kenar-divar-net
+    ports:
+      - 4000:4173
+
+networks:
+
+  adilar-kenar-divar-net:
+    name: adilar-kenar-divar-net
+    driver: bridge

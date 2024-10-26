@@ -9,12 +9,12 @@ import { IconButton, Stack, styled, Typography } from '@mui/material';
 
 //@Components
 import { SearchInput } from '@/app/components/SearchInput';
+import { useHeaderPosition } from '@/app/employer/positions/hooks/useHeaderPosition';
 //__________________________________________________________
 
 //@Assets
 import SvgArrowRight1 from 'ideep-design-system-2/icons/ArrowRight1';
 import SvgAdd from 'ideep-design-system-2/icons/Add';
-import { useHeaderPosition } from '@/app/employer/positions/hooks/useHeaderPosition';
 //__________________________________________________________
 
 //@Types

@@ -11,7 +11,7 @@ export type TSubmitAdFormBody = {
 
 export type TSubmissionAnswer = {
   fieldId: string;
-  value?: string;
+  value?: string | number;
   numberValue?: number;
   dateTimeValue?: string;
   optionId?: string;

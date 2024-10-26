@@ -1,14 +1,11 @@
 //@3rd Party
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Route } from 'next';
 import { useTransition } from 'react';
-//_______________________________________________________________
-
-//@Types
-
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 //_______________________________________________________________
 
 export function useLoginCandidate() {
+  //Dependencies
   const { push: navigateTo } = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -20,6 +17,7 @@ export function useLoginCandidate() {
   });
   const [isNavigating, startTransition] = useTransition();
 
+  //Handlers
   const handleLogin = () => {
     startTransition(() => {
       navigateTo(`${pathname}?${newSearchParams.toString()}` as Route);

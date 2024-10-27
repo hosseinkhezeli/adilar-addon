@@ -1,6 +1,6 @@
 'use client';
 //@3rd Party
-import React, { useState } from 'react';
+import React from 'react';
 //____________________________________________________
 
 //@MUI
@@ -10,38 +10,13 @@ import { Button, Stack, styled } from '@mui/material';
 //@Components
 import { PlanCard } from './PlanCard';
 //____________________________________________________
+
 //@Types
-import { TPlanCard } from '../../types';
 import { usePlans } from '../../hooks/usePlans';
 //____________________________________________________
 
 export function Plans() {
-  //TODO: remove this mock data
-  const plansInfo: TPlanCard['plan'][] = [
-    {
-      id: '1',
-      title: 'افزودن روی این آگهی',
-      description:
-        'افزونه فرم‌ساز رزومه ادیلار فقط روی این اگهی قرار خواهد گرفت',
-      price: 60000,
-      status: 'active',
-    },
-    {
-      id: '2',
-      title: 'افزودن روی تمام اگهی ها',
-      description:
-        'افزونه فرم‌ساز رزومه ادیلار روی تمام اگهی های استخدامی که ثبت میکنید قرار خواهد گرفت',
-      price: 0,
-      status: 'inactive',
-    },
-  ];
-
-  const [activePlan, setActivePlan] = useState<string>('1');
-
-  const handleChange = (id: string) => {
-    setActivePlan(id);
-  };
-  const { handleSubmitPlan } = usePlans();
+  const { handleSubmitPlan, activePlan, handleChange, plansInfo } = usePlans();
   return (
     <>
       <PlansContainer>

@@ -293,7 +293,7 @@ export function inputListAdapter(fields: IFormField[] | undefined) {
           name: field?.id || '-',
           type: typeAdapter(field?.type) || ('text' as typeTFormType),
           ...(field?.type === 'Date' &&
-            typeof props !== undefined && {
+            typeof props !== 'undefined' && {
               props: props,
             }),
           rules,

@@ -1,3 +1,4 @@
+//@Types
 import { IFormField, TInputFieldRules } from '@/types/common-types';
 import { Theme } from '@mui/material/styles';
 import {
@@ -5,9 +6,6 @@ import {
   typeTFormType,
 } from 'ideep-design-system-2/components/input-list/type';
 
-const EMPTY_TEXT = '-';
-const CURRENCY_UNIT = 'تومان';
-const BACKEND_CURRENCY_UNIT = 'تومان';
 export type TColorKeys =
   | 'inherit'
   | 'primary'
@@ -19,6 +17,15 @@ export type TColorKeys =
   | 'default'
   | 'transparent'
   | undefined;
+//___________________________________________________________________
+
+// Initialization of project`s currency system
+const EMPTY_TEXT = '-';
+const CURRENCY_UNIT = 'تومان';
+const BACKEND_CURRENCY_UNIT = 'تومان';
+//___________________________________________________________________
+
+//Function for get color from owner state in Mui Theme components
 export const getColorByOwnerProps = (
   color: TColorKeys,
   theme: Theme,
@@ -35,23 +42,31 @@ export const getColorByOwnerProps = (
   }
   return undefined;
 };
+//___________________________________________________________________
 
+//
 export const handleEmptyText = (value?: string | undefined) => {
   return value ?? EMPTY_TEXT;
 };
+//___________________________________________________________________
 
+//
 export const dateToShamsi = (date: Date | string | undefined | null) => {
   if (!date) return '-';
   const formatDate = typeof date === 'string' ? new Date(date) : date;
   return new Intl.DateTimeFormat('fa-IR').format(formatDate);
 };
+//___________________________________________________________________
 
+//
 export const fullNameDisplay = (firstName?: string, lastName?: string) => {
   return handleEmptyText(
     firstName && lastName ? firstName + ' ' + lastName : undefined
   );
 };
+//___________________________________________________________________
 
+//
 export function currency(
   value: number | string | undefined,
   withoutUnit?: boolean
@@ -67,7 +82,9 @@ export function currency(
     (withoutUnit ? '' : ' ' + CURRENCY_UNIT)
   );
 }
+//___________________________________________________________________
 
+// Function for adapting input types that comes from back-end with UseFormInput from ideep-design-system
 export function typeAdapter(type: string): IUseFormInput['type'] {
   switch (type) {
     case 'Text':
@@ -92,6 +109,7 @@ export function typeAdapter(type: string): IUseFormInput['type'] {
       return 'text';
   }
 }
+//___________________________________________________________________
 
 // export function inputListAdapter(fields: IFormField[] | undefined) {
 //   // @ts-expect-error input type
@@ -187,6 +205,8 @@ export function typeAdapter(type: string): IUseFormInput['type'] {
 
 //   return { inputList };
 // }
+
+// Responsible for creating an array of inputs for UseFormWithInputList from the data that comes from back-end
 export function inputListAdapter(fields: IFormField[] | undefined) {
   const createRules = (field: IFormField | undefined) => {
     // returns if field is undefined
@@ -202,7 +222,10 @@ export function inputListAdapter(fields: IFormField[] | undefined) {
 
     // add required rule
     if (field.isRequiredByDefault || field.isRequired) {
-      rules.required = true;
+      rules.required = {
+        value: true,
+        message: 'فیلد های الزامی را پر کنید',
+      };
     }
 
     // add regex rule
@@ -214,8 +237,18 @@ export function inputListAdapter(fields: IFormField[] | undefined) {
     }
 
     // add min length rule
+    if (field.type === 'PhoneNumber') {
+      rules.minLength = {
+        value: 11,
+        message: 'شماره تلفن باید حداقل 11 رقم باشد',
+      };
+    }
+
     if (field.type === 'NationalCode') {
-      rules.minLength = 10;
+      rules.minLength = {
+        value: 10,
+        message: 'کد ملی باید حداقل 10 رقم باشد',
+      };
     }
 
     return Object.keys(rules).length ? rules : undefined;
@@ -273,7 +306,9 @@ export function inputListAdapter(fields: IFormField[] | undefined) {
 
   return { inputList };
 }
+//___________________________________________________________________
 
+//
 export function truncateString(
   str: string | undefined,
   maxLength: number
@@ -288,7 +323,9 @@ export function truncateString(
 
   return str.slice(0, maxLength - 3) + '...';
 }
+//___________________________________________________________________
 
+//
 export function clearObject<T extends Record<string, string | number>>(
   obj: T
 ): T {
@@ -300,7 +337,9 @@ export function clearObject<T extends Record<string, string | number>>(
   }
   return obj;
 }
+//___________________________________________________________________
 
+//
 export function generateDayName(date: Date | string | null | undefined) {
   if (!date) return '-';
   let dateValue = '';
@@ -319,9 +358,12 @@ export function generateDayName(date: Date | string | null | undefined) {
 
   return dateValue;
 }
+//___________________________________________________________________
 
+//
 export function getCookie(name: string) {
   const value = `; ${document.cookie}`;
   const parts = value.split(`; ${name}=`);
   if (parts.length === 2) return parts?.pop()?.split(';').shift();
 }
+//___________________________________________________________________

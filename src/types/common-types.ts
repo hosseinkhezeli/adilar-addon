@@ -139,8 +139,8 @@ export interface IForm {
 }
 
 export type TInputFieldRules = {
-  required: boolean | undefined;
+  required: { value: boolean; message: string } | undefined;
   pattern: { value: RegExp; message: string } | undefined;
-  minLength: number | undefined;
-  maxLength: number | undefined;
+  minLength: { value: number; message: string } | undefined;
+  maxLength: { value: number; message: string } | undefined;
 };

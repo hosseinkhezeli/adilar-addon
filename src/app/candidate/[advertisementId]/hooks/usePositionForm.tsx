@@ -1,6 +1,6 @@
 'use client';
 //@3rd Party
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { enqueueSnackbar } from 'notistack';
 import { useSearchParams } from 'next/navigation';
@@ -130,6 +130,12 @@ export function usePositionForm({ handleStateChange }: TProps) {
   };
 
   const handleSubmit = (data: IForm) => {
+    if (form.formState.errors) {
+      const errArr = Object.values(form.formState.errors);
+      errArr.map((err) =>
+        enqueueSnackbar({ variant: 'error', message: err?.message as string })
+      );
+    }
     const formData = new FormData();
     formData.append('File', resumeFile as Blob);
 
@@ -162,6 +168,15 @@ export function usePositionForm({ handleStateChange }: TProps) {
       submitAdFormFn(submissionAnswers, ad?.id);
     }
   };
+
+  useEffect(() => {
+    if (form.formState.errors) {
+      const errArr = Object.values(form.formState.errors);
+      errArr.map((err) =>
+        enqueueSnackbar({ variant: 'error', message: err?.message as string })
+      );
+    }
+  }, [Object.values(form.formState.errors)?.length]);
 
   return {
     form,

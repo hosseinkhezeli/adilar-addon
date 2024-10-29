@@ -29,11 +29,6 @@ type TProps = {
 interface IForm {
   [key: string]: string | number;
 }
-
-interface IFormAnswer {
-  fieldId: string;
-  value: string | number;
-}
 //_______________________________________________________________
 
 export function usePositionForm({ handleStateChange }: TProps) {

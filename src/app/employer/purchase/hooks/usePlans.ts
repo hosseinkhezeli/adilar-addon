@@ -39,14 +39,14 @@ export function usePlans() {
       price: 90000,
       status: 'active',
     },
-    {
-      id: '2',
-      title: 'افزودن روی تمام اگهی ها',
-      description:
-        'افزونه فرم‌ساز رزومه ادیلار روی تمام اگهی های استخدامی که ثبت میکنید قرار خواهد گرفت',
-      price: 0,
-      status: 'inactive',
-    },
+    // {
+    //   id: '2',
+    //   title: 'افزودن روی تمام اگهی ها',
+    //   description:
+    //     'افزونه فرم‌ساز رزومه ادیلار روی تمام اگهی های استخدامی که ثبت میکنید قرار خواهد گرفت',
+    //   price: 0,
+    //   status: 'inactive',
+    // },
   ];
 
   const [activePlan, setActivePlan] = useState<string>('1');

@@ -42,7 +42,9 @@ const HeaderPositions = ({
 
   return (
     <Container
-      sx={{ backgroundColor: applicantId ? 'common.white' : 'background.3' }}
+      sx={{
+        backgroundColor: applicantId ? 'common.white' : 'background.3',
+      }}
     >
       <HeaderSection sx={{ marginBottom: handleSearch ? 0 : 2 }}>
         {positionId || applicantId ? (
@@ -88,6 +90,9 @@ const Container = styled(Stack)(({ theme }) => ({
 const HeaderSection = styled(Stack)(() => ({
   flexDirection: 'row',
   position: 'relative',
+  maxWidth: 560,
+  width: '100%',
+  margin: '0 auto',
 }));
 
 const BackButton = styled(IconButton)(({ theme }) => ({
@@ -111,6 +116,9 @@ const SearchInputStyle = {
     boxShadow: '0px 5px 16px 0px rgba(106, 118, 137, 0.10)',
     backgroundColor: 'common.white',
     borderRadius: 50,
+    maxWidth: 560,
+    width: '100%',
+    margin: '0 auto',
   },
   'input::placeholder': {
     color: 'grey.15',

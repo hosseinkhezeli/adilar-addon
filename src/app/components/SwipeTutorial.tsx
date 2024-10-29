@@ -24,6 +24,9 @@ const SwipeTutorial = ({
           left: 0,
           right: 0,
           top: 160,
+          maxWidth: 560,
+          width: '100%',
+          margin: '0 auto',
           outline: 'none',
           alignItems: 'center',
         }}

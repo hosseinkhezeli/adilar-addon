@@ -81,6 +81,7 @@ const CardContainer = styled(Stack)(({ theme }) => ({
   transition: 'border-color 0.3s ease',
   userSelect: 'none',
   cursor: 'pointer',
+  width: '100%',
 }));
 
 const CardContent = styled(Box)(() => ({

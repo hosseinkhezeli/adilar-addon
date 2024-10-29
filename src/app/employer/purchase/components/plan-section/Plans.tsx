@@ -39,6 +39,9 @@ export function Plans() {
           width: 'calc(100% - 32px)',
           margin: '0 auto',
           bottom: 16,
+          right: 0,
+          left: 0,
+          transform: 'translateX(50% ,50%)',
         }}
       >
         ادامه
@@ -50,4 +53,7 @@ export function Plans() {
 const PlansContainer = styled(Stack)(({ theme }) => ({
   gap: theme.spacing(2),
   height: '100%',
+  maxWidth: 560,
+  width: '100%',
+  margin: '0 auto',
 }));

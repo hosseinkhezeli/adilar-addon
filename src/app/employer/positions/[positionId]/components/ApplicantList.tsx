@@ -35,6 +35,9 @@ export function ApplicantList() {
         <Box
           sx={{
             px: 4,
+            maxWidth: 560,
+            width: '100%',
+            margin: '0 auto',
           }}
         >
           <CustomTabs tabs={tabs} onChange={handleTabsFilter} />
@@ -45,6 +48,9 @@ export function ApplicantList() {
         sx={{
           overflowX: 'hidden',
           pb: '75px',
+          maxWidth: 560,
+          width: '100%',
+          margin: '0 auto',
           filter: statusModal && data ? 'blur(3px)' : 'unset',
         }}
         onScroll={handleFetchOnScroll}

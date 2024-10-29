@@ -19,26 +19,29 @@ type TFormHeader = {
 export function FormHeader({ postToken }: TFormHeader) {
   return (
     <Box sx={styles.header}>
-      <Link
-        href={`https://divar.ir/v/${postToken}`}
-        style={{
-          position: 'absolute',
-          right: 34,
-          top: -4,
-          width: 34,
-          height: 34,
-          transform: 'translate(50% ,50%)',
-        }}
-      >
-        <SvgAdd
+      <Box sx={styles.container}>
+        <Link
+          href={`https://divar.ir/v/${postToken}`}
           style={{
-            transform: 'rotate(45deg)',
-            width: '100%',
-            height: '100%',
+            position: 'absolute',
+            right: 34,
+            width: 34,
+            height: 34,
+            top: '0',
+            bottom: '0',
+            transform: 'translateY(50% ,50%)',
           }}
-        />
-      </Link>
-      <Typography variant="body3.medium">ارسال رزومه امن</Typography>
+        >
+          <SvgAdd
+            style={{
+              transform: 'rotate(45deg)',
+              width: '100%',
+              height: '100%',
+            }}
+          />
+        </Link>
+        <Typography variant="body3.medium">ارسال رزومه امن</Typography>
+      </Box>
     </Box>
   );
 }
@@ -55,5 +58,14 @@ const styles = {
     padding: 4,
     borderBottom: '1px solid',
     borderColor: 'grey.1',
+  },
+  container: {
+    maxWidth: 560,
+    width: '100%',
+    margin: '0 auto',
+    position: 'relative',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 };

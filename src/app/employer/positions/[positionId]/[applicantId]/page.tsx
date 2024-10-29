@@ -24,5 +24,8 @@ const styles = {
   container: {
     height: '100%',
     overflow: 'auto',
+    maxWidth: 560,
+    width: '100%',
+    margin: '0 auto',
   },
 };

@@ -21,6 +21,7 @@ const FormSection = () => {
   return (
     <Stack
       component="form"
+      bgcolor="background.3"
       onSubmit={form.handleSubmit(handleSubmitForm)}
       sx={{ height: '100%', width: '100%' }}
     >
@@ -44,7 +45,8 @@ const FormSection = () => {
         py={6}
         gap={10}
         overflow="auto"
-        bgcolor="background.3"
+        maxWidth={560}
+        mx={'auto'}
       >
         {Object.keys(allData).map((key) => (
           <SectionComponent

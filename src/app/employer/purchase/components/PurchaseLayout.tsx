@@ -38,5 +38,8 @@ const styles = {
     position: 'relative',
     alignItems: 'center',
     padding: 4,
+    maxWidth: 560,
+    width: '100%',
+    margin: '0 auto',
   },
 };

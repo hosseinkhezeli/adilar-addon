@@ -38,6 +38,9 @@ export function PositionList() {
       <CardList
         sx={{
           pb: '75px',
+          maxWidth: 560,
+          width: '100%',
+          margin: '0 auto',
         }}
         onScroll={handleFetchOnScroll}
       >

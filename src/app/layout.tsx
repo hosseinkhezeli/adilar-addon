@@ -85,7 +85,6 @@ export default function RootLayout({
         style={{
           maxHeight: '100vh',
           height: '100%',
-          maxWidth: 560,
           margin: '0 auto',
         }}
       >

@@ -38,7 +38,7 @@ export function Introduction() {
         <Title>فرم استخدامی و دسته بندی سریع رزومه‌ها</Title>
         <Description>
           با آدیلار به راحتی رزومه های دریافتی را مدیریت کنید و استخدام هوشمند و
-          حرفه ای را تجربه کنید{' '}
+          حرفه ای را تجربه کنید
         </Description>
       </TextContainer>
       <Button
@@ -58,12 +58,14 @@ const Container = styled(Stack)(() => ({
   height: '100vh',
   justifyContent: 'space-evenly',
   padding: 24,
+  width: '100%',
 }));
 
 const TextContainer = styled(Stack)(() => ({
   alignItems: 'center',
-  maxWidth: '80%',
+  maxWidth: 560,
   margin: '0 auto',
+  gap: 16,
 }));
 
 const Title = styled(Typography)(({ theme }) => ({
@@ -72,5 +74,5 @@ const Title = styled(Typography)(({ theme }) => ({
 
 const Description = styled(Typography)(({ theme }) => ({
   ...theme.typography['caption1'],
-  textAlign: 'justify',
+  textAlign: 'center',
 }));

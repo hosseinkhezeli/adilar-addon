@@ -80,6 +80,9 @@ const SuccessState = ({ trackingCode, onClick, isLoading }: TSuccessState) => {
           margin: '0 auto',
           bottom: 16,
           gap: 6,
+          right: 0,
+          left: 0,
+          transform: 'translateX(50% ,50%)',
         }}
       >
         <CountdownTimer onTimeUp={onClick} title={<>تا رفتن به فرم ساز</>} />
@@ -128,6 +131,9 @@ const UnSuccessState = ({
           margin: '0 auto',
           bottom: 16,
           gap: 6,
+          right: 0,
+          left: 0,
+          transform: 'translateX(50% ,50%)',
         }}
       >
         <CountdownTimer

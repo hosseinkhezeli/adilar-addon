@@ -281,6 +281,7 @@ export function inputListAdapter(fields: IFormField[] | undefined) {
           field.type === 'Date'
             ? {
                 className: 'rmdp-mobile',
+                maxDate: new Date(Date.now()),
                 mobileLabels: {
                   CANCEL: 'بستن',
                   OK: 'تایید',

@@ -17,9 +17,9 @@ import { Discount } from './Discount';
 export function PreInvoice() {
   const {
     totalPrice,
-    onChangeDiscount,
-    onSubmitDiscount,
-    coupon,
+    // onChangeDiscount,
+    // onSubmitDiscount,
+    // coupon,
     preInvoiceInfo,
     onSubmitPayment,
     isSubmitting,
@@ -27,11 +27,11 @@ export function PreInvoice() {
 
   return (
     <Container>
-      <Discount
+      {/* <Discount
         coupon={coupon}
         onChange={onChangeDiscount}
         onSubmit={onSubmitDiscount}
-      />
+      /> */}
       <Section
         title="جزئیات پرداخت"
         containerProps={{ sx: { height: 'max-content' } }}
@@ -62,6 +62,9 @@ export function PreInvoice() {
           width: 'calc(100% - 32px)',
           margin: '0 auto',
           bottom: 16,
+          right: 0,
+          left: 0,
+          transform: 'translateX(50% ,50%)',
         }}
       >
         پرداخت

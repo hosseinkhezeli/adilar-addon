@@ -24,7 +24,7 @@ export function usePreInvoices() {
 
   const searchParams = useSearchParams();
   const advertisementId = searchParams?.get('advertisement_id');
-  const taxPrice = (plan?.price || 0) * 0.09;
+  const taxPrice = (plan?.price || 0) * 0.1;
   const totalPrice = (plan?.price || 0) + taxPrice;
   // const totalPrice = (plan?.price || 0) + taxPrice - discount;
 
@@ -59,7 +59,7 @@ export function usePreInvoices() {
         onSuccess: (data) => {
           enqueueSnackbar({
             variant: 'success',
-            message: 'در حال انتقال به درگاه بانک',
+            message: 'درحال انتقال به سایت پذیرنده',
           });
           navigateTo(data.url as Route);
         },

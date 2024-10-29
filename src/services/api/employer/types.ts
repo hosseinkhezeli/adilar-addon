@@ -13,7 +13,7 @@ export type TSubmitBasicInfoBody = {
   lastName: string;
   companyName: string;
   email: string;
-  companySlug: string;
+  // companySlug: string;
 };
 
 export type TFormFieldsRes = IFormField[];

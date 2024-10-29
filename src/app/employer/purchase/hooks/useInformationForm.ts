@@ -36,7 +36,7 @@ export function useInformationForm() {
   const form = useForm<TSubmitBasicInfoBody>({
     defaultValues: {
       companyName: undefined,
-      companySlug: undefined,
+      // companySlug: undefined,
       email: undefined,
       lastName: undefined,
       firstName: undefined,
@@ -67,28 +67,28 @@ export function useInformationForm() {
         required: 'نام شرکت الزامی است',
       },
     },
-    {
-      name: 'companySlug',
-      label: 'دامنه',
-      type: 'text',
-      props: {
-        onChange: (e) => {
-          const regex = /^[a-zA-Z]*$/;
-          if (!regex.test(e.target.value)) {
-            form.setError('companySlug', {
-              message: 'فقط حروف انگلیسی تایپ کنید',
-            });
-            enqueueSnackbar({
-              variant: 'error',
-              message: 'فقط حروف انگلیسی تایپ کنید',
-            });
-          } else {
-            form.clearErrors('companySlug');
-            form?.register('companySlug').onChange(e);
-          }
-        },
-      },
-    },
+    // {
+    //   name: 'companySlug',
+    //   label: 'دامنه',
+    //   type: 'text',
+    //   props: {
+    //     onChange: (e) => {
+    //       const regex = /^[a-zA-Z]*$/;
+    //       if (!regex.test(e.target.value)) {
+    //         form.setError('companySlug', {
+    //           message: 'فقط حروف انگلیسی تایپ کنید',
+    //         });
+    //         enqueueSnackbar({
+    //           variant: 'error',
+    //           message: 'فقط حروف انگلیسی تایپ کنید',
+    //         });
+    //       } else {
+    //         form.clearErrors('companySlug');
+    //         form?.register('companySlug').onChange(e);
+    //       }
+    //     },
+    //   },
+    // },
     {
       name: 'email',
       label: 'ایمیل',

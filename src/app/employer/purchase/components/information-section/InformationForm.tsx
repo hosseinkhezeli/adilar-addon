@@ -41,6 +41,9 @@ export function InformationForm() {
           width: 'calc(100% - 32px)',
           margin: '0 auto',
           bottom: 16,
+          right: 0,
+          left: 0,
+          transform: 'translateX(50% ,50%)',
         }}
       >
         ادامه

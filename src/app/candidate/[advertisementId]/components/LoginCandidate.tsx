@@ -1,30 +1,29 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+//@3rd Party
+import React from 'react';
+//________________________________________________________________
+
+//@Mui
+import { Box, Button, Stack, styled, Theme, Typography } from '@mui/material';
+//________________________________________________________________
+
+//@Components & Hooks
 import BottomSheet from '@/app/components/BottomSheet';
-import { Box, Button, Stack, styled, Typography } from '@mui/material';
-import SvgTickCircle from 'ideep-design-system-2/icons/TickCircle';
 import { useLoginCandidate } from '@/app/candidate/[advertisementId]/hooks/useLoginCandidate';
+//________________________________________________________________
 
-const TIMEOUT_DURATION = 3000;
+//@Assets
+import SvgTickCircle from 'ideep-design-system-2/icons/TickCircle';
+//________________________________________________________________
 
+//@Types
 type TLoginCandidateProps = {
   phoneNumber: string | null;
 };
+//________________________________________________________________
 
 export function LoginCandidate({ phoneNumber }: TLoginCandidateProps) {
-  const { handleLogin, isNavigating } = useLoginCandidate();
-
-  const [open, setOpen] = useState(false);
-  useEffect(() => {
-    const timer = setTimeout(() => setOpen(true), TIMEOUT_DURATION);
-    return () => clearTimeout(timer);
-  }, []);
-
-  const handleClose = (e?: object, reason?: string) => {
-    if (reason !== 'backdropClick') {
-      setOpen(false);
-    }
-  };
+  const { handleLogin, isNavigating, handleClose, open } = useLoginCandidate();
 
   return (
     <BottomSheet
@@ -32,16 +31,7 @@ export function LoginCandidate({ phoneNumber }: TLoginCandidateProps) {
       open={open}
       title={'ورود به آدیلار'}
       withoutCloseButton
-      sx={{
-        '.MuiDialog-paper': {
-          minHeight: 'calc(100vh - 360px)',
-          transform: 'translateY(55%)',
-        },
-        '.MuiBackdrop-root': {
-          backgroundColor: ({ palette }) => palette.grey[16] + '70',
-          backdropFilter: 'none',
-        },
-      }}
+      sx={styles.bottomSheet}
     >
       <Container>
         <Section>
@@ -96,3 +86,16 @@ const Section = styled(Stack)(() => ({
   width: '100%',
   gap: 12,
 }));
+
+const styles = {
+  bottomSheet: {
+    '.MuiDialog-paper': {
+      minHeight: 'calc(100vh - 360px)',
+      transform: 'translateY(55%)',
+    },
+    '.MuiBackdrop-root': {
+      backgroundColor: ({ palette }: Theme) => palette.grey[16] + '70',
+      backdropFilter: 'none',
+    },
+  },
+};

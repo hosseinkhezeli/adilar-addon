@@ -23,21 +23,21 @@ type TParams = {
 //_______________________________________________________________
 
 const Page = ({ searchParams }: TParams) => {
-  return (
-    <>
-      {searchParams.state !== 'logged-in' ? (
-        <>
-          <AdilarLogo />
-          <LoginCandidate phoneNumber={searchParams?.phone_number} />
-        </>
-      ) : (
-        <>
-          <FormHeader postToken={searchParams?.post_token} />
-          <PositionSubmissionFlow />
-        </>
-      )}
-    </>
-  );
+  if (searchParams.state !== 'logged-in') {
+    return (
+      <>
+        <AdilarLogo />
+        <LoginCandidate phoneNumber={searchParams?.phone_number} />
+      </>
+    );
+  } else {
+    return (
+      <>
+        <FormHeader postToken={searchParams?.post_token} />
+        <PositionSubmissionFlow />
+      </>
+    );
+  }
 };
 
 export default Page;

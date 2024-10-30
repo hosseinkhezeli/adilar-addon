@@ -3,7 +3,7 @@
 import React from 'react';
 //_______________________________________________________________
 //@Mui
-import { Stack } from '@mui/material';
+import { Stack, styled } from '@mui/material';
 //_______________________________________________________________
 
 //@Components
@@ -19,20 +19,19 @@ export function PositionSubmissionFlow() {
   const { state, handleStateChange } = usePositionSubmission();
   return (
     <>
-      <Stack
-        sx={{
-          padding: 4,
-          gap: 4,
-          maxWidth: 560,
-          width: '100%',
-          margin: '0 auto',
-        }}
-      >
+      <Container>
         {state === 'submission' && (
           <PositionForm handleStateChange={handleStateChange} />
         )}
         {state === 'done' && <SubmissionSuccess />}
-      </Stack>
+      </Container>
     </>
   );
 }
+const Container = styled(Stack)(() => ({
+  padding: 4,
+  gap: 4,
+  maxWidth: 560,
+  width: '100%',
+  margin: '0 auto',
+}));

@@ -1,11 +1,16 @@
 //@3rd Party
 import { Route } from 'next';
-import { useTransition } from 'react';
+import { useEffect, useState, useTransition } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 //_______________________________________________________________
 
+//@Constants
+const TIMEOUT_DURATION = 3000;
+//________________________________________________________________
+
 export function useLoginCandidate() {
   //Dependencies
+  const [open, setOpen] = useState(false);
   const { push: navigateTo } = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -18,11 +23,22 @@ export function useLoginCandidate() {
   const [isNavigating, startTransition] = useTransition();
 
   //Handlers
+  useEffect(() => {
+    const timer = setTimeout(() => setOpen(true), TIMEOUT_DURATION);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleClose = (e?: object, reason?: string) => {
+    if (reason !== 'backdropClick') {
+      setOpen(false);
+    }
+  };
+
   const handleLogin = () => {
     startTransition(() => {
       navigateTo(`${pathname}?${newSearchParams.toString()}` as Route);
     });
   };
 
-  return { handleLogin, isNavigating };
+  return { handleLogin, isNavigating, open, handleClose };
 }

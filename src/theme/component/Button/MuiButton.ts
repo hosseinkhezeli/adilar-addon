@@ -73,7 +73,7 @@ export const MuiButton: Components<Theme>['MuiButton'] = {
     }),
     outlined: ({ theme, ownerState }) => ({
       borderColor: getColorByOwnerProps(ownerState?.color, theme),
-      backgroundColor: getColorByOwnerProps(ownerState?.color, theme, 10),
+      backgroundColor: theme.palette.background.default,
       ...(ownerState.isLoading
         ? {
             color: 'transparent',

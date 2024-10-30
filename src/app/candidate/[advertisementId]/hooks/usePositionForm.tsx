@@ -22,7 +22,6 @@ import {
 import { TSubmissionState } from './usePositionSubmission';
 import { TSubmissionAnswer } from '@/services/api/candidate/types';
 import { IFormField } from '@/types/common-types';
-
 type TProps = {
   handleStateChange: (state: TSubmissionState) => void;
 };
@@ -74,10 +73,12 @@ export function usePositionForm({ handleStateChange }: TProps) {
       setResumeFile(file);
     }
   };
+  //____________________________________________________________________
 
   const handleClearResumeFile = () => {
     setResumeFile(null);
   };
+  //____________________________________________________________________
 
   const submitAdFormFn = (
     submissionAnswers: TSubmissionAnswer[],
@@ -106,6 +107,7 @@ export function usePositionForm({ handleStateChange }: TProps) {
       },
     });
   };
+  //____________________________________________________________________
 
   const submitResumeFileFn = (
     body: FormData,
@@ -123,6 +125,7 @@ export function usePositionForm({ handleStateChange }: TProps) {
       },
     });
   };
+  //____________________________________________________________________
 
   const handleSubmit = (data: IForm) => {
     if (form.formState.errors) {
@@ -163,6 +166,7 @@ export function usePositionForm({ handleStateChange }: TProps) {
       submitAdFormFn(submissionAnswers, ad?.id);
     }
   };
+  //____________________________________________________________________
 
   useEffect(() => {
     if (form.formState.errors) {

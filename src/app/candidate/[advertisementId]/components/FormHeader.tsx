@@ -1,5 +1,5 @@
 //@3rd Party
-import React from 'react';
+import React, { CSSProperties } from 'react';
 //_______________________________________________________________
 
 //@Mui
@@ -8,7 +8,7 @@ import { Box } from '@mui/material';
 //_______________________________________________________________
 
 //@Assets
-import SvgAdd from 'ideep-design-system-2/icons/Add';
+import SvgClose from 'ideep-design-system-2/icons/Add';
 //_______________________________________________________________
 
 //@Types
@@ -22,23 +22,9 @@ export function FormHeader({ postToken }: TFormHeader) {
       <Box sx={styles.container}>
         <Link
           href={`https://divar.ir/v/${postToken}`}
-          style={{
-            position: 'absolute',
-            right: 34,
-            width: 34,
-            height: 34,
-            top: '0',
-            bottom: '0',
-            transform: 'translateY(50% ,50%)',
-          }}
+          style={styles.navigateLink}
         >
-          <SvgAdd
-            style={{
-              transform: 'rotate(45deg)',
-              width: '100%',
-              height: '100%',
-            }}
-          />
+          <SvgClose style={styles.svgClose} />
         </Link>
         <Typography variant="body3.medium">ارسال رزومه امن</Typography>
       </Box>
@@ -68,4 +54,18 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
   },
+  svgClose: {
+    transform: 'rotate(45deg)',
+    width: '100%',
+    height: '100%',
+  } as CSSProperties,
+  navigateLink: {
+    position: 'absolute',
+    right: 0,
+    width: 34,
+    height: 34,
+    top: '0',
+    bottom: '0',
+    transform: 'translateY(50% ,50%)',
+  } as CSSProperties,
 };

@@ -121,7 +121,18 @@ const SectionComponent = ({
       >
         افزودن سطر جدید
       </MenuButton>
-      <BottomSheet handleClose={handleClose} open={open} title={'سطر جدید'}>
+      <BottomSheet
+        handleClose={handleClose}
+        open={open}
+        title={'سطر جدید'}
+        sx={{
+          '.MuiDialog-paper': {
+            transform: 'unset',
+            position: 'absolute',
+            bottom: -16,
+          },
+        }}
+      >
         <Stack sx={{ overflowY: 'auto', maxHeight: '100%' }}>
           {isLoadingFormFields
             ? 'loading...'

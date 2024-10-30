@@ -24,6 +24,7 @@ import { Route } from 'next';
 
 export function useApplicant() {
   const QC = useQueryClient();
+  const { setTutorialStatus } = useUserStore();
 
   const { advertisement } = useAdvertisementStore();
   const { user } = useUserStore();
@@ -56,6 +57,10 @@ export function useApplicant() {
         onSuccess() {
           setStatusModal(false);
           QC.refetchQueries({ queryKey: ['get-user'] });
+          setTutorialStatus({
+            completedAdvertisementPageTutorial: false,
+            completedSubmissionPageTutorial: true,
+          });
         },
         onError() {
           setStatusModal(false);

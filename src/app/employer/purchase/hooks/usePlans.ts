@@ -1,6 +1,6 @@
 'use client';
 //@3rd Party
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 //___________________________________________________________
 
@@ -19,6 +19,8 @@ export function usePlans() {
   const { setPlan } = usePurchaseStore();
   const { push: navigateTo } = useRouter();
   const searchParams = useSearchParams();
+  const [isSubmitting, startTransition] = useTransition();
+
   const postToken = searchParams.get('post_token');
   const advertisementId = searchParams.get('advertisement_id');
 
@@ -57,11 +59,19 @@ export function usePlans() {
 
   //Handlers
   const handleSubmitPlan = (plan: TPlanCard['plan'] | undefined) => {
-    if (plan?.id) {
-      setPlan(plan);
-      navigateTo(`${pathname}?${newSearchParams.toString()}` as Route);
-    }
+    startTransition(() => {
+      if (plan?.id) {
+        setPlan(plan);
+        navigateTo(`${pathname}?${newSearchParams.toString()}` as Route);
+      }
+    });
   };
 
-  return { handleSubmitPlan, handleChange, activePlan, plansInfo };
+  return {
+    handleSubmitPlan,
+    handleChange,
+    activePlan,
+    plansInfo,
+    isSubmitting,
+  };
 }

@@ -16,7 +16,13 @@ import { usePlans } from '../../hooks/usePlans';
 //____________________________________________________
 
 export function Plans() {
-  const { handleSubmitPlan, activePlan, handleChange, plansInfo } = usePlans();
+  const {
+    handleSubmitPlan,
+    activePlan,
+    handleChange,
+    plansInfo,
+    isSubmitting,
+  } = usePlans();
   return (
     <>
       <PlansContainer>
@@ -31,6 +37,7 @@ export function Plans() {
       </PlansContainer>
       <Button
         variant="contained"
+        isLoading={isSubmitting}
         onClick={() =>
           handleSubmitPlan(plansInfo.find((plan) => plan.id === activePlan))
         }

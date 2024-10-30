@@ -186,6 +186,7 @@ const SectionComponent = ({
             mb: 8,
           }}
           onTouchEnd={handleClose}
+          onClick={handleClose}
         >
           افزودن
         </Button>

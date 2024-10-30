@@ -2,6 +2,7 @@
 import React, { SyntheticEvent, useState } from 'react';
 import {
   Box,
+  Button,
   Checkbox,
   FormControlLabel,
   Stack,
@@ -128,16 +129,28 @@ const SectionComponent = ({
                 <Box
                   key={option.id}
                   sx={{
-                    p: 4,
+                    px: 4,
+                    py: 3,
                     borderBottom: '1px solid',
                     borderColor: 'grey.1',
                   }}
                 >
                   <FormControlLabel
+                    sx={{
+                      minHeight: 32,
+                    }}
                     checked={data.dynamicFields.some(
                       (item) => item.id === option.id
                     )}
-                    control={<Checkbox />}
+                    control={
+                      <Checkbox
+                        sx={{
+                          width: 32,
+                          height: 32,
+                          p: 1,
+                        }}
+                      />
+                    }
                     label={
                       <Typography variant="body3" color="text.primary">
                         {option.title}
@@ -166,6 +179,16 @@ const SectionComponent = ({
                 </Box>
               ))}
         </Stack>
+        <Button
+          variant="contained"
+          sx={{
+            m: 4,
+            mb: 8,
+          }}
+          onTouchEnd={handleClose}
+        >
+          افزودن
+        </Button>
       </BottomSheet>
     </Stack>
   );

@@ -85,9 +85,8 @@ const style: DialogProps['sx'] = {
     minHeight: '60%',
     height: 'max-content',
     padding: 0,
+    transform: 'translateY(40%)',
     maxWidth: 560,
-    position: 'absolute',
-    bottom: -16,
   },
 };
 const DialogHeader = styled(Box)({

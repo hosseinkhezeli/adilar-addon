@@ -1,5 +1,5 @@
-import { RETURN_URL } from '@/app/constant';
 import { isDivarLink } from '@/utils/methods';
+import { Route } from 'next';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useTransition } from 'react';
 
@@ -10,8 +10,8 @@ export function useSubmissionSuccess() {
   const [isNavigating, startTransition] = useTransition();
   const onClickReturn = () => {
     startTransition(() => {
-      if (isDivarLink(RETURN_URL)) {
-        navigateTo(RETURN_URL);
+      if (isDivarLink(`https://divar.ir/v/${postToken}`)) {
+        navigateTo(`https://divar.ir/v/${postToken}` as Route);
       }
     });
   };

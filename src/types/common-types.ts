@@ -43,6 +43,8 @@ export interface IFormField {
   name: string;
   text: string | null;
   type: TFormFieldType;
+  defaultValue?: string;
+  disabled?: boolean;
   validationRegex: string | null | undefined;
   validationMessage: string | null | undefined;
   defaultPriority: number;

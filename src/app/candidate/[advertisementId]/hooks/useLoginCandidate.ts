@@ -8,7 +8,11 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 const TIMEOUT_DURATION = 3000;
 //________________________________________________________________
 
-export function useLoginCandidate() {
+//@types
+interface IUseLoginCandidate {
+  phoneNumber?: string;
+}
+export function useLoginCandidate({ phoneNumber }: IUseLoginCandidate) {
   //Dependencies
   const [open, setOpen] = useState(false);
   const { push: navigateTo } = useRouter();
@@ -17,6 +21,7 @@ export function useLoginCandidate() {
   const postToken = searchParams.get('post_token');
   const nextState = 'logged-in';
   const newSearchParams = new URLSearchParams({
+    phone_number: phoneNumber || 'invalid phoneNumber',
     post_token: postToken || '404_post_token',
     state: nextState,
   });

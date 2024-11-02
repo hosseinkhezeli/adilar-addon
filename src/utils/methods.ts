@@ -292,6 +292,8 @@ export function inputListAdapter(fields: IFormField[] | undefined) {
         return {
           label: field?.name || '-',
           name: field?.id || '-',
+          ...(field.defaultValue ? { defaultValue: field.defaultValue } : {}),
+          ...(field.disabled ? { disabled: field.disabled } : {}),
           type: typeAdapter(field?.type) || ('text' as typeTFormType),
           ...(field?.type === 'Date' &&
             typeof props !== 'undefined' && {

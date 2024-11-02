@@ -35,24 +35,15 @@ export function Plans() {
           />
         ))}
       </PlansContainer>
-      <Button
+      <SubmitButton
         variant="contained"
         isLoading={isSubmitting}
         onClick={() =>
           handleSubmitPlan(plansInfo.find((plan) => plan.id === activePlan))
         }
-        sx={{
-          position: 'fixed',
-          width: 'calc(100% - 32px)',
-          margin: '0 auto',
-          bottom: 16,
-          right: 0,
-          left: 0,
-          transform: 'translateX(50% ,50%)',
-        }}
       >
         ادامه
-      </Button>
+      </SubmitButton>
     </>
   );
 }
@@ -63,4 +54,13 @@ const PlansContainer = styled(Stack)(({ theme }) => ({
   maxWidth: 560,
   width: '100%',
   margin: '0 auto',
+}));
+const SubmitButton = styled(Button)(() => ({
+  position: 'fixed',
+  width: 'calc(100% - 32px)',
+  margin: '0 auto',
+  bottom: 16,
+  right: 0,
+  left: 0,
+  transform: 'translateX(50% ,50%)',
 }));

@@ -32,22 +32,13 @@ export function InformationForm() {
           xs: 12,
         }}
       />
-      <Button
+      <SubmitButton
         variant="contained"
         type="submit"
         isLoading={isSubmittingBasicInfo}
-        sx={{
-          position: 'fixed',
-          width: 'calc(100% - 32px)',
-          margin: '0 auto',
-          bottom: 16,
-          right: 0,
-          left: 0,
-          transform: 'translateX(50% ,50%)',
-        }}
       >
         ادامه
-      </Button>
+      </SubmitButton>
     </Form>
   );
 }
@@ -67,3 +58,13 @@ const Form = styled(Box)<BoxProps & { component?: React.ElementType }>(
     marginBottom: theme.spacing(4),
   })
 );
+
+const SubmitButton = styled(Button)(() => ({
+  position: 'fixed',
+  width: 'calc(100% - 32px)',
+  margin: '0 auto',
+  bottom: 16,
+  right: 0,
+  left: 0,
+  transform: 'translateX(50% ,50%)',
+}));

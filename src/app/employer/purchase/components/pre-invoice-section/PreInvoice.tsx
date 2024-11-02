@@ -11,7 +11,7 @@ import { Box, Button, Divider, Stack, styled, Typography } from '@mui/material';
 import { Section } from '@/app/components/Section';
 import { usePreInvoices } from '../../hooks/usePreInvoices';
 import { currency } from '@/utils/methods';
-import { Discount } from './Discount';
+// import { Discount } from './Discount';
 //___________________________________________________________
 
 export function PreInvoice() {
@@ -53,22 +53,13 @@ export function PreInvoice() {
         </PreInvoiceContainer>
       </Section>
 
-      <Button
+      <SubmitButton
         variant="contained"
         onClick={onSubmitPayment}
         isLoading={isSubmitting}
-        sx={{
-          position: 'fixed',
-          width: 'calc(100% - 32px)',
-          margin: '0 auto',
-          bottom: 16,
-          right: 0,
-          left: 0,
-          transform: 'translateX(50% ,50%)',
-        }}
       >
         پرداخت
-      </Button>
+      </SubmitButton>
     </Container>
   );
 }
@@ -105,4 +96,14 @@ const Field = styled(Box)(() => ({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
+}));
+
+const SubmitButton = styled(Button)(() => ({
+  position: 'fixed',
+  width: 'calc(100% - 32px)',
+  margin: '0 auto',
+  bottom: 16,
+  right: 0,
+  left: 0,
+  transform: 'translateX(50% ,50%)',
 }));

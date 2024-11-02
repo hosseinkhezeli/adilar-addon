@@ -9,6 +9,8 @@ import { Box } from '@mui/material';
 
 //@Assets
 import SvgClose from 'ideep-design-system-2/icons/Add';
+import { isDivarLink } from '@/utils/methods';
+import { RETURN_URL } from '@/app/constant';
 //_______________________________________________________________
 
 //@Types
@@ -20,12 +22,11 @@ export function FormHeader({ postToken }: TFormHeader) {
   return (
     <Box sx={styles.header}>
       <Box sx={styles.container}>
-        <Link
-          href={`https://divar.ir/v/${postToken}`}
-          style={styles.navigateLink}
-        >
-          <SvgClose style={styles.svgClose} />
-        </Link>
+        {isDivarLink(RETURN_URL) && (
+          <Link href={RETURN_URL} style={styles.navigateLink}>
+            <SvgClose style={styles.svgClose} />
+          </Link>
+        )}
         <Typography variant="body3.medium">ارسال رزومه امن</Typography>
       </Box>
     </Box>

@@ -22,6 +22,7 @@ import {
 import { TSubmissionState } from './usePositionSubmission';
 import { TSubmissionAnswer } from '@/services/api/candidate/types';
 import { IFormField } from '@/types/common-types';
+import { mockDataForResume } from '@/app/constant';
 type TProps = {
   handleStateChange: (state: TSubmissionState) => void;
 };
@@ -62,7 +63,7 @@ export function usePositionForm({ handleStateChange }: TProps) {
     [isSuccess, ad?.form?.isResumeUploadingRequired]
   );
 
-  const fileInput = mockData.find((field) => field?.type === 'File');
+  const fileInput = mockDataForResume.find((field) => field?.type === 'File');
 
   // Handlers
   const handleGetFileFromUploader = (
@@ -190,17 +191,3 @@ export function usePositionForm({ handleStateChange }: TProps) {
     errorAd,
   };
 }
-
-// TODO:delete this after backend add this to fields as a optional field
-const mockData = [
-  {
-    id: '670d1e18e12cc7afb89d18ae',
-    name: 'روزمه',
-    type: 'File',
-    isRequiredByDefault: true,
-    category: 'Personal',
-    semanticType: 'Resume',
-    createdAt: '2024-10-14T13:35:20.404057Z',
-    updatedAt: '2024-10-14T13:35:20.404057Z',
-  },
-];

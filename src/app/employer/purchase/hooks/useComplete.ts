@@ -6,6 +6,8 @@ import { useTransition } from 'react';
 
 //@Types
 import { Route } from 'next';
+import { RETURN_URL } from '@/app/constant';
+import { isDivarLink } from '@/utils/methods';
 type TTransactionStatus = 'success' | 'error' | null;
 //_______________________________________________________________
 
@@ -45,7 +47,9 @@ export function useComplete() {
 
   const onClickExit = () => {
     startTransition(() => {
-      navigateTo(`https://divar.ir/v/${postToken}` as Route);
+      if (isDivarLink(RETURN_URL)) {
+        navigateTo(RETURN_URL);
+      }
     });
   };
 

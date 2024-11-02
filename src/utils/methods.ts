@@ -59,7 +59,10 @@ export const dateToShamsi = (date: Date | string | undefined | null) => {
 //___________________________________________________________________
 
 //
-export const fullNameDisplay = (firstName?: string, lastName?: string) => {
+export const fullNameDisplay = (
+  firstName?: string | null,
+  lastName?: string | null
+) => {
   return handleEmptyText(
     firstName && lastName ? firstName + ' ' + lastName : undefined
   );
@@ -366,5 +369,12 @@ export function getCookie(name: string) {
   const value = `; ${document.cookie}`;
   const parts = value.split(`; ${name}=`);
   if (parts.length === 2) return parts?.pop()?.split(';').shift();
+}
+//___________________________________________________________________
+
+//Redirect to divar validation
+export function isDivarLink(link: string) {
+  const divarRegex = /^https:\/\/(?:[a-zA-Z0-9-]+\.)?divar\.ir(\/?|\/.+)/;
+  return divarRegex.test(link);
 }
 //___________________________________________________________________

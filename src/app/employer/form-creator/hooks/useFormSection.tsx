@@ -4,13 +4,13 @@ import {
   useSubmitAdForm,
 } from '@/services/api/employer/hooks';
 import { useMemo, useState, useEffect } from 'react';
-import { baseData } from '../constant';
 import { TAllData, TTypeData, IDynamicField } from '../type';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { TAdFormDto } from '@/services/api/employer/types';
 import { enqueueSnackbar } from 'notistack';
 import usePurchaseStore from '@/store/purchase/purchaseSlice';
+import { baseData } from '@/app/constant';
 
 const PRIORITY_START_POINT = 4;
 

@@ -1,8 +1,9 @@
 'use client';
 //@3rd Party
-import { Route } from 'next';
 import { useTransition } from 'react';
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
+import { RETURN_URL } from '@/app/constant';
+import { isDivarLink } from '@/utils/methods';
 //__________________________________________________________________
 
 export function useHeaderPosition() {
@@ -26,9 +27,9 @@ export function useHeaderPosition() {
   };
 
   const handleNavigateToDivar = () => {
-    startTransition(() => {
-      navigateTo(`https://divar.ir/v/${postToken}` as Route);
-    });
+    if (isDivarLink(RETURN_URL)) {
+      navigateTo(RETURN_URL);
+    }
   };
   return {
     handleNavigation,

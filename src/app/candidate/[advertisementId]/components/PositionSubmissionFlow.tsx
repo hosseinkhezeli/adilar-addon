@@ -29,9 +29,10 @@ export function PositionSubmissionFlow() {
   );
 }
 const Container = styled(Stack)(() => ({
-  padding: 4,
+  padding: 8,
   gap: 4,
   maxWidth: 560,
   width: '100%',
-  margin: '0 auto',
+  margin: '0 auto 32px',
+  height: 'auto',
 }));

@@ -1,6 +1,6 @@
 'use client';
 import React, { Fragment } from 'react';
-import { Box, Divider } from '@mui/material';
+import { Box, Divider, styled } from '@mui/material';
 import { CardList } from '@/app/components/Card';
 import { useApplicantList } from '@/app/employer/positions/[positionId]/hooks/useApplicantList';
 import { ApplicantCard } from '@/app/employer/positions/[positionId]/components/ApplicantCard';
@@ -32,16 +32,9 @@ export function ApplicantList() {
         value={searchValue}
         handleSearch={handleSearch}
       >
-        <Box
-          sx={{
-            px: 4,
-            maxWidth: 560,
-            width: '100%',
-            margin: '0 auto',
-          }}
-        >
+        <TabsContainer>
           <CustomTabs tabs={tabs} onChange={handleTabsFilter} />
-        </Box>
+        </TabsContainer>
       </HeaderPositions>
 
       <CardList
@@ -97,3 +90,10 @@ export function ApplicantList() {
     </>
   );
 }
+
+const TabsContainer = styled(Box)(() => ({
+  padding: '0px 16px',
+  maxWidth: 560,
+  width: '100%',
+  margin: '0 auto',
+}));

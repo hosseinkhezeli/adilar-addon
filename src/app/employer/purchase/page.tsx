@@ -11,25 +11,31 @@ import { Completed } from './components/completed-section/Completed';
 
 //@Types
 import { TStepperState } from './types';
-//____________________________________________________
 
+//____________________________________________________
 const Page = ({ searchParams }: { searchParams: { state: TStepperState } }) => {
   const currentState = searchParams?.state;
 
-  return (
-    <>
-      {currentState === 'plans' && <Plans />}
-      {currentState === 'information' && <InformationForm />}
-      {currentState === 'pre_invoice' && <PreInvoice />}
-      {currentState === 'completed' && <Completed />}
-      {currentState !== 'plans' &&
-        currentState !== 'information' &&
-        currentState !== 'completed' &&
-        currentState !== 'pre_invoice' &&
-        currentState !== 'bank-portal' &&
-        '404'}
-    </>
-  );
+  const renderComponent = () => {
+    switch (currentState) {
+      case 'plans':
+        return <Plans />;
+
+      case 'information':
+        return <InformationForm />;
+
+      case 'pre_invoice':
+        return <PreInvoice />;
+
+      case 'completed':
+        return <Completed />;
+
+      default:
+        return <div>404 - Not Found</div>;
+    }
+  };
+
+  return <>{renderComponent()}</>;
 };
 
 export default Page;

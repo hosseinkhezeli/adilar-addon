@@ -68,7 +68,7 @@ export function UploaderButton({
       {!file && (
         <HiddenFileInput
           type="file"
-          accept=".pdf,.doc,.docx,.txt,.cv"
+          accept=".pdf,.doc,.docx,.txt,.cv,.png,.jpeg,.jpg,.gif,.webp"
           onChange={onFileChange}
         />
       )}

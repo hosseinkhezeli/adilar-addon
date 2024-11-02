@@ -5,14 +5,7 @@ import Image from 'next/image';
 
 const EmptyStateApplicantList = () => {
   return (
-    <Stack
-      sx={{
-        height: '100%',
-        justifyContent: 'center',
-        alignItems: 'center',
-        gap: 2,
-      }}
-    >
+    <Stack sx={styles.container}>
       <Image
         src={emptyImage}
         width={70}
@@ -27,3 +20,12 @@ const EmptyStateApplicantList = () => {
 };
 
 export { EmptyStateApplicantList };
+
+const styles = {
+  container: {
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 2,
+  },
+};

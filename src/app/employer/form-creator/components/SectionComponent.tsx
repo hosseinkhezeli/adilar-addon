@@ -16,6 +16,7 @@ import {
 } from '@/app/employer/form-creator/type';
 import { MenuButton } from '@/app/components/MenuButton';
 import BottomSheet from '@/app/components/BottomSheet';
+import { SvgLoading } from '@/app/components/Loading';
 
 interface ISectionComponent {
   title: string;
@@ -83,16 +84,18 @@ const SectionComponent = ({
       >
         {title}
       </Typography>
-      {isLoadingFormFields
-        ? 'loading...'
-        : data?.staticFields?.map((item) => (
-            <ItemComponent
-              withoutOptions
-              key={item.title}
-              title={item.title}
-              placeholder={item.placeholder}
-            />
-          ))}
+      {isLoadingFormFields ? (
+        <SvgLoading />
+      ) : (
+        data?.staticFields?.map((item) => (
+          <ItemComponent
+            withoutOptions
+            key={item.title}
+            title={item.title}
+            placeholder={item.placeholder}
+          />
+        ))
+      )}
       {data.dynamicFields.map((item, index) => (
         <ItemComponent
           key={item.title}
@@ -121,63 +124,76 @@ const SectionComponent = ({
       >
         افزودن سطر جدید
       </MenuButton>
-      <BottomSheet handleClose={handleClose} open={open} title={'سطر جدید'}>
+      <BottomSheet
+        handleClose={handleClose}
+        open={open}
+        title={'سطر جدید'}
+        sx={{
+          '.MuiDialog-paper': {
+            transform: 'unset',
+            position: 'absolute',
+            bottom: -16,
+          },
+        }}
+      >
         <Stack sx={{ overflowY: 'auto', maxHeight: '100%' }}>
-          {isLoadingFormFields
-            ? 'loading...'
-            : data?.bottomSheetItems?.map((option, index) => (
-                <Box
-                  key={option.id}
+          {isLoadingFormFields ? (
+            <SvgLoading />
+          ) : (
+            data?.bottomSheetItems?.map((option, index) => (
+              <Box
+                key={option.id}
+                sx={{
+                  px: 4,
+                  py: 3,
+                  borderBottom: '1px solid',
+                  borderColor: 'grey.1',
+                }}
+              >
+                <FormControlLabel
                   sx={{
-                    px: 4,
-                    py: 3,
-                    borderBottom: '1px solid',
-                    borderColor: 'grey.1',
+                    minHeight: 32,
                   }}
-                >
-                  <FormControlLabel
-                    sx={{
-                      minHeight: 32,
-                    }}
-                    checked={data.dynamicFields.some(
-                      (item) => item.id === option.id
-                    )}
-                    control={
-                      <Checkbox
-                        sx={{
-                          width: 32,
-                          height: 32,
-                          p: 1,
-                        }}
-                      />
-                    }
-                    label={
-                      <Typography variant="body3" color="text.primary">
-                        {option.title}
-                      </Typography>
-                    }
-                    onChange={(e: SyntheticEvent, checked) => {
-                      if (checked) {
-                        handleAddDynamicField({
-                          key: objectKey,
-                          dynamicFieldData: {
-                            id: option.id,
-                            type: option.type,
-                            title: option.title,
-                            isRequired: false,
-                          },
-                          index: index,
-                        });
-                      } else {
-                        handleRemoveDynamicField({
-                          key: objectKey,
+                  checked={data.dynamicFields.some(
+                    (item) => item.id === option.id
+                  )}
+                  control={
+                    <Checkbox
+                      sx={{
+                        width: 32,
+                        height: 32,
+                        p: 1,
+                      }}
+                    />
+                  }
+                  label={
+                    <Typography variant="body3" color="text.primary">
+                      {option.title}
+                    </Typography>
+                  }
+                  onChange={(e: SyntheticEvent, checked) => {
+                    if (checked) {
+                      handleAddDynamicField({
+                        key: objectKey,
+                        dynamicFieldData: {
                           id: option.id,
-                        });
-                      }
-                    }}
-                  />
-                </Box>
-              ))}
+                          type: option.type,
+                          title: option.title,
+                          isRequired: false,
+                        },
+                        index: index,
+                      });
+                    } else {
+                      handleRemoveDynamicField({
+                        key: objectKey,
+                        id: option.id,
+                      });
+                    }
+                  }}
+                />
+              </Box>
+            ))
+          )}
         </Stack>
         <Button
           variant="contained"
@@ -186,6 +202,7 @@ const SectionComponent = ({
             mb: 8,
           }}
           onTouchEnd={handleClose}
+          onClick={handleClose}
         >
           افزودن
         </Button>

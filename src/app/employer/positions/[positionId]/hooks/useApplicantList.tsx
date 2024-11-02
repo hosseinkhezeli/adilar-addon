@@ -41,6 +41,7 @@ export type TApplicantCard = {
 export function useApplicantList() {
   //Dependencies
   const QC = useQueryClient();
+  const { setTutorialStatus } = useUserStore();
   const { push: navigateTo } = useRouter();
   const [isNavigating, startTransition] = useTransition();
   const pathName = usePathname();
@@ -108,6 +109,10 @@ export function useApplicantList() {
         onSuccess() {
           setStatusModal(false);
           QC.refetchQueries({ queryKey: ['get-user'] });
+          setTutorialStatus({
+            completedAdvertisementPageTutorial: true,
+            completedSubmissionPageTutorial: false,
+          });
         },
         onError() {
           setStatusModal(false);

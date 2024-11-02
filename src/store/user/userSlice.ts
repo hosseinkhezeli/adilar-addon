@@ -14,13 +14,17 @@ export interface UserState {
   setLogout: () => void;
   initialize: () => void; // Function to set loading to false
   reset: () => void;
+  setTutorialStatus(status: {
+    completedAdvertisementPageTutorial: boolean;
+    completedSubmissionPageTutorial: boolean;
+  }): void;
 }
 
 // Create the Zustand store
 const useUserStore = create<UserState>()(
   devtools(
     persist(
-      (set) => ({
+      (set, get) => ({
         token: undefined,
         user: null,
         isLoggedIn: false,
@@ -53,6 +57,22 @@ const useUserStore = create<UserState>()(
             isLoggedIn: false,
             loading: false,
           });
+        },
+        setTutorialStatus: (status) => {
+          const user = get().user!;
+          if (user?.id) {
+            set({
+              user: {
+                ...user,
+                completedAdvertisementPageTutorial:
+                  user.completedAdvertisementPageTutorial ||
+                  status.completedAdvertisementPageTutorial,
+                completedSubmissionPageTutorial:
+                  user.completedSubmissionPageTutorial ||
+                  status.completedSubmissionPageTutorial,
+              },
+            });
+          }
         },
       }),
       {

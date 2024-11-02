@@ -23,7 +23,9 @@ type TLoginCandidateProps = {
 //________________________________________________________________
 
 export function LoginCandidate({ phoneNumber }: TLoginCandidateProps) {
-  const { handleLogin, isNavigating, handleClose, open } = useLoginCandidate();
+  const { handleLogin, isNavigating, handleClose, open } = useLoginCandidate({
+    phoneNumber,
+  });
 
   return (
     <BottomSheet

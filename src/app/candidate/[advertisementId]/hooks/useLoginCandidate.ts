@@ -10,7 +10,7 @@ const TIMEOUT_DURATION = 3000;
 
 //@types
 interface IUseLoginCandidate {
-  phoneNumber?: string;
+  phoneNumber: string | null;
 }
 export function useLoginCandidate({ phoneNumber }: IUseLoginCandidate) {
   //Dependencies
@@ -24,6 +24,9 @@ export function useLoginCandidate({ phoneNumber }: IUseLoginCandidate) {
     phone_number: phoneNumber || 'invalid phoneNumber',
     post_token: postToken || '404_post_token',
     state: nextState,
+    ...(searchParams.has('submission_state') && {
+      submission_state: searchParams.get('submission_state') || undefined,
+    }),
   });
   const [isNavigating, startTransition] = useTransition();
 

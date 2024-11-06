@@ -47,7 +47,7 @@ const InfoSection = ({ data }: IInfoSection) => {
                   px: 0,
                   color:
                     data?.state === 'Accepted' ? 'success.main' : 'error.main',
-                  height: 24,
+                  height: '24px',
                 }}
                 label={data?.state === 'Accepted' ? 'تایید شده' : 'رد شده'}
               />

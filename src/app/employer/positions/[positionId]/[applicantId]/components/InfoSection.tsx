@@ -1,20 +1,18 @@
 //@3rd Party
 import React from 'react';
-import SvgClose from 'ideep-design-system-2/icons/Close';
-import SvgTick from 'ideep-design-system-2/icons/Tick';
 //_________________________________________________________
 
 //@Mui
 import { Chip, Stack, Typography } from '@mui/material';
 //_________________________________________________________
 
-//@Components
+//@Components & Hooks
 import { Section } from '@/app/components/Section';
+import { useInfoSection } from '@/app/employer/positions/[positionId]/[applicantId]/hooks/useInfoSection';
 //_________________________________________________________
 
 //@Types
 import { IGetSubmissionResponse } from '@/services/api/submission/types';
-import { useInfoSection } from '@/app/employer/positions/[positionId]/[applicantId]/hooks/useInfoSection';
 interface IInfoSection {
   data?: IGetSubmissionResponse;
 }
@@ -45,26 +43,13 @@ const InfoSection = ({ data }: IInfoSection) => {
                 sx={{
                   ...theme.typography['caption1.bold'],
                   backgroundColor:
-                    data?.state === 'Accepted' ? 'success.main' : 'error.main',
+                    data?.state === 'Accepted' ? 'success.1' : 'error.1',
                   px: 0,
                   color:
-                    data?.state === 'Accepted'
-                      ? 'text.primary'
-                      : 'common.white',
+                    data?.state === 'Accepted' ? 'success.main' : 'error.main',
                   height: 24,
-                  '& .MuiChip-label': {
-                    pl: 2,
-                  },
                 }}
                 label={data?.state === 'Accepted' ? 'تایید شده' : 'رد شده'}
-                icon={
-                  data?.state === 'Accepted' ? (
-                    <SvgTick primarycolor={theme.palette.text['primary']} />
-                  ) : (
-                    <SvgClose primarycolor="white" />
-                  )
-                }
-                color="success"
               />
             )}
           </Stack>

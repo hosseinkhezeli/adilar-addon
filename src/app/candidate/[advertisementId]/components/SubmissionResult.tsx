@@ -1,6 +1,7 @@
 'use client';
 //@3rd Party
 import Image from 'next/image';
+import React from 'react';
 //__________________________________________________________
 //@Mui
 import { Box, Button, Stack, styled, Typography } from '@mui/material';
@@ -8,23 +9,39 @@ import { Box, Button, Stack, styled, Typography } from '@mui/material';
 
 //@Assets
 import SvgSuccess from '@/assets/images/success.svg';
-import { useSubmissionSuccess } from '../hooks/useSubmissionSuccess';
+
 import CountdownTimer from '@/app/components/CountdownTimer';
+import { useSubmissionResult } from '@/app/candidate/[advertisementId]/hooks/useSubmissionResult';
 //__________________________________________________________
 
-export function SubmissionSuccess() {
-  const { isNavigating, onClickReturn } = useSubmissionSuccess();
+export function SubmissionResult() {
+  const { isNavigating, onClickReturn, submission_state_property } =
+    useSubmissionResult();
   return (
     <>
       <Container>
+        <Title
+          sx={{
+            color: submission_state_property
+              ? submission_state_property.color
+              : 'success.main',
+          }}
+        >
+          {submission_state_property
+            ? submission_state_property.title
+            : 'رزومه شما با موفقیت ارسال شد'}
+        </Title>
         <Image
-          src={SvgSuccess}
+          src={
+            submission_state_property
+              ? submission_state_property.image
+              : SvgSuccess
+          }
           alt="success"
           width={250}
           height={136}
-          style={{ margin: '0 auto', width: '100%' }}
+          style={{ margin: '0 auto', width: '100%', marginTop: 20 }}
         />
-        <Title>رزومه شما با موفقیت ارسال شد</Title>
 
         <Stack
           sx={{

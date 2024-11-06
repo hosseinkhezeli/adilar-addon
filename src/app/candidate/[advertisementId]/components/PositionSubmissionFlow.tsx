@@ -8,22 +8,30 @@ import { Stack, styled } from '@mui/material';
 
 //@Components
 import { PositionForm } from './PositionForm';
-import { SubmissionSuccess } from './SubmissionSuccess';
 //_______________________________________________________________
 
 //@Hooks
 import { usePositionSubmission } from '../hooks/usePositionSubmission';
+import { SubmissionResult } from '@/app/candidate/[advertisementId]/components/SubmissionResult';
 //_______________________________________________________________
 
 export function PositionSubmissionFlow() {
-  const { state, handleStateChange } = usePositionSubmission();
+  const { state, handleStateChange, submission_state } =
+    usePositionSubmission();
+
   return (
     <>
       <Container>
-        {state === 'submission' && (
-          <PositionForm handleStateChange={handleStateChange} />
+        {submission_state ? (
+          <SubmissionResult />
+        ) : (
+          <>
+            {state === 'submission' && (
+              <PositionForm handleStateChange={handleStateChange} />
+            )}
+            {state === 'done' && <SubmissionResult />}
+          </>
         )}
-        {state === 'done' && <SubmissionSuccess />}
       </Container>
     </>
   );

@@ -39,7 +39,7 @@ export function useFormSection() {
   const form = useForm<TForm>({
     defaultValues: {
       isResumeUploadingRequired: false,
-      name: '',
+      name: undefined,
       addFormFieldsDto: [],
     },
   });

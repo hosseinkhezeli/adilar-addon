@@ -35,10 +35,10 @@ export function Introduction() {
         blurDataURL={'../../../../assets/images/adilar-avatars-blur.jpg'}
       />
       <TextContainer>
-        <Title>فرم استخدامی و دسته بندی سریع رزومه‌ها</Title>
+        <Title>فرم استخدامی و دسته‌بندی سریع رزومه‌ها</Title>
         <Description>
-          با آدیلار به راحتی رزومه های دریافتی را مدیریت کنید و استخدام هوشمند و
-          حرفه ای را تجربه کنید
+          با آدیلار به راحتی رزومه‌های دریافتی را مدیریت کنید و استخدام هوشمند و
+          حرفه‌ای را تجربه کنید
         </Description>
       </TextContainer>
       <Button

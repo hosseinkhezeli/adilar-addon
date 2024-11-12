@@ -1,16 +1,19 @@
 'use client';
 //@3rd Party
 import React from 'react';
+import { InputListWithUseForm } from 'ideep-design-system-2';
+//________________________________________________________________
+
+//@Mui
 import {
+  Alert,
   Box,
   BoxProps,
   Button,
   Stack,
   StackProps,
   styled,
-  Typography,
 } from '@mui/material';
-import { InputListWithUseForm } from 'ideep-design-system-2';
 //________________________________________________________________
 
 //@Hooks & Components
@@ -21,6 +24,7 @@ import { FileUploader } from './FileUploader';
 
 //@Types
 import { TSubmissionState } from '../hooks/usePositionSubmission';
+import SvgCloseCircle from 'ideep-design-system-2/icons/CloseCircle';
 interface PositionFormProps {
   handleStateChange: (state: TSubmissionState) => void;
 }
@@ -30,7 +34,7 @@ export const PositionForm: React.FC<PositionFormProps> = ({
 }) => {
   const {
     form,
-    inputList,
+    validatedInputList,
     fileInput,
     handleGetFileFromUploader,
     handleClearResumeFile,
@@ -53,7 +57,7 @@ export const PositionForm: React.FC<PositionFormProps> = ({
     <FormContainer component="form" onSubmit={form.handleSubmit(handleSubmit)}>
       <InputListWithUseForm
         form={form}
-        inputList={inputList!}
+        inputList={validatedInputList!}
         gridContainerProps={{ xs: 12, margin: '0 -8px' }}
         labelsProps={{ variant: 'body3', margin: '0 !important' }}
         withoutHelperText
@@ -76,15 +80,21 @@ export const PositionForm: React.FC<PositionFormProps> = ({
 
 // Loading indicator component
 const LoadingIndicator: React.FC = () => (
-  <Box display="flex" justifyContent="center" alignItems="center">
+  <Container sx={{ alignItems: 'center', minHeight: 'calc(100vh - 130px)' }}>
     <SvgLoading />
-  </Box>
+  </Container>
 );
 
 // Error message component
 const ErrorMessage: React.FC<{ message: string }> = ({ message }) => (
-  <Container>
-    <Typography sx={{ textAlign: 'center' }}>خطایی رخ داد {message}</Typography>
+  <Container sx={{ alignItems: 'center', minHeight: 'calc(100vh - 130px)' }}>
+    <Alert
+      severity="error"
+      icon={<SvgCloseCircle primarycolor="inherit" />}
+      sx={{ stroke: (theme) => theme.palette.error.main }}
+    >
+      خطایی رخ داد {message}
+    </Alert>
   </Container>
 );
 // Styled components

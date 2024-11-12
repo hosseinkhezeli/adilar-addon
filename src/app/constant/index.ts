@@ -1,7 +1,10 @@
 import { TAllData } from '@/app/employer/form-creator/type';
 
 export const RETURN_URL = 'https://divar.ir/my-divar/my-posts';
+export const RETURN_TO_POST_URL = (postToken: string | null) =>
+  `https://divar.ir/v/${postToken}`;
 
+export const DIVAR_PRIMARY_COLOR = '#96403F';
 export const baseData: TAllData = {
   baseInfo: {
     title: 'اطلاعات شخصی',

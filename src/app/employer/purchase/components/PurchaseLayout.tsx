@@ -21,7 +21,7 @@ export function PurchaseLayout({
   return (
     <Stack sx={styles.container}>
       <Typography variant="body3.medium">
-        فرم‌ساز رزومه و دسته‌بندی رزومه‌ها
+        افزونه مدیریت و دریافت رزومه آدیلار
       </Typography>
       {currentState !== 'completed' && (
         <PurchaseProgress activeState={currentState} />

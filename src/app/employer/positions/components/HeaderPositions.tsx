@@ -4,7 +4,7 @@ import React, { ReactNode } from 'react';
 //__________________________________________________________
 
 //@Mui
-import { IconButton, Stack, styled, Typography } from '@mui/material';
+import { Button, IconButton, Stack, styled, Typography } from '@mui/material';
 //__________________________________________________________
 
 //@Components
@@ -15,6 +15,9 @@ import { useHeaderPosition } from '@/app/employer/positions/hooks/useHeaderPosit
 //@Assets
 import SvgArrowRight1 from 'ideep-design-system-2/icons/ArrowRight1';
 import SvgAdd from 'ideep-design-system-2/icons/Add';
+import { CardList } from '@/app/components/Card';
+import { DIVAR_PRIMARY_COLOR } from '@/app/constant';
+
 //__________________________________________________________
 
 //@Types
@@ -46,23 +49,31 @@ const HeaderPositions = ({
         backgroundColor: applicantId ? 'common.white' : 'background.3',
       }}
     >
+      {!positionId && !applicantId && (
+        //Back to divar
+        <Button
+          variant="text"
+          color="inherit"
+          startIcon={
+            <SvgArrowRight1 primarycolor="inherit" strokeWidth={2} width={24} />
+          }
+          onClick={handleNavigateToDivar}
+          disabled={isNavigating}
+          sx={{
+            stroke: DIVAR_PRIMARY_COLOR,
+            alignSelf: 'start',
+            fontSize: ({ typography }) => typography.caption2,
+            fontWeight: ({ typography }) => typography.caption1,
+          }}
+        >
+          بازگشت به دیوار
+        </Button>
+      )}
       <HeaderSection sx={{ marginBottom: handleSearch ? 0 : 2 }}>
-        {positionId || applicantId ? (
+        {(positionId || applicantId) && (
           //Back to prev page
           <BackButton onClick={handleNavigation} disabled={isNavigating}>
             <SvgArrowRight1 primarycolor="inherit" strokeWidth={2} />
-          </BackButton>
-        ) : (
-          //Back to divar
-          <BackButton disabled={isNavigating} onClick={handleNavigateToDivar}>
-            <SvgAdd
-              primarycolor="inherit"
-              style={{
-                transform: 'rotate(45deg) scale(1.5)',
-                width: 24,
-                height: 24,
-              }}
-            />
           </BackButton>
         )}
         <HeaderTitle>{title}</HeaderTitle>

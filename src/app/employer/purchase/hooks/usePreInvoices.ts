@@ -34,7 +34,7 @@ export function usePreInvoices() {
       value: plan?.price,
     },
     {
-      title: 'مالیات ارزش افزوده',
+      title: 'مالیات بر ارزش افزوده',
       value: taxPrice,
     },
     {

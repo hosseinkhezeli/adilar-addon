@@ -54,7 +54,11 @@ export function PositionCard(props: TPositionCardProps) {
           color="info"
           sx={{
             width: '90%',
-            '.MuiBadge-badge': { color: 'text.secondary', width: 20 },
+            '.MuiBadge-badge': {
+              color: 'text.secondary',
+              width: 20,
+              top: 'calc(100% + 5px)',
+            },
           }}
         >
           <SubtitleText sx={{ visibility: 'hidden', pr: 8 }}>

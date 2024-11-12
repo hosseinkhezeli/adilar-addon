@@ -1,10 +1,18 @@
 'use client';
 import React from 'react';
-import { Box, Button, Stack, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  IconButton,
+  Stack,
+  styled,
+  Typography,
+} from '@mui/material';
 import { SectionComponent } from '@/app/employer/form-creator/components/SectionComponent';
 import { TTypeData } from '@/app/employer/form-creator/type';
 import { useFormSection } from '../hooks/useFormSection';
 import { ResumeItemComponent } from './ResumeItemComponent';
+import SvgAdd from 'ideep-design-system-2/icons/Add';
 
 const FormSection = () => {
   const {
@@ -16,6 +24,8 @@ const FormSection = () => {
     form,
     handleSubmitForm,
     isSubmittingAdForm,
+    isNavigating,
+    handleNavigateToDivar,
   } = useFormSection();
 
   return (
@@ -25,17 +35,36 @@ const FormSection = () => {
       onSubmit={form.handleSubmit(handleSubmitForm)}
       sx={{ height: '100%', width: '100%' }}
     >
-      <Typography
-        variant="body3.medium"
-        color="text.16"
-        py={2}
-        borderBottom="1px solid"
-        borderColor="text.8"
-        width="100%"
-        textAlign="center"
+      <Box
+        py={4}
+        sx={{
+          position: 'relative',
+          width: '100%',
+          display: 'flex',
+          justifyContent: 'center',
+        }}
       >
-        فرم ساز {form.watch('name')}
-      </Typography>
+        <Typography
+          variant="body3.medium"
+          color="text.16"
+          borderBottom="1px solid"
+          borderColor="text.8"
+          width="100%"
+          textAlign="center"
+        >
+          فرم ساز {form.watch('name')}
+        </Typography>
+        <BackButton disabled={isNavigating} onClick={handleNavigateToDivar}>
+          <SvgAdd
+            primarycolor={'inherit'}
+            style={{
+              transform: 'rotate(45deg) scale(1.5)',
+              width: 24,
+              height: 24,
+            }}
+          />
+        </BackButton>
+      </Box>
       <Box
         width={'100%'}
         display={'flex'}
@@ -93,3 +122,15 @@ const FormSection = () => {
 };
 
 export { FormSection };
+
+const BackButton = styled(IconButton)(({ theme }) => ({
+  position: 'absolute',
+  left: 16,
+  stroke: theme.palette.text.primary,
+  path: {
+    strokeWidth: 1.8,
+  },
+  '&.Mui-disabled': {
+    stroke: theme.palette.text[9] + '! important',
+  },
+}));

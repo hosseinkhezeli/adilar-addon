@@ -20,17 +20,6 @@ export function SubmissionResult() {
   return (
     <>
       <Container>
-        <Title
-          sx={{
-            color: submission_state_property
-              ? submission_state_property.color
-              : 'success.main',
-          }}
-        >
-          {submission_state_property
-            ? submission_state_property.title
-            : 'رزومه شما با موفقیت ارسال شد'}
-        </Title>
         <Image
           src={
             submission_state_property
@@ -42,6 +31,17 @@ export function SubmissionResult() {
           height={136}
           style={{ margin: '0 auto', width: '100%', marginTop: 20 }}
         />
+        <Title
+          sx={{
+            color: submission_state_property
+              ? submission_state_property.color
+              : 'success.main',
+          }}
+        >
+          {submission_state_property
+            ? submission_state_property.title
+            : 'رزومه شما با موفقیت ارسال شد'}
+        </Title>
 
         <Stack
           sx={{
@@ -64,7 +64,7 @@ export function SubmissionResult() {
             }}
           >
             <Button
-              variant="outlined"
+              variant="text"
               onClick={onClickReturn}
               isLoading={isNavigating}
               fullWidth

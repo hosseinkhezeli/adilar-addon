@@ -36,8 +36,7 @@ export function usePlans() {
     {
       id: '1',
       title: 'افزودن روی این آگهی',
-      description:
-        'افزونه فرم‌ساز رزومه ادیلار فقط روی این اگهی قرار خواهد گرفت',
+      description: 'افزونه مدیریت و دریافت رزومه آدیلار',
       price: 90000,
       status: 'active',
     },

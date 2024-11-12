@@ -3,14 +3,16 @@ import {
   useGetFormFields,
   useSubmitAdForm,
 } from '@/services/api/employer/hooks';
-import { useMemo, useState, useEffect } from 'react';
+import { useMemo, useState, useEffect, useTransition } from 'react';
 import { TAllData, TTypeData, IDynamicField } from '../type';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { TAdFormDto } from '@/services/api/employer/types';
 import { enqueueSnackbar } from 'notistack';
 import usePurchaseStore from '@/store/purchase/purchaseSlice';
-import { baseData } from '@/app/constant';
+import { baseData, RETURN_TO_POST_URL } from '@/app/constant';
+import { isDivarLink } from '@/utils/methods';
+import { Route } from 'next';
 
 const PRIORITY_START_POINT = 4;
 
@@ -18,6 +20,7 @@ type TForm = TAdFormDto;
 
 export function useFormSection() {
   //Dependencies
+  const [isNavigating, startTransition] = useTransition();
   const { push: navigateTo } = useRouter();
   const { reset } = usePurchaseStore();
   const searchParams = useSearchParams();
@@ -186,6 +189,14 @@ export function useFormSection() {
     });
   };
 
+  const handleNavigateToDivar = () => {
+    if (isDivarLink(RETURN_TO_POST_URL(postToken))) {
+      startTransition(() => {
+        navigateTo(RETURN_TO_POST_URL(postToken) as Route);
+      });
+    }
+  };
+
   return {
     formFields,
     isLoadingFormFields,
@@ -197,5 +208,7 @@ export function useFormSection() {
     form,
     handleSubmitForm,
     isSubmittingAdForm,
+    handleNavigateToDivar,
+    isNavigating,
   };
 }

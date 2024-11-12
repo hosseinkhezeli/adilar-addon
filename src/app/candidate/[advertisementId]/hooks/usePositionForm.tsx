@@ -46,7 +46,7 @@ export function usePositionForm({ handleStateChange }: TProps) {
     error: errorAd,
   } = useGetAdFormAsCandidate({ postToken: postToken });
 
-  const form = useForm({ mode: 'all' });
+  const form = useForm({ mode: 'onSubmit' });
 
   const adInputList = useMemo(
     () =>
@@ -71,7 +71,29 @@ export function usePositionForm({ handleStateChange }: TProps) {
     [isSuccess, ad?.form?.isResumeUploadingRequired]
   );
 
+  const gender = useMemo(() => {
+    return adInputList?.find((input) => input?.semanticType === 'Gender');
+  }, [isSuccess]);
+
+  const militaryService = useMemo(() => {
+    const militaryServiceFieldId = adInputList?.find(
+      (input) => input?.semanticType === 'MilitaryServiceStatus'
+    )?.id;
+    if (militaryServiceFieldId) return militaryServiceFieldId;
+  }, [form?.watch()]);
+
   const fileInput = mockDataForResume.find((field) => field?.type === 'File');
+
+  const validatedInputList = inputList?.map((input) => {
+    const militaryServiceByGender =
+      form.watch(gender?.id ?? '404_gender_id') ===
+      gender?.options.find((option) => option.title === 'زن')?.id;
+    return {
+      ...(input.name === militaryService
+        ? { ...input, disabled: militaryServiceByGender }
+        : { ...input }),
+    };
+  });
 
   // Handlers
   const handleGetFileFromUploader = (
@@ -188,7 +210,7 @@ export function usePositionForm({ handleStateChange }: TProps) {
 
   return {
     form,
-    inputList,
+    validatedInputList,
     fileInput,
     handleGetFileFromUploader,
     resumeFile,

@@ -28,9 +28,14 @@ export function useFormSection() {
   const advertisementId = searchParams.get('advertisement_id');
   const { mutateAsync: submitAdForm, isPending: isSubmittingAdForm } =
     useSubmitAdForm();
-  const { data: adData, isLoading: isLoadingAdData } =
-    useGetAdByDivarPostToken(postToken);
-
+  const {
+    data: adData,
+    isLoading: isLoadingAdData,
+    error: adErrorObj,
+    isError: isAdError,
+    isLoadingError: isAdLoadingError,
+  } = useGetAdByDivarPostToken(postToken);
+  const adError = { value: isAdError && isAdLoadingError, error: adErrorObj };
   const form = useForm<TForm>({
     defaultValues: {
       isResumeUploadingRequired: false,
@@ -210,5 +215,6 @@ export function useFormSection() {
     isSubmittingAdForm,
     handleNavigateToDivar,
     isNavigating,
+    adError,
   };
 }

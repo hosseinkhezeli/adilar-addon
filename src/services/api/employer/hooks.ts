@@ -24,6 +24,7 @@ export const useGetAdByDivarPostToken = (postToken: string | null) => {
     enabled: !!postToken,
     staleTime: 0,
     refetchOnWindowFocus: false,
+    retry: false,
   });
 };
 //______________________________________________________________

@@ -116,6 +116,7 @@ const SectionComponent = ({
       <MenuButton
         isOpen={open}
         onClick={handleClick}
+        disabled={isLoadingFormFields}
         sx={{
           alignSelf: 'start',
           backgroundColor: 'secondary.2',

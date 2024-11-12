@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import {
+  Alert,
   Box,
   Button,
   IconButton,
@@ -13,6 +14,7 @@ import { TTypeData } from '@/app/employer/form-creator/type';
 import { useFormSection } from '../hooks/useFormSection';
 import { ResumeItemComponent } from './ResumeItemComponent';
 import SvgAdd from 'ideep-design-system-2/icons/Add';
+import SvgCloseCircle from 'ideep-design-system-2/icons/CloseCircle';
 
 const FormSection = () => {
   const {
@@ -26,6 +28,7 @@ const FormSection = () => {
     isSubmittingAdForm,
     isNavigating,
     handleNavigateToDivar,
+    adError,
   } = useFormSection();
 
   return (
@@ -77,34 +80,47 @@ const FormSection = () => {
         maxWidth={560}
         mx={'auto'}
       >
-        {Object.keys(allData).map((key) => (
-          <SectionComponent
-            key={key}
-            title={allData[key as TTypeData].title}
-            data={allData[key as TTypeData]}
-            objectKey={key as TTypeData}
-            handleRemoveDynamicField={handleRemoveDynamicField}
-            handleAddDynamicField={handleAddDynamicField}
-            handleRequiredField={handleRequiredField}
-            isLoadingFormFields={isLoadingFormFields}
-          />
-        ))}
+        {adError?.value ? (
+          <Alert
+            severity="error"
+            icon={<SvgCloseCircle primarycolor="inherit" />}
+            sx={{ stroke: ({ palette }) => palette.error.main }}
+          >
+            {adError.error?.message}
+          </Alert>
+        ) : (
+          <>
+            {Object.keys(allData).map((key) => (
+              <SectionComponent
+                key={key}
+                title={allData[key as TTypeData].title}
+                data={allData[key as TTypeData]}
+                objectKey={key as TTypeData}
+                handleRemoveDynamicField={handleRemoveDynamicField}
+                handleAddDynamicField={handleAddDynamicField}
+                handleRequiredField={handleRequiredField}
+                isLoadingFormFields={isLoadingFormFields}
+              />
+            ))}
 
-        <ResumeItemComponent
-          isChecked={form.watch('isResumeUploadingRequired')}
-          onChange={() => {
-            form.setValue(
-              'isResumeUploadingRequired',
-              !form.watch('isResumeUploadingRequired')
-            );
-          }}
-        />
+            <ResumeItemComponent
+              isChecked={form.watch('isResumeUploadingRequired')}
+              onChange={() => {
+                form.setValue(
+                  'isResumeUploadingRequired',
+                  !form.watch('isResumeUploadingRequired')
+                );
+              }}
+            />
+          </>
+        )}
       </Box>
 
       <Button
         type="submit"
         variant="contained"
         isLoading={isSubmittingAdForm}
+        disabled={adError?.value}
         sx={{
           position: 'fixed',
           width: 'calc(100% - 32px)',

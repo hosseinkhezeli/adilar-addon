@@ -46,7 +46,7 @@ export function usePositionForm({ handleStateChange }: TProps) {
     error: errorAd,
   } = useGetAdFormAsCandidate({ postToken: postToken });
 
-  const form = useForm({ mode: 'onSubmit' });
+  const form = useForm({ mode: 'onBlur' });
 
   const adInputList = useMemo(
     () =>
@@ -85,9 +85,10 @@ export function usePositionForm({ handleStateChange }: TProps) {
   const fileInput = mockDataForResume.find((field) => field?.type === 'File');
 
   const validatedInputList = inputList?.map((input) => {
-    const militaryServiceByGender =
-      form.watch(gender?.id ?? '404_gender_id') ===
-      gender?.options.find((option) => option.title === 'زن')?.id;
+    const militaryServiceByGender = form.watch(gender?.id ?? '404_gender_id')
+      ? form.watch(gender?.id ?? '404_gender_id') ===
+        gender?.options.find((option) => option.title === 'زن')?.id
+      : false;
     return {
       ...(input.name === militaryService
         ? { ...input, disabled: militaryServiceByGender }

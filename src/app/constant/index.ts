@@ -1,7 +1,8 @@
 'use client';
 import { TAllData } from '@/app/employer/form-creator/type';
 import { getCookie } from '@/utils/methods';
-export const RETURN_URL = getCookie('return-url');
+
+export const RETURN_URL = decodeURIComponent(getCookie('return-url') || '');
 
 export const DIVAR_PRIMARY_COLOR = '#96403F';
 

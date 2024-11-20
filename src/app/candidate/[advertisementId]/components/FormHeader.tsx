@@ -1,6 +1,6 @@
 'use client';
 //@3rd Party
-import React, { CSSProperties, useMemo } from 'react';
+import React, { CSSProperties, useEffect, useState } from 'react';
 //_______________________________________________________________
 
 //@Mui
@@ -16,11 +16,13 @@ import { RETURN_URL } from '@/app/constant';
 import { Route } from 'next';
 
 export function FormHeader() {
-  const returnUrl = useMemo(() => {
-    if (RETURN_URL && isDivarLink(RETURN_URL)) {
-      return RETURN_URL;
-    } else return '404_return_url';
-  }, [RETURN_URL]);
+  const [returnUrl, setReturnUrl] = useState<string | undefined>();
+
+  useEffect(() => {
+    if (isDivarLink(RETURN_URL)) {
+      setReturnUrl(RETURN_URL);
+    }
+  }, []);
 
   return (
     <Box sx={styles.header}>

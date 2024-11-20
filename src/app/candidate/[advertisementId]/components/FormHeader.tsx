@@ -19,10 +19,10 @@ export function FormHeader() {
   const [returnUrl, setReturnUrl] = useState<string | undefined>();
 
   useEffect(() => {
-    if (isDivarLink(RETURN_URL)) {
+    if (!returnUrl && isDivarLink(RETURN_URL)) {
       setReturnUrl(RETURN_URL);
     }
-  }, []);
+  }, [returnUrl]);
 
   return (
     <Box sx={styles.header}>

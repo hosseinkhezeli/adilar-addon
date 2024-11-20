@@ -284,7 +284,9 @@ export function inputListAdapter(fields: IFormField[] | undefined) {
           field.type === 'Date'
             ? {
                 className: 'rmdp-mobile',
-                maxDate: new Date(Date.now()),
+                maxDate: new Date(Date.now()).setDate(
+                  new Date(Date.now()).getDate() - 1
+                ),
                 mobileLabels: {
                   CANCEL: 'بستن',
                   OK: 'تایید',
@@ -375,8 +377,10 @@ export function getCookie(name: string) {
 //___________________________________________________________________
 
 //Redirect to divar validation
-export function isDivarLink(link: string) {
-  const divarRegex = /^https:\/\/(?:[a-zA-Z0-9-]+\.)?divar\.ir(\/?|\/.+)/;
-  return divarRegex.test(link);
+export function isDivarLink(link: string | undefined) {
+  if (link) {
+    const divarRegex = /^https:\/\/(?:[a-zA-Z0-9-]+\.)?divar\.ir(\/?|\/.+)/;
+    return divarRegex.test(link);
+  }
 }
 //___________________________________________________________________

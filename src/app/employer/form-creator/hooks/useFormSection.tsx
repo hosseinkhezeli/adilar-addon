@@ -10,7 +10,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { TAdFormDto } from '@/services/api/employer/types';
 import { enqueueSnackbar } from 'notistack';
 import usePurchaseStore from '@/store/purchase/purchaseSlice';
-import { baseData, RETURN_TO_POST_URL } from '@/app/constant';
+import { baseData, RETURN_URL } from '@/app/constant';
 import { isDivarLink } from '@/utils/methods';
 import { Route } from 'next';
 
@@ -195,9 +195,9 @@ export function useFormSection() {
   };
 
   const handleNavigateToDivar = () => {
-    if (isDivarLink(RETURN_TO_POST_URL(postToken))) {
+    if (isDivarLink(RETURN_URL)) {
       startTransition(() => {
-        navigateTo(RETURN_TO_POST_URL(postToken) as Route);
+        navigateTo(RETURN_URL as Route);
       });
     }
   };

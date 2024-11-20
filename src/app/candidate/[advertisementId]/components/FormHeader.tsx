@@ -1,5 +1,6 @@
+'use client';
 //@3rd Party
-import React, { CSSProperties } from 'react';
+import React, { CSSProperties, useMemo } from 'react';
 //_______________________________________________________________
 
 //@Mui
@@ -12,21 +13,28 @@ import SvgClose from 'ideep-design-system-2/icons/Add';
 import { isDivarLink } from '@/utils/methods';
 import { RETURN_URL } from '@/app/constant';
 //_______________________________________________________________
+import { Route } from 'next';
 
-//@Types
-type TFormHeader = {
-  postToken: string | null;
-};
+export function FormHeader() {
+  const returnUrl = useMemo(() => {
+    if (RETURN_URL && isDivarLink(RETURN_URL)) {
+      return RETURN_URL;
+    } else return '404_return_url';
+  }, [RETURN_URL]);
 
-export function FormHeader({ postToken }: TFormHeader) {
   return (
     <Box sx={styles.header}>
       <Box sx={styles.container}>
-        {isDivarLink(RETURN_URL) && (
-          <Link href={RETURN_URL} style={styles.navigateLink}>
-            <SvgClose style={styles.svgClose} />
-          </Link>
-        )}
+        <Link
+          href={
+            // isDivarLink(RETURN_URL) ? RETURN_URL : ('404_return_url' as Route)
+            `${returnUrl}` as Route
+          }
+          style={styles.navigateLink}
+        >
+          <SvgClose style={styles.svgClose} />
+        </Link>
+
         <Typography variant="body3.medium">ارسال رزومه امن</Typography>
       </Box>
     </Box>

@@ -1,3 +1,4 @@
+'use client';
 import { TAllData } from '@/app/employer/form-creator/type';
 import { getCookie } from '@/utils/methods';
 export const RETURN_URL = getCookie('return-url');

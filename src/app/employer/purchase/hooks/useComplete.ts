@@ -48,7 +48,7 @@ export function useComplete() {
   const onClickExit = () => {
     startTransition(() => {
       if (isDivarLink(RETURN_URL)) {
-        navigateTo(RETURN_URL);
+        navigateTo(RETURN_URL as Route);
       }
     });
   };

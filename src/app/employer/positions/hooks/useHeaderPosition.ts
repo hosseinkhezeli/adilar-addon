@@ -1,20 +1,19 @@
 'use client';
 //@3rd Party
 import { useTransition } from 'react';
-import { useParams, useRouter, useSearchParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { RETURN_URL } from '@/app/constant';
 import { isDivarLink } from '@/utils/methods';
+import { Route } from 'next';
 //__________________________________________________________________
 
 export function useHeaderPosition() {
   const { push: navigateTo } = useRouter();
   const params = useParams();
-  const searchParams = useSearchParams();
   const [isNavigating, startTransition] = useTransition();
 
   const applicantId = params?.applicantId;
   const positionId = params?.positionId;
-  const postToken = searchParams?.get('post_token');
 
   const handleNavigation = () => {
     startTransition(() => {
@@ -28,7 +27,9 @@ export function useHeaderPosition() {
 
   const handleNavigateToDivar = () => {
     if (isDivarLink(RETURN_URL)) {
-      navigateTo(RETURN_URL);
+      startTransition(() => {
+        navigateTo(RETURN_URL as Route);
+      });
     }
   };
   return {

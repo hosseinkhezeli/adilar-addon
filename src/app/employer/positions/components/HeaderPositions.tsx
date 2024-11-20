@@ -14,8 +14,6 @@ import { useHeaderPosition } from '@/app/employer/positions/hooks/useHeaderPosit
 
 //@Assets
 import SvgArrowRight1 from 'ideep-design-system-2/icons/ArrowRight1';
-import SvgAdd from 'ideep-design-system-2/icons/Add';
-import { CardList } from '@/app/components/Card';
 import { DIVAR_PRIMARY_COLOR } from '@/app/constant';
 
 //__________________________________________________________

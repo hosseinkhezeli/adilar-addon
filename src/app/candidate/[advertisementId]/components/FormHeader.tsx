@@ -18,9 +18,13 @@ import { Route } from 'next';
 export function FormHeader() {
   const [returnUrl, setReturnUrl] = useState<string | undefined>();
 
+  console.log('returnUrl state', returnUrl);
+
   useEffect(() => {
+    console.log('returnUrl in effect before', returnUrl);
     if (!returnUrl && isDivarLink(RETURN_URL)) {
       setReturnUrl(RETURN_URL);
+      console.log('returnUrl in effect after', returnUrl);
     }
   }, [returnUrl]);
 

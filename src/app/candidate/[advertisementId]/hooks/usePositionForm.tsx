@@ -85,21 +85,21 @@ export function usePositionForm({ handleStateChange }: TProps) {
   const fileInput = mockDataForResume.find((field) => field?.type === 'File');
 
   const validatedInputList = inputList?.map((input) => {
-    const militaryServiceByGender = form.watch(gender?.id ?? '404_gender_id')
-      ? form.watch(gender?.id ?? '404_gender_id') ===
-        gender?.options.find((option) => option.title !== 'مرد')?.id
-      : false;
+    // const militaryServiceByGender = form.watch(gender?.id ?? '404_gender_id')
+    //   ? form.watch(gender?.id ?? '404_gender_id') ===
+    //     gender?.options.find((option) => option.title !== 'مرد')?.id
+    //   : false;
     return {
       ...(input.name === militaryService
         ? {
             ...input,
-            disabled: militaryServiceByGender,
+            // disabled: militaryServiceByGender,
             rules: {
               ...input.rules,
-              required: {
-                value: !militaryServiceByGender,
-                message: 'پر کردن این فیلد الزامیست',
-              },
+              // required: {
+              //   value: !militaryServiceByGender,
+              //   message: 'پر کردن این فیلد الزامیست',
+              // },
             },
           }
         : { ...input }),

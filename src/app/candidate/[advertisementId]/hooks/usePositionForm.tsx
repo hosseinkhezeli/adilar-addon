@@ -87,11 +87,21 @@ export function usePositionForm({ handleStateChange }: TProps) {
   const validatedInputList = inputList?.map((input) => {
     const militaryServiceByGender = form.watch(gender?.id ?? '404_gender_id')
       ? form.watch(gender?.id ?? '404_gender_id') ===
-        gender?.options.find((option) => option.title === 'زن')?.id
+        gender?.options.find((option) => option.title !== 'مرد')?.id
       : false;
     return {
       ...(input.name === militaryService
-        ? { ...input, disabled: militaryServiceByGender }
+        ? {
+            ...input,
+            disabled: militaryServiceByGender,
+            rules: {
+              ...input.rules,
+              required: {
+                value: !militaryServiceByGender,
+                message: 'پر کردن این فیلد الزامیست',
+              },
+            },
+          }
         : { ...input }),
     };
   });

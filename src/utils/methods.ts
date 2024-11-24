@@ -284,8 +284,8 @@ export function inputListAdapter(fields: IFormField[] | undefined) {
           field.type === 'Date'
             ? {
                 className: 'rmdp-mobile',
-                maxDate: new Date(Date.now()).setDate(
-                  new Date(Date.now()).getDate() - 1
+                maxDate: new Date(Date.now()).setHours(
+                  new Date(Date.now()).getHours() - 23
                 ),
                 mobileLabels: {
                   CANCEL: 'بستن',

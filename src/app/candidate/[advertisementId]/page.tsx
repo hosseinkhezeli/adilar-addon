@@ -33,7 +33,7 @@ const Page = ({ searchParams }: TParams) => {
   } else {
     return (
       <>
-        <FormHeader postToken={searchParams?.post_token} />
+        <FormHeader />
         <PositionSubmissionFlow />
       </>
     );

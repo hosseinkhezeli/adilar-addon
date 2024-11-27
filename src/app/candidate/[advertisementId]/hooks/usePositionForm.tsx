@@ -189,14 +189,15 @@ export function usePositionForm({ handleStateChange }: TProps) {
     );
 
     const submissionAnswers: TSubmissionAnswer[] = fieldIds
-      .map((fieldId) => {
+      ?.filter((field) => data[field])
+      ?.map((fieldId) => {
         const fieldType = fieldTypeMap?.[fieldId];
         const fieldValue = data[fieldId];
         return {
           fieldId,
           value:
             fieldType === 'date-picker'
-              ? new Date(fieldValue || Date.now()).toISOString()
+              ? new Date(fieldValue).toISOString()
               : fieldValue,
         };
       })

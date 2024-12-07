@@ -102,23 +102,31 @@ const FormContainer = styled(Box)<BoxProps & { component?: React.ElementType }>(
   () => ({
     width: '100%',
     height: '100%',
+    maxWidth: 560,
+    margin: '0 auto',
     minHeight: 'calc(100vh + 32px)',
   })
 );
 
-const SubmitButton = styled(Button)(() => ({
+const SubmitButton = styled(Button)(({ theme }) => ({
   position: 'fixed',
-  width: 'calc(100% - 32px)',
+  maxWidth: 'calc(100% - 21px)',
   margin: '0 auto',
   bottom: 16,
-  left: 16,
+  right: 0,
+  left: 0,
   zIndex: 1000,
+  [theme.breakpoints.up('sm')]: {
+    width: 'calc(100% - 28px)',
+    maxWidth: 560,
+  },
 }));
 
 const Container = styled(Stack)<StackProps>(({ theme }) => ({
   width: '100%',
   height: 'auto',
   display: 'flex',
+  maxWidth: 560,
   minHeight: 'calc(100vh + 32px)',
   paddingBottom: theme.spacing(14),
   marginBottom: theme.spacing(4),

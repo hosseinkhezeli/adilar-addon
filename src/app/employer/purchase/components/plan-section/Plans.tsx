@@ -57,7 +57,7 @@ const PlansContainer = styled(Stack)(({ theme }) => ({
 }));
 const SubmitButton = styled(Button)(() => ({
   position: 'fixed',
-  width: 'calc(100% - 32px)',
+  maxWidth: 528,
   margin: '0 auto',
   bottom: 16,
   right: 0,

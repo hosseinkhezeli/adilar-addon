@@ -58,7 +58,9 @@ const Container = styled(Stack)(() => ({
   height: '100vh',
   justifyContent: 'space-evenly',
   padding: 24,
+  margin: '0 auto',
   width: '100%',
+  maxWidth: 560,
 }));
 
 const TextContainer = styled(Stack)(() => ({

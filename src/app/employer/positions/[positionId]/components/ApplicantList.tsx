@@ -92,7 +92,7 @@ export function ApplicantList() {
 }
 
 const TabsContainer = styled(Box)(() => ({
-  padding: '0px 16px',
+  padding: '0px 8px',
   maxWidth: 560,
   width: '100%',
   margin: '0 auto',

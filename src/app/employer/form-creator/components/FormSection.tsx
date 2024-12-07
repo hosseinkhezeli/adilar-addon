@@ -4,6 +4,7 @@ import {
   Alert,
   Box,
   Button,
+  Divider,
   IconButton,
   Stack,
   styled,
@@ -43,15 +44,16 @@ const FormSection = () => {
         sx={{
           position: 'relative',
           width: '100%',
+          maxWidth: 560,
           display: 'flex',
+          margin: '0 auto',
           justifyContent: 'center',
+          alignItems: 'baseline',
         }}
       >
         <Typography
           variant="body3.medium"
           color="text.16"
-          borderBottom="1px solid"
-          borderColor="text.8"
           width="100%"
           textAlign="center"
         >
@@ -68,6 +70,7 @@ const FormSection = () => {
           />
         </BackButton>
       </Box>
+      <Divider />
       <Box
         width={'100%'}
         display={'flex'}
@@ -123,7 +126,7 @@ const FormSection = () => {
         disabled={adError?.value}
         sx={{
           position: 'fixed',
-          width: 'calc(100% - 32px)',
+          maxWidth: 528,
           margin: '0 auto',
           bottom: 16,
           right: 0,
@@ -144,7 +147,7 @@ const BackButton = styled(IconButton)(({ theme }) => ({
   left: 16,
   stroke: theme.palette.text.primary,
   path: {
-    strokeWidth: 1.8,
+    strokeWidth: 1.6,
   },
   '&.Mui-disabled': {
     stroke: theme.palette.text[9] + '! important',

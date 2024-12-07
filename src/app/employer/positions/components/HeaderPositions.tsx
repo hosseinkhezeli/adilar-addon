@@ -47,27 +47,31 @@ const HeaderPositions = ({
         backgroundColor: applicantId ? 'common.white' : 'background.3',
       }}
     >
-      {!positionId && !applicantId && (
-        //Back to divar
-        <Button
-          variant="text"
-          color="inherit"
-          startIcon={
-            <SvgArrowRight1 primarycolor="inherit" strokeWidth={2} width={24} />
-          }
-          onClick={handleNavigateToDivar}
-          disabled={isNavigating}
-          sx={{
-            stroke: DIVAR_PRIMARY_COLOR,
-            alignSelf: 'start',
-            fontSize: ({ typography }) => typography.caption2,
-            fontWeight: ({ typography }) => typography.caption1,
-          }}
-        >
-          بازگشت به دیوار
-        </Button>
-      )}
       <HeaderSection sx={{ marginBottom: handleSearch ? 0 : 2 }}>
+        {!positionId && !applicantId && (
+          //Back to divar
+          <Button
+            variant="text"
+            color="inherit"
+            startIcon={
+              <SvgArrowRight1
+                primarycolor="inherit"
+                strokeWidth={2}
+                width={24}
+              />
+            }
+            onClick={handleNavigateToDivar}
+            disabled={isNavigating}
+            sx={{
+              stroke: DIVAR_PRIMARY_COLOR,
+              alignSelf: 'start',
+              fontSize: ({ typography }) => typography.caption2,
+              fontWeight: ({ typography }) => typography.caption1,
+            }}
+          >
+            بازگشت به دیوار
+          </Button>
+        )}
         {(positionId || applicantId) && (
           //Back to prev page
           <BackButton onClick={handleNavigation} disabled={isNavigating}>
@@ -75,15 +79,15 @@ const HeaderPositions = ({
           </BackButton>
         )}
         <HeaderTitle>{title}</HeaderTitle>
+        {handleSearch ? (
+          <SearchInput
+            placeholder="جستجو..."
+            value={value || ''}
+            onChange={(e) => handleSearch(e.target.value)}
+            sx={SearchInputStyle}
+          />
+        ) : null}
       </HeaderSection>
-      {handleSearch ? (
-        <SearchInput
-          placeholder="جستجو..."
-          value={value || ''}
-          onChange={(e) => handleSearch(e.target.value)}
-          sx={SearchInputStyle}
-        />
-      ) : null}
       {children}
     </Container>
   );
@@ -96,12 +100,12 @@ const Container = styled(Stack)(({ theme }) => ({
   paddingBottom: theme.spacing(3),
 }));
 
-const HeaderSection = styled(Stack)(() => ({
-  flexDirection: 'row',
+const HeaderSection = styled(Stack)(({ theme }) => ({
   position: 'relative',
   maxWidth: 560,
   width: '100%',
   margin: '0 auto',
+  px: theme.spacing(3),
 }));
 
 const BackButton = styled(IconButton)(({ theme }) => ({

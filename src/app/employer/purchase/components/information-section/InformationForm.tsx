@@ -61,7 +61,7 @@ const Form = styled(Box)<BoxProps & { component?: React.ElementType }>(
 
 const SubmitButton = styled(Button)(() => ({
   position: 'fixed',
-  width: 'calc(100% - 32px)',
+  maxWidth: 528,
   margin: '0 auto',
   bottom: 16,
   right: 0,

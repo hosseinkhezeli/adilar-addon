@@ -49,9 +49,16 @@ const BottomSheet = ({
         <Typography variant={'body3.bold'}>{title}</Typography>
 
         {!withoutCloseButton && (
-          <IconButton aria-label="close" size="small" onClick={handleClose}>
-            <SvgAdd style={{ transform: 'rotate(45deg)' }} />
-          </IconButton>
+          <CloseButton aria-label="close" size="small" onClick={handleClose}>
+            <SvgAdd
+              primarycolor={'inherit'}
+              style={{
+                transform: 'rotate(45deg) scale(1.5)',
+                width: 24,
+                height: 24,
+              }}
+            />
+          </CloseButton>
         )}
       </DialogHeader>
 
@@ -86,7 +93,7 @@ const style: DialogProps['sx'] = {
     height: 'max-content',
     padding: 0,
     transform: 'translateY(40%)',
-    maxWidth: 560,
+    maxWidth: { xs: 'calc(100% - 40px)', sm: 560 },
   },
 };
 const DialogHeader = styled(Box)({
@@ -95,3 +102,13 @@ const DialogHeader = styled(Box)({
   justifyContent: 'space-between',
   padding: 12,
 });
+
+const CloseButton = styled(IconButton)(({ theme }) => ({
+  stroke: theme.palette.text.primary,
+  path: {
+    strokeWidth: 1.6,
+  },
+  '&.Mui-disabled': {
+    stroke: theme.palette.text[9] + '! important',
+  },
+}));

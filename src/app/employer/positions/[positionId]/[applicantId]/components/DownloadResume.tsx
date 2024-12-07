@@ -31,7 +31,7 @@ const DownloadResume = ({ resumeId, fullName, extension }: IDownloadResume) => {
       </Typography>
       <Box
         component="a"
-        href={`${process.env.NEXT_PUBLIC_API_URL}/api/File/asset/${resumeId}/${resumeId}.${extension}`}
+        href={`${process.env.NEXT_PUBLIC_API_URL}/api/File/asset/${resumeId}/${resumeId}${extension}`}
         download={`${fullName}-resume`}
         target="_blank"
       >
@@ -43,21 +43,6 @@ const DownloadResume = ({ resumeId, fullName, extension }: IDownloadResume) => {
             backgroundColor: 'transparent !important',
             width: '100%',
           }}
-          // onClick={async () => {
-          //   const res = await fetch(
-          //     `${process.env.NEXT_PUBLIC_API_URL}/api/File/asset/${resumeId}`
-          //   );
-          //   const file = await res.blob();
-
-          //   const url = URL.createObjectURL(file);
-          //   const a = document.createElement('a');
-          //   a.href = url;
-          //   a.download = `${fullName}-resume`;
-          //   document.body.appendChild(a);
-          //   a.click();
-          //   a.remove();
-          //   URL.revokeObjectURL(url);
-          // }}
         >
           <Typography
             variant="caption1"
@@ -73,7 +58,7 @@ const DownloadResume = ({ resumeId, fullName, extension }: IDownloadResume) => {
           </Typography>
         </Button>
       </Box>
-      <Typography>a tag && without _blank</Typography>
+      {/* <Typography>a tag && without _blank</Typography>
       <Box
         component="a"
         href={`${process.env.NEXT_PUBLIC_API_URL}/api/File/asset/${resumeId}`}
@@ -156,7 +141,7 @@ const DownloadResume = ({ resumeId, fullName, extension }: IDownloadResume) => {
           <PDFIcon />
           دانلود فایل رزومه
         </Typography>
-      </Button>
+      </Button> */}
     </Stack>
   );
 };

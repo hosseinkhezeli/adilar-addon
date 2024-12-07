@@ -91,6 +91,7 @@ const Applicant = () => {
                   {!data.resumeId ? null : (
                     <DownloadResume
                       resumeId={data.resumeId}
+                      extension={data?.resumeExtension}
                       fullName={
                         data.fields.find(
                           (item) => item.semanticType == 'FirstName'

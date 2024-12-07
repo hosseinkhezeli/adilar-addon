@@ -43,3 +43,16 @@ export const mockDataForResume = [
     updatedAt: '2024-10-14T13:35:20.404057Z',
   },
 ];
+
+export const ACCEPTED_EXTENSIONS = [
+  'jpg',
+  'jpeg',
+  'png',
+  'pdf',
+  'doc',
+  'docx',
+  'txt',
+  'cv',
+  'gif',
+  'webp',
+];

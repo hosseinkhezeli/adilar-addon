@@ -22,7 +22,7 @@ import {
 import { TSubmissionState } from './usePositionSubmission';
 import { TSubmissionAnswer } from '@/services/api/candidate/types';
 import { IFormField } from '@/types/common-types';
-import { mockDataForResume } from '@/app/constant';
+import { ACCEPTED_EXTENSIONS, mockDataForResume } from '@/app/constant';
 type TProps = {
   handleStateChange: (state: TSubmissionState) => void;
 };
@@ -111,8 +111,17 @@ export function usePositionForm({ handleStateChange }: TProps) {
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const file = event.target.files?.[0];
-    if (file) {
+    const fileExtension = file?.type?.split('/')[1];
+    if (
+      file &&
+      ACCEPTED_EXTENSIONS.find((extension) => fileExtension === extension)
+    ) {
       setResumeFile(file);
+    } else {
+      enqueueSnackbar({
+        variant: 'error',
+        message: 'فرمت فایل رزومه پشتیبانی نمی‌شود',
+      });
     }
   };
   //____________________________________________________________________

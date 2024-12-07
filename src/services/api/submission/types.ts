@@ -17,6 +17,7 @@ export interface IGetSubmissionResponse {
   nextSubmissionId: string | null;
   previousSubmissionId: string | null;
   fields: IField[];
+  resumeExtension: string;
 }
 
 export interface IField {

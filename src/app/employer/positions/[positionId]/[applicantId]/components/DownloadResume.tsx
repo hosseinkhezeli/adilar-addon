@@ -15,10 +15,11 @@ import { PDFIcon } from '@/app/icons/PDFIcon';
 interface IDownloadResume {
   resumeId: string;
   fullName: string;
+  extension: string;
 }
 //_________________________________________________________
 
-const DownloadResume = ({ resumeId, fullName }: IDownloadResume) => {
+const DownloadResume = ({ resumeId, fullName, extension }: IDownloadResume) => {
   return (
     <Stack
       sx={{
@@ -30,7 +31,7 @@ const DownloadResume = ({ resumeId, fullName }: IDownloadResume) => {
       </Typography>
       <Box
         component="a"
-        href={`${process.env.NEXT_PUBLIC_API_URL}/api/File/asset/${resumeId}`}
+        href={`${process.env.NEXT_PUBLIC_API_URL}/api/File/asset/${resumeId}/${resumeId}.${extension}`}
         download={`${fullName}-resume`}
         target="_blank"
       >

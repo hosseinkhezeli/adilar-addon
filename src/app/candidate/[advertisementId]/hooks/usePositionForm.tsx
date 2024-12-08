@@ -22,7 +22,7 @@ import {
 import { TSubmissionState } from './usePositionSubmission';
 import { TSubmissionAnswer } from '@/services/api/candidate/types';
 import { IFormField } from '@/types/common-types';
-import { ACCEPTED_EXTENSIONS, mockDataForResume } from '@/app/constant';
+import { ACCEPTED_FILE_TYPES, mockDataForResume } from '@/app/constant';
 type TProps = {
   handleStateChange: (state: TSubmissionState) => void;
 };
@@ -111,10 +111,12 @@ export function usePositionForm({ handleStateChange }: TProps) {
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const file = event.target.files?.[0];
-    const fileExtension = file?.type?.split('/')[1];
+
+    console.log(file);
+
     if (
       file &&
-      ACCEPTED_EXTENSIONS.find((extension) => fileExtension === extension)
+      ACCEPTED_FILE_TYPES.find((extension) => file.type === extension)
     ) {
       setResumeFile(file);
     } else {

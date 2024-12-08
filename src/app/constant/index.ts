@@ -44,15 +44,13 @@ export const mockDataForResume = [
   },
 ];
 
-export const ACCEPTED_EXTENSIONS = [
-  'jpg',
-  'jpeg',
-  'png',
-  'pdf',
-  'doc',
-  'docx',
-  'txt',
-  'cv',
-  'gif',
-  'webp',
+export const ACCEPTED_FILE_TYPES = [
+  'image/jpeg',
+  'image/png',
+  'application/pdf',
+  'image/gif',
+  'image/webp',
+  'application/msword',
+  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+  'text/plain',
 ];

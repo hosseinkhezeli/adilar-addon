@@ -65,13 +65,7 @@ export function UploaderButton({
           </>
         )}
       </UploadButton>
-      {!file && (
-        <HiddenFileInput
-          type="file"
-          accept=".pdf,.doc,.docx,.txt,.png,.jpeg,.jpg"
-          onChange={onFileChange}
-        />
-      )}
+      {!file && <HiddenFileInput type="file" onChange={onFileChange} />}
     </Label>
   );
 }

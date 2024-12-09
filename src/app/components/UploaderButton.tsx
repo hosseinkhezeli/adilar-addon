@@ -14,6 +14,7 @@ import { truncateString } from '@/utils/methods';
 //@Assets
 import SvgDocumentUpload from 'ideep-design-system-2/icons/DocumentUpload';
 import SvgTrash from 'ideep-design-system-2/icons/Trash';
+import { ACCEPTED_FILE_TYPES } from '../constant';
 //_______________________________________________________________
 
 interface UploaderButtonProps {
@@ -65,7 +66,13 @@ export function UploaderButton({
           </>
         )}
       </UploadButton>
-      {!file && <HiddenFileInput type="file" onChange={onFileChange} />}
+      {!file && (
+        <HiddenFileInput
+          type="file"
+          accept={ACCEPTED_FILE_TYPES.join(',')}
+          onChange={onFileChange}
+        />
+      )}
     </Label>
   );
 }

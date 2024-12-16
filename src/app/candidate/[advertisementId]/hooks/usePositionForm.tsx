@@ -22,7 +22,7 @@ import {
 import { TSubmissionState } from './usePositionSubmission';
 import { TSubmissionAnswer } from '@/services/api/candidate/types';
 import { IFormField } from '@/types/common-types';
-import { ACCEPTED_EXTENSIONS, mockDataForResume } from '@/app/constant';
+import { ACCEPTED_FILE_TYPES, mockDataForResume } from '@/app/constant';
 type TProps = {
   handleStateChange: (state: TSubmissionState) => void;
 };
@@ -71,10 +71,6 @@ export function usePositionForm({ handleStateChange }: TProps) {
     [isSuccess, ad?.form?.isResumeUploadingRequired]
   );
 
-  const gender = useMemo(() => {
-    return adInputList?.find((input) => input?.semanticType === 'Gender');
-  }, [isSuccess]);
-
   const militaryService = useMemo(() => {
     const militaryServiceFieldId = adInputList?.find(
       (input) => input?.semanticType === 'MilitaryServiceStatus'
@@ -85,21 +81,12 @@ export function usePositionForm({ handleStateChange }: TProps) {
   const fileInput = mockDataForResume.find((field) => field?.type === 'File');
 
   const validatedInputList = inputList?.map((input) => {
-    // const militaryServiceByGender = form.watch(gender?.id ?? '404_gender_id')
-    //   ? form.watch(gender?.id ?? '404_gender_id') ===
-    //     gender?.options.find((option) => option.title !== 'مرد')?.id
-    //   : false;
     return {
       ...(input.name === militaryService
         ? {
             ...input,
-            // disabled: militaryServiceByGender,
             rules: {
               ...input.rules,
-              // required: {
-              //   value: !militaryServiceByGender,
-              //   message: 'پر کردن این فیلد الزامیست',
-              // },
             },
           }
         : { ...input }),
@@ -111,10 +98,9 @@ export function usePositionForm({ handleStateChange }: TProps) {
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const file = event.target.files?.[0];
-    const fileExtension = file?.type?.split('/')[1];
     if (
       file &&
-      ACCEPTED_EXTENSIONS.find((extension) => fileExtension === extension)
+      ACCEPTED_FILE_TYPES.find((extension) => file.type === extension)
     ) {
       setResumeFile(file);
     } else {

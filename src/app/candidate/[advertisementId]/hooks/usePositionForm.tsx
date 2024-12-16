@@ -71,10 +71,6 @@ export function usePositionForm({ handleStateChange }: TProps) {
     [isSuccess, ad?.form?.isResumeUploadingRequired]
   );
 
-  const gender = useMemo(() => {
-    return adInputList?.find((input) => input?.semanticType === 'Gender');
-  }, [isSuccess]);
-
   const militaryService = useMemo(() => {
     const militaryServiceFieldId = adInputList?.find(
       (input) => input?.semanticType === 'MilitaryServiceStatus'
@@ -85,21 +81,12 @@ export function usePositionForm({ handleStateChange }: TProps) {
   const fileInput = mockDataForResume.find((field) => field?.type === 'File');
 
   const validatedInputList = inputList?.map((input) => {
-    // const militaryServiceByGender = form.watch(gender?.id ?? '404_gender_id')
-    //   ? form.watch(gender?.id ?? '404_gender_id') ===
-    //     gender?.options.find((option) => option.title !== 'مرد')?.id
-    //   : false;
     return {
       ...(input.name === militaryService
         ? {
             ...input,
-            // disabled: militaryServiceByGender,
             rules: {
               ...input.rules,
-              // required: {
-              //   value: !militaryServiceByGender,
-              //   message: 'پر کردن این فیلد الزامیست',
-              // },
             },
           }
         : { ...input }),
@@ -111,7 +98,6 @@ export function usePositionForm({ handleStateChange }: TProps) {
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const file = event.target.files?.[0];
-
     if (
       file &&
       ACCEPTED_FILE_TYPES.find((extension) => file.type === extension)

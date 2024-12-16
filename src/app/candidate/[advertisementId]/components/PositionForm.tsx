@@ -43,6 +43,8 @@ export const PositionForm: React.FC<PositionFormProps> = ({
     isResumeRequired,
     isLoadingAd,
     errorAd,
+    isPendingFileSubmission,
+    isPendingFormSubmission,
   } = usePositionForm({ handleStateChange });
 
   if (isLoadingAd) {
@@ -63,7 +65,11 @@ export const PositionForm: React.FC<PositionFormProps> = ({
         withoutHelperText
         gridItemProps={{ xs: 12 }}
       />
-      <SubmitButton type="submit" disabled={isResumeRequired && !resumeFile}>
+      <SubmitButton
+        type="submit"
+        disabled={isResumeRequired && !resumeFile}
+        isLoading={isPendingFileSubmission || isPendingFormSubmission}
+      >
         ادامه
       </SubmitButton>
       {fileInput?.id && (

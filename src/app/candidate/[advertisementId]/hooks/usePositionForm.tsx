@@ -37,8 +37,10 @@ export function usePositionForm({ handleStateChange }: TProps) {
   const phoneNumber = searchParams.get('phone_number');
   const [resumeFile, setResumeFile] = useState<File | null>(null);
 
-  const { mutate: submitAdForm } = useSubmitAdFormAsCandidate();
-  const { mutate: submitResumeFile } = useSubmitResumeFile();
+  const { mutate: submitAdForm, isPending: isPendingFormSubmission } =
+    useSubmitAdFormAsCandidate();
+  const { mutate: submitResumeFile, isPending: isPendingFileSubmission } =
+    useSubmitResumeFile();
   const {
     data: ad,
     isSuccess,
@@ -226,5 +228,7 @@ export function usePositionForm({ handleStateChange }: TProps) {
     isResumeRequired,
     isLoadingAd,
     errorAd,
+    isPendingFormSubmission,
+    isPendingFileSubmission,
   };
 }

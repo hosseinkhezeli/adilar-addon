@@ -97,7 +97,7 @@ export function typeAdapter(type: string): IUseFormInput['type'] {
     case 'MultiLineText':
       return 'text-area';
     case 'Date':
-      return 'date-picker';
+      return 'date-picker-mobile';
     case 'NationalCode':
       return 'number';
     case 'Select':
@@ -113,101 +113,6 @@ export function typeAdapter(type: string): IUseFormInput['type'] {
   }
 }
 //___________________________________________________________________
-
-// export function inputListAdapter(fields: IFormField[] | undefined) {
-//   // @ts-expect-error input type
-//   const inputList: IUseFormInput[] | undefined = fields
-//     ?.filter((field) => field.type !== 'File')
-//     ?.map((field) => {
-//       return {
-//         label: field?.name || '-',
-//         name: field?.id || '-',
-//         type: typeAdapter(field?.type) || 'text',
-//         props: {
-//           ...(field?.type === 'Date' && {
-//             className: 'rmdp-mobile',
-//             mobileLabels: {
-//               CANCEL: 'بستن',
-//               OK: 'تایید',
-//             },
-//           }),
-//         },
-//         ...((field?.isRequiredByDefault || field?.isRequired) && {
-//           rules: {
-//             required: true,
-//             ...(field?.validationRegex&& {
-//               pattern: {
-//                 value: field.validationRegex,
-//                 message: field.validationMessage,
-//               },
-//             }),
-//           },
-//         }),
-//         ...(field?.type === 'PhoneNumber' && {
-//           rules: {
-//             minLength: 11,
-//             ...(field?.validationRegex && {
-//               pattern: {
-//                 pattern: {
-//                   value: field.validationRegex,
-//                   message: field.validationMessage,
-//                 },
-//               },
-//             }),
-//           },
-//         }),
-//         ...(field?.type === 'NationalCode' && {
-//           rules: {
-//             minLength: 10,
-//             ...(field?.validationRegex && {
-//               pattern: {
-//                 pattern: {
-//                   value: field.validationRegex,
-//                   message: field.validationMessage,
-//                 },
-//               },
-//             }),
-//           },
-//         }),
-//         ...((field?.isRequiredByDefault || field?.isRequired) &&
-//           field?.type === 'PhoneNumber' && {
-//             rules: {
-//               required: true,
-//               minLength: 11,
-//               ...(field?.validationRegex && {
-//                 pattern: {
-//                   pattern: {
-//                     value: field.validationRegex,
-//                     message: field.validationMessage,
-//                   },
-//                 },
-//               }),
-//             },
-//           }),
-//         ...((field?.isRequiredByDefault || field?.isRequired) &&
-//           field?.type === 'NationalCode' && {
-//             rules: {
-//               required: true,
-//               minLength: 10,
-//               ...(field?.validationRegex && {
-//                 pattern: {
-//                   pattern: {
-//                     value: field.validationRegex,
-//                     message: field.validationMessage,
-//                   },
-//                 },
-//               }),
-//             },
-//           }),
-//         options: field?.options?.map((option) => ({
-//           label: option?.title,
-//           value: option?.id,
-//         })),
-//       };
-//     });
-
-//   return { inputList };
-// }
 
 // Responsible for creating an array of inputs for UseFormWithInputList from the data that comes from back-end
 export function inputListAdapter(fields: IFormField[] | undefined) {

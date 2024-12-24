@@ -136,6 +136,7 @@ const styles = {
 
 const UnderlayContainer = styled(Box)(() => ({
   width: '100vw',
+  maxWidth: 560,
   height: '100%',
   position: 'absolute',
   top: 0,

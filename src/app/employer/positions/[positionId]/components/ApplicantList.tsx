@@ -23,6 +23,7 @@ export function ApplicantList() {
     handleTabsFilter,
     isNavigating,
     advertisement,
+    cardListRef,
   } = useApplicantList();
 
   return (
@@ -38,6 +39,7 @@ export function ApplicantList() {
       </HeaderPositions>
 
       <CardList
+        ref={cardListRef}
         sx={{
           overflowX: 'hidden',
           pb: '75px',

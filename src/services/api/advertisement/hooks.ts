@@ -15,7 +15,7 @@ export const useGetPositionList = ({ textSearch }: { textSearch: string }) => {
       textSearch,
     },
     getNextPageParam: (lastPageData, _, lastPageParam) => {
-      return lastPageData?.advertisements?.length < 11
+      return lastPageData?.advertisements?.length < 10
         ? null
         : { ...lastPageParam, pageNumber: lastPageParam.pageNumber + 1 };
     },
@@ -43,10 +43,11 @@ export const useGetApplicantList = ({
       advertisementId,
       textSearch,
     },
-    getNextPageParam: (lastPageData, __, lastPageParam) =>
-      lastPageData?.submissions?.length < 11
+    getNextPageParam: (lastPageData, __, lastPageParam) => {
+      return lastPageData?.submissions?.length < 10
         ? null
-        : { ...lastPageParam, pageNumber: lastPageParam.pageNumber + 1 },
+        : { ...lastPageParam, pageNumber: lastPageParam.pageNumber + 1 };
+    },
     staleTime: 1000 * 60 * 60,
     enabled: Boolean(token),
   });

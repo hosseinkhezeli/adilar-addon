@@ -52,3 +52,7 @@ export const ACCEPTED_FILE_TYPES = [
   'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
   'text/plain',
 ];
+
+export const ApplicantCardHeight = 56;
+
+export const PageSize = 10;

@@ -85,7 +85,10 @@ export function useApplicantList() {
           data?.pages[0]?.submissionsByStateResult
         ),
       })),
-    [isFetchingNextPage, data?.pages[0]?.submissionsByStateResult?.length]
+    [
+      isFetchingNextPage,
+      JSON.stringify(data?.pages[0]?.submissionsByStateResult),
+    ]
   );
 
   function handleFetchOnScroll(e: UIEvent) {

@@ -1,3 +1,4 @@
+import { PageSize } from '@/app/constant';
 import {
   getApplicantList,
   getPositionList,
@@ -15,7 +16,7 @@ export const useGetPositionList = ({ textSearch }: { textSearch: string }) => {
       textSearch,
     },
     getNextPageParam: (lastPageData, _, lastPageParam) => {
-      return lastPageData?.advertisements?.length < 10
+      return lastPageData?.advertisements?.length < PageSize
         ? null
         : { ...lastPageParam, pageNumber: lastPageParam.pageNumber + 1 };
     },
@@ -44,7 +45,7 @@ export const useGetApplicantList = ({
       textSearch,
     },
     getNextPageParam: (lastPageData, __, lastPageParam) => {
-      return lastPageData?.submissions?.length < 10
+      return lastPageData?.submissions?.length < PageSize
         ? null
         : { ...lastPageParam, pageNumber: lastPageParam.pageNumber + 1 };
     },

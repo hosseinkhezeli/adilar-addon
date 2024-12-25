@@ -55,4 +55,4 @@ export const ACCEPTED_FILE_TYPES = [
 
 export const ApplicantCardHeight = 56;
 
-export const PageSize = 10;
+export const PageSize = 20;

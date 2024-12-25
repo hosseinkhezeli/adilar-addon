@@ -34,7 +34,6 @@ export const PositionForm: React.FC<PositionFormProps> = ({
 }) => {
   const {
     form,
-    validatedInputList,
     fileInput,
     handleGetFileFromUploader,
     handleClearResumeFile,
@@ -43,6 +42,9 @@ export const PositionForm: React.FC<PositionFormProps> = ({
     isResumeRequired,
     isLoadingAd,
     errorAd,
+    inputList,
+    isPendingSubmitFile,
+    isPendingSubmitForm,
   } = usePositionForm({ handleStateChange });
 
   if (isLoadingAd) {
@@ -57,13 +59,17 @@ export const PositionForm: React.FC<PositionFormProps> = ({
     <FormContainer component="form" onSubmit={form.handleSubmit(handleSubmit)}>
       <InputListWithUseForm
         form={form}
-        inputList={validatedInputList!}
+        inputList={inputList!}
         gridContainerProps={{ xs: 12, margin: '0 -8px' }}
         labelsProps={{ variant: 'body3', margin: '0 !important' }}
         withoutHelperText
         gridItemProps={{ xs: 12 }}
       />
-      <SubmitButton type="submit" disabled={isResumeRequired && !resumeFile}>
+      <SubmitButton
+        type="submit"
+        disabled={isResumeRequired && !resumeFile}
+        isLoading={isPendingSubmitFile || isPendingSubmitForm}
+      >
         ادامه
       </SubmitButton>
       {fileInput?.id && (

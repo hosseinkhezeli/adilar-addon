@@ -1,6 +1,12 @@
 'use client';
 //@3rd Party
-import React, { useState, useEffect, useTransition, useMemo } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useTransition,
+  useMemo,
+  useRef,
+} from 'react';
 import {
   useParams,
   usePathname,
@@ -25,6 +31,7 @@ import { Route } from 'next';
 import { ReactNode, UIEvent, SyntheticEvent } from 'react';
 import { ISubmissionsByStateResult } from '@/services/api/advertisement/types';
 import { useQueryClient } from '@tanstack/react-query';
+import { ApplicantCardHeight, PageSize } from '@/app/constant';
 export type TApplicantCard = {
   id: string;
   file?: File | null;
@@ -50,6 +57,8 @@ export function useApplicantList() {
   const [searchValue, setSearchValue] = useState<string>(
     searchParams.get('textSearch') || ''
   );
+  const cardListRef = useRef<HTMLDivElement>();
+  const [fetchedPageCount, setFetchedPageCount] = useState<number>(0);
 
   const { advertisement } = useAdvertisementStore();
   const { user } = useUserStore();
@@ -76,7 +85,10 @@ export function useApplicantList() {
           data?.pages[0]?.submissionsByStateResult
         ),
       })),
-    [isFetchingNextPage, data?.pages[0]?.submissionsByStateResult?.length]
+    [
+      isFetchingNextPage,
+      JSON.stringify(data?.pages[0]?.submissionsByStateResult),
+    ]
   );
 
   function handleFetchOnScroll(e: UIEvent) {
@@ -152,6 +164,19 @@ export function useApplicantList() {
     }
   }, [user?.completedAdvertisementPageTutorial]);
 
+  useEffect(() => {
+    const number =
+      Number(cardListRef.current?.clientHeight) / ApplicantCardHeight;
+
+    if (
+      Math.ceil(number / PageSize) > fetchedPageCount &&
+      hasNextPage &&
+      !isFetchingNextPage
+    ) {
+      fetchNextPage().then(() => setFetchedPageCount((c) => c + 1));
+    }
+  }, [hasNextPage, fetchedPageCount]);
+
   return {
     searchValue,
     data,
@@ -164,6 +189,7 @@ export function useApplicantList() {
     handleCloseModal,
     handleTabsFilter,
     isNavigating,
+    cardListRef,
   };
 }
 

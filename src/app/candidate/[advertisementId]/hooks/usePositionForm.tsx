@@ -1,6 +1,6 @@
 'use client';
 //@3rd Party
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { enqueueSnackbar } from 'notistack';
 import { useSearchParams } from 'next/navigation';
@@ -36,10 +36,11 @@ export function usePositionForm({ handleStateChange }: TProps) {
   const postToken = searchParams.get('post_token');
   const phoneNumber = searchParams.get('phone_number');
   const [resumeFile, setResumeFile] = useState<File | null>(null);
+  const resumeId = useRef<string | null>(null);
 
-  const { mutate: submitAdForm, isPending: isPendingFormSubmission } =
+  const { mutate: submitAdForm, isPending: isPendingSubmitForm } =
     useSubmitAdFormAsCandidate();
-  const { mutate: submitResumeFile, isPending: isPendingFileSubmission } =
+  const { mutate: submitResumeFile, isPending: isPendingSubmitFile } =
     useSubmitResumeFile();
   const {
     data: ad,
@@ -73,27 +74,7 @@ export function usePositionForm({ handleStateChange }: TProps) {
     [isSuccess, ad?.form?.isResumeUploadingRequired]
   );
 
-  const militaryService = useMemo(() => {
-    const militaryServiceFieldId = adInputList?.find(
-      (input) => input?.semanticType === 'MilitaryServiceStatus'
-    )?.id;
-    if (militaryServiceFieldId) return militaryServiceFieldId;
-  }, [form?.watch()]);
-
   const fileInput = mockDataForResume.find((field) => field?.type === 'File');
-
-  const validatedInputList = inputList?.map((input) => {
-    return {
-      ...(input.name === militaryService
-        ? {
-            ...input,
-            rules: {
-              ...input.rules,
-            },
-          }
-        : { ...input }),
-    };
-  });
 
   // Handlers
   const handleGetFileFromUploader = (
@@ -153,16 +134,23 @@ export function usePositionForm({ handleStateChange }: TProps) {
     submissionAnswers: TSubmissionAnswer[],
     advertisementId: string | undefined
   ) => {
-    submitResumeFile(body, {
-      onSuccess: (data) => {
-        submitAdFormFn(submissionAnswers, advertisementId, data?.id);
-      },
-      onError: () => {
-        enqueueSnackbar('در روند ذخیره فایل رزومه خطایی رخ داد', {
-          variant: 'error',
-        });
-      },
-    });
+    // In case that form submission goes wrong but file has already been uploaded
+    //prevents repetitive api call for upload file
+    if (resumeId.current !== null) {
+      submitAdFormFn(submissionAnswers, advertisementId, resumeId.current);
+    } else {
+      submitResumeFile(body, {
+        onSuccess: (data) => {
+          resumeId.current = data?.id;
+          submitAdFormFn(submissionAnswers, advertisementId, data?.id);
+        },
+        onError: () => {
+          enqueueSnackbar('در روند ذخیره فایل رزومه خطایی رخ داد', {
+            variant: 'error',
+          });
+        },
+      });
+    }
   };
   //____________________________________________________________________
 
@@ -219,7 +207,6 @@ export function usePositionForm({ handleStateChange }: TProps) {
 
   return {
     form,
-    validatedInputList,
     fileInput,
     handleGetFileFromUploader,
     resumeFile,
@@ -228,7 +215,8 @@ export function usePositionForm({ handleStateChange }: TProps) {
     isResumeRequired,
     isLoadingAd,
     errorAd,
-    isPendingFormSubmission,
-    isPendingFileSubmission,
+    isPendingSubmitForm,
+    isPendingSubmitFile,
+    inputList,
   };
 }

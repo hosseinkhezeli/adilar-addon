@@ -46,7 +46,7 @@ export function LoginCandidate({ phoneNumber }: TLoginCandidateProps) {
               {phoneNumber}
             </Typography>
           </PhoneNumberBox>
-          <Typography variant={'caption1'} mb={16}>
+          <Typography variant={'caption1'}>
             ارسال رزومه٬ فقط با همین شماره امکان پذیر خواهد بود
           </Typography>
         </Section>
@@ -66,8 +66,11 @@ export function LoginCandidate({ phoneNumber }: TLoginCandidateProps) {
 const Container = styled(Stack)(() => ({
   alignItems: 'center',
   padding: '0 16px',
-  marginTop: 32,
+  margin: '16px 0',
   width: '100%',
+  gap: 32,
+  maxHeight: '205px',
+  height: '100%',
   justifyContent: 'space-between',
 }));
 
@@ -92,8 +95,15 @@ const Section = styled(Stack)(() => ({
 const styles = {
   bottomSheet: {
     '.MuiDialog-paper': {
-      minHeight: 'calc(100vh - 360px)',
-      transform: 'translateY(55%)',
+      transform: 'translateY(0px)',
+      minHeight: '45svh',
+    },
+    '.MuiDialog-container': {
+      height: 'max-content',
+      position: 'fixed',
+      bottom: -8,
+      left: 0,
+      right: 0,
     },
     '.MuiBackdrop-root': {
       backgroundColor: ({ palette }: Theme) => palette.grey[16] + '70',

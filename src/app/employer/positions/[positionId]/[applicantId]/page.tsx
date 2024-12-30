@@ -23,9 +23,11 @@ export default Page;
 const styles = {
   container: {
     height: '100%',
+    justifyContent: 'flex-start',
     overflow: 'auto',
     maxWidth: 560,
     width: '100%',
+    maxHeight: '100svh',
     margin: '0 auto',
   },
 };

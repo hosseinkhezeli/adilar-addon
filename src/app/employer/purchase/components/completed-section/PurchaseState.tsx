@@ -131,6 +131,7 @@ const Description = styled(Typography)(({ theme }) => ({
 const BottomSection = styled(Stack)(() => ({
   position: 'fixed',
   maxWidth: 528,
+  width: '95%',
   margin: '0 auto',
   bottom: 16,
   gap: 6,

@@ -4,7 +4,7 @@ import React from 'react';
 //____________________________________________________
 
 //@MUI
-import { Button, Stack, styled } from '@mui/material';
+import { Stack, styled } from '@mui/material';
 //____________________________________________________
 
 //@Components
@@ -13,6 +13,7 @@ import { PlanCard } from './PlanCard';
 
 //@Types
 import { usePlans } from '../../hooks/usePlans';
+import { SubmitButton } from '../SubmitButton';
 //____________________________________________________
 
 export function Plans() {
@@ -54,13 +55,4 @@ const PlansContainer = styled(Stack)(({ theme }) => ({
   maxWidth: 560,
   width: '100%',
   margin: '0 auto',
-}));
-const SubmitButton = styled(Button)(() => ({
-  position: 'fixed',
-  maxWidth: 528,
-  margin: '0 auto',
-  bottom: 16,
-  right: 0,
-  left: 0,
-  transform: 'translateX(50% ,50%)',
 }));

@@ -4,13 +4,14 @@ import React from 'react';
 //___________________________________________________________
 
 //@Mui
-import { Box, Button, Divider, Stack, styled, Typography } from '@mui/material';
+import { Box, Divider, Stack, styled, Typography } from '@mui/material';
 //___________________________________________________________
 
 //@Hooks & Components
 import { Section } from '@/app/components/Section';
 import { usePreInvoices } from '../../hooks/usePreInvoices';
 import { currency } from '@/utils/methods';
+import { SubmitButton } from '../SubmitButton';
 // import { Discount } from './Discount';
 //___________________________________________________________
 
@@ -96,14 +97,4 @@ const Field = styled(Box)(() => ({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
-}));
-
-const SubmitButton = styled(Button)(() => ({
-  position: 'fixed',
-  maxWidth: 528,
-  margin: '0 auto',
-  bottom: 16,
-  right: 0,
-  left: 0,
-  transform: 'translateX(50% ,50%)',
 }));

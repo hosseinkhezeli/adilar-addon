@@ -5,11 +5,12 @@ import { InputListWithUseForm } from 'ideep-design-system-2';
 //____________________________________________________
 
 //@MUI
-import { Box, BoxProps, Button, styled } from '@mui/material';
+import { Box, BoxProps, styled } from '@mui/material';
 //____________________________________________________
 
 //@Hooks
 import { useInformationForm } from '../../hooks/useInformationForm';
+import { SubmitButton } from '../SubmitButton';
 //____________________________________________________
 
 export function InformationForm() {
@@ -47,7 +48,7 @@ const Form = styled(Box)<BoxProps & { component?: React.ElementType }>(
   ({ theme }) => ({
     minWidth: '100%',
     minHeight: 'calc(100% - 164px)',
-    paddingBottom: 14,
+    paddingBottom: 48,
     mb: 4,
     overflowY: 'auto',
     display: 'flex',
@@ -58,13 +59,3 @@ const Form = styled(Box)<BoxProps & { component?: React.ElementType }>(
     marginBottom: theme.spacing(4),
   })
 );
-
-const SubmitButton = styled(Button)(() => ({
-  position: 'fixed',
-  maxWidth: 528,
-  margin: '0 auto',
-  bottom: 16,
-  right: 0,
-  left: 0,
-  transform: 'translateX(50% ,50%)',
-}));

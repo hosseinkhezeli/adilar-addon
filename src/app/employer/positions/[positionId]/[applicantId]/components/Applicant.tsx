@@ -52,6 +52,7 @@ const Applicant = () => {
             overflowY: 'auto',
             flexGrow: 1,
             opacity: 0,
+            height: '100%',
             animation: `${fadeIn} 1s ease forwards`,
           }}
         >
@@ -65,11 +66,9 @@ const Applicant = () => {
             onTouchEnd={onTouchEnd}
             sx={{
               px: 4,
-              gap: 8,
               justifyContent: 'space-between',
               flexGrow: 1,
               overflowY: 'auto',
-              pb: '60px',
               transition: 'all 0.1s linear',
             }}
           >
@@ -86,6 +85,13 @@ const Applicant = () => {
                   sx={{
                     gap: 8,
                     mb: 8,
+                    position: 'fixed',
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    width: '95%',
+                    maxHeight: 560,
+                    mx: 'auto',
                   }}
                 >
                   {!data.resumeId ? null : (
